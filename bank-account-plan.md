@@ -83,16 +83,6 @@ A representation for the type of loan. Describes the purpose of the loan.
 
 ## High Level Requirements
 
-Manage 4-7 database tables (entities) that are independent concepts. A simple bridge table doesn't count.
-MySQL for data management
-Spring Boot, MVC, JDBC, Testing, React
-An HTML and CSS UI that's built with React
-Sensible layering and pattern choices
-A full test suite that covers the domain and data layers
-Must have at least 2 roles (example User and Admin)
-
-In this section, you will outline how you plan to meet the high-level requirements of your project. For each requirement, explain the specific steps you will take, the tools or technologies you will use, and how you'll implement them to meet the project’s objectives.
-
 Manage 4-7 Database Tables (Entities) that are Independent Concepts
 Plan to meet requirement:
 The team will design and implement 4 Database Entities that are independent concepts. These Entities are User, Account, Transaction and Loan. Additionally, the team will implement a category table and a loan type table that are meant to help with the descrition and categorization of transactions and loans respectively. 
@@ -108,7 +98,7 @@ The team will implement the backend of the application using Spring Boot, utiliz
 
 An HTML and CSS UI Built with React
 Plan to meet requirement:
-The team will create the user interface using React, ensuring a clean, user-friendly design with HTML and CSS. The team will follow modern web development practices, including responsive design to ensure the app works on both mobile and desktop devices. The layout will be organized and intuitive for users to browse and sign up for runs.
+The team will create the user interface using React, ensuring a clean, user-friendly design with HTML and CSS. The team will follow modern web development practices, including responsive design to ensure the app works on both mobile and desktop devices. The layout will be organized and intuitive for users to browse and interact with functionality.
 
 Sensible Layering and Pattern Choices
 Plan to meet requirement:

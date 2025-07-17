@@ -61,24 +61,26 @@ Authentication: JWT (JSON Web Token) for secure user login and role management.
 
 ## Glossary
 
-In this section, you'll define key terms used within your application. Providing clear and consistent definitions for each term ensures that everyone on your team has a common understanding of the concepts. This is essential not only for your project's success but also for communicating effectively with stakeholders.
 
-Example
+User
+Anyone with accepted login credentials. Can be an Admin of the system, or a customer accessing their account.
 
-Running Club
-An organization based on a shared love of running. Clubs have members. They host runs. Some are informal with infrequent runs. Others are large, have budgets, and charge membership fees.
+Account
+A representation of a banking account for a user. Contains a balance and can have a series of transactions.
 
-Runner
-Anyone who signs up for a run. Runners can be members of a club, but don't have to be. All members are runners but not all runners are members.
+Loan
+A representation of a loan taken out by the user and approved by the Admin. Can have a series of loan transactions.
 
-Member
-A runner who is formally affiliated with a running club. A runner can be a member of more than one club.
+Transaction
+A representation of a transaction between a customer and an account or loan. 
 
-Club Admin
-A running club member with an administrator role. They have more privileges in the Group Run application. All admins are members, but not all members are admins.
+Category
+A representation of a way to describe and categorize transactions. Can be updated by the Admin.
 
-Run
-A running event with a specific time, date, and location. A run may also include a route (stretch goal).
+Loan Type
+A representation for the type of loan. Describes the purpose of the loan.
+
+
 
 ## High Level Requirements
 

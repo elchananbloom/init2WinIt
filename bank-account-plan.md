@@ -277,12 +277,10 @@ Authentication: JWT (JSON Web Token) for secure user login.
 
 ## Learning Goal 
 
-Learning Goal: I want to learn how to integrate Graphs and Stripe Api into a web application.
-
-Application: I will use graphs to visualize data and stripe in order to make payments (maybe?)
-Research and Resources: I’ll start with the official Stripe and Charts API documentation.
-Challenges: I anticipate needing to figure out how to have valid payments, but we will be using a sandbox of stripe. I also think we will need to implement a way to take in sql aggregation and make it into data we can use for graphs
-Success Criteria: If users can see a dynamic graph that changes as transactions are made, I will consider my goal achieved.
+Application: The team will use chart.js or mui to display reports of financial data that could be of use to the Admin.
+Research and Resources: The team will start with the official chart.js documentation and a video tutorial on its useage in react.
+Challenges: We anticipate needing to figure out how to properly pass data whose structure has changed in order to genreate reports. To address this, the team will practice with dummy data first and attempt to generate a variety of data visualizations.
+Success Criteria: If Admins can different data visualizations after logging in the app, then I'll consider this learning goal achieved.
 
 ## Class Diagram 
 ```
@@ -295,7 +293,8 @@ Success Criteria: If users can see a dynamic graph that changes as transactions 
     │       │           └── bank
     │       │               ├── App.java
     │       │               ├── mappers
-    │       │               │   ├── AccountMapper.java                               --account model
+    │       │               │   ├── UserMapper.java                                  --map user to java
+    │       │               │   ├── AccountMapper.java                               --map account to java
     │       │               │   ├── LoanMapper.java                                  --map loan to java
     │       │               │   ├── TransactionCategoryMapper.java                   --map transaction category to java
     │       │               │   ├── TransactionMapper.java                           --map transaction to java
@@ -303,11 +302,13 @@ Success Criteria: If users can see a dynamic graph that changes as transactions 
     │       │               │   └── StatisticsMapper.Java                            --map statistics to java
     │       │               ├── data
     │       │               │   ├── DataException.java
+    │       │               │   ├── UserJDBCTemplateRepository.java                  --user repository
     │       │               │   ├── AccountJDBCTemplateRepository.java               --account repository
     │       │               │   ├── LoanJDBCTemplateRepository.java                  --loan repository
     │       │               │   ├── TransactionCategoryJDBCTemplateRepository.java   --transaction category repository
     │       │               │   ├── TransactionJDBCTemplateRepository.java           --transaction repository
     │       │               │   ├── StatisticsJDBCTemplateRepository.java            --statistics repository
+    │       │               │   ├── UserRepository.java                              --user repository
     │       │               │   ├── AccountRepository.java                           --account repository interface
     │       │               │   ├── LoanRepository.java                              --loan repository interface
     │       │               │   ├── CategoryRepository.java                          --category repository interface
@@ -316,18 +317,21 @@ Success Criteria: If users can see a dynamic graph that changes as transactions 
     │       │               ├── domain
     │       │               │   ├── Result.java                                      --domain result for handling
     │       │               │   ├── ResultType.java                                  --result enums
+    │       │               │   ├── UserService.java                                 --user validation rules
     │       │               │   ├── AccountService.java                              --account validation rules
     │       │               │   ├── LoanService.java                                 --loan validation rules
     │       │               │   ├── CategoryService.java                             --category validation rules
     │       │               │   ├── TransactionService.java                          --transaction validation rules
     │       │               │   └── StatisticsService.java                           --statistics pass through sql calls
     │       │               ├── models
+    │       │               │   ├── User.java                                        --user model
     │       │               │   ├── Account.java                                     --account model
     │       │               │   ├── Loan.java                                        --loan model
     │       │               │   ├── TransactionCategory.java                         --transaction category model
     │       │               │   ├── Transaction.java                                 --transaction model
     │       │               │   └── LoanType.java                                    --loan type enum
     │       │               └── ui
+    │       │                   ├── UserController.java                              --UI user controller
     │       │                   ├── AccountController.java                           --UI account controller
     │       │                   ├── LoanController.java                              --UI loan controller
     │       │                   ├── TransactionCategoryController.java               --UI transaction category controller
@@ -338,23 +342,26 @@ Success Criteria: If users can see a dynamic graph that changes as transactions 
     │               └── learn
     │                   └── solar
     │                       ├── data
+    │                       │   ├── UserJDBCTemplateRepositoryTest.java                --user repository tests
     │                       │   ├── AccountJDBCTemplateRepositoryTest.java             --account repository tests
     │                       │   ├── LoanJDBCTemplateRepositoryTest.java                --loan repository tests
     │                       │   ├── TransactionCategoryJDBCTemplateRepositoryTest.java --transaction category repository tests
     │                       │   ├── TransactionJDBCTemplateRepositoryTest.java         --transaction repository tests
     │                       │   └── StatisticsJDBCTemplateRepositoryTest.java          --statistics repository tests
     │                       ├── domain
-    │                       │   ├── AccountServiceTest.java                        --account service tests
-    │                       │   ├── LoanServiceTest.java                           --loan service tests
-    │                       │   ├── CategoryServiceTest.java                       --category service tests
-    │                       │   ├── TransactionServiceTest.java                    --transaction service tests
-    │                       │   └── StatisticsServiceTest.java                     --statistics service tests
+    │                       │   ├── UserServiceTest.java                               --user service tests    
+    │                       │   ├── AccountServiceTest.java                            --account service tests
+    │                       │   ├── LoanServiceTest.java                               --loan service tests
+    │                       │   ├── CategoryServiceTest.java                           --category service tests
+    │                       │   ├── TransactionServiceTest.java                        --transaction service tests
+    │                       │   └── StatisticsServiceTest.java                         --statistics service tests
     │                       └── controller
-    │                           ├── AccountController.java                             --UI account controller tests
-    │                           ├── LoanController.java                                --UI loan controller tests
-    │                           ├── TransactionCategoryController.java                 --UI transaction category controller tests
-    │                           ├── TransactionController.java                         --UI transaction controller tests
-    │                           └── StatisticsController.java                          --UI statistics controller test
+    │                           ├── UserControllerTest.java                            --UI user tests
+    │                           ├── AccountControllerTest.java                         --UI account controller tests
+    │                           ├── LoanControllerTest.java                            --UI loan controller tests
+    │                           ├── TransactionCategoryControllerTest.java             --UI transaction category controller tests
+    │                           ├── TransactionControllerTest.java                     --UI transaction controller tests
+    │                           └── StatisticsControllerTest.java                      --UI statistics controller test
     └── client
         └── innit2WinIt
             ├── public

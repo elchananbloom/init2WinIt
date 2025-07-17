@@ -62,22 +62,22 @@ Authentication: JWT (JSON Web Token) for secure user login and role management.
 ## Glossary
 
 
-User
+User: 
 Anyone with accepted login credentials. Can be an Admin of the system, or a customer accessing their account.
 
-Account
+Account: 
 A representation of a banking account for a user. Contains a balance and can have a series of transactions.
 
-Loan
+Loan: 
 A representation of a loan taken out by the user and approved by the Admin. Can have a series of loan transactions.
 
-Transaction
+Transaction: 
 A representation of a transaction between a customer and an account or loan. 
 
-Category
+Category: 
 A representation of a way to describe and categorize transactions. Can be updated by the Admin.
 
-Loan Type
+Loan Type: 
 A representation for the type of loan. Describes the purpose of the loan.
 
 
@@ -128,17 +128,11 @@ Admins will be able to: view all loan applications, accept loan applications, re
 
 ## User Stories
 
-In this section, you will outline how each user story will be implemented in your application. For each user story, explain the user’s goals, the actions they will take, the preconditions required for each action, and the postconditions that follow. This will help clarify how you plan to meet the functional needs of the project.
-
-Example 
-
 Create a userAccount
 Goal: As a user, I want to create a user account to log into.
 Plan to meet requirement: The team will provide a form where users can submit user information and credentials, including first name, last name, address, phone number, email and password.
 Precondition: None
 Post-condition: If the user account fields are not null and the phone number and the email address are unique, then a userAccount should be created.
-
-
 
 Login to a user account
 Goal: As a user, I want to login to my account.
@@ -197,37 +191,37 @@ Precondition: User must be logged in as an ADMIN
 Post-condition: If the User logged in is an ADMIN, then display all of the loans.
 
 
-Accept loan applications, 
+Accept loan applications
 Goal: As an ADMIN, I want to be able to accept loan applications that are pending.
 Plan to meet requirement: The team will provide an option for ADMINS to accept pending loan applications.
 Precondition: User must be logged in as an ADMIN and loan application must be pending.
 Post-condition: If the User logged in is an ADMIN and the loan application is Pending then allow the ADMIN to accept the loan.
 
-Reject loan application,
+Reject loan application
 Goal: As an ADMIN, I want to be able to reject loan applications that are pending.
 Plan to meet requirement: The team will provide an option for ADMINS to reject pending loan applications.
 Precondition: User must be logged in as an ADMIN and loan application must be pending.
 Post-condition: If the User logged in is an ADMIN and the loan application is Pending then allow the ADMIN to reject the loan.
 
-Create transaction categories,
+Create transaction categories
 Goal: As an ADMIN, I want to be able to create transaction categories.
 Plan to meet requirement: The team will provide a form where ADMINS can submit category information to create transaction categories.
 Precondition: User must be logged in as an ADMIN.
 Post-condition: If the User logged in is an ADMIN and The category information is not null and unique, then allow the ADMIN to accept th loan.
 
-View transaction categories,
+View transaction categories
 Goal: As an ADMIN, I want to view all of the transaction categories in the system.
 Plan to meet requirement: The team will provide a button for ADMINS to view all of the transaction categories. 
 Precondition: User must be logged in as an ADMIN
 Post-condition: If the User logged in is an ADMIN, then display all of the transaction categories.
 
-Delete transaction categories (Not in use), 
+Delete transaction categories (Not in use)
 Goal: As an ADMIN, I want to delete transaction categories that are not in use.
 Plan to meet requirement: The team will provide a button for ADMINS to remove categories. 
 Precondition: User must be logged in as an ADMIN
 Post-condition: If the User logged in is an ADMIN, and the category is not in use, then allow the ADMIN to delete the transaction category.
 
-Delete loan applications (Must be pending), 
+Delete loan applications (Must be pending)
 Goal: As an ADMIN, I want to delete loan applications that are pending.
 Plan to meet requirement: The team will provide a button for ADMINS to remove loan applications. 
 Precondition: User must be logged in as an ADMIN
@@ -239,7 +233,7 @@ Plan to meet requirement: The team will provide a form for ADMINS to update cate
 Precondition: User must be logged in as an ADMIN
 Post-condition: If the User logged in is an ADMIN, and the category value submited is unique, then allow the ADMIN to update the transaction category.
 
-view statistics
+View statistics
 Goal: As an ADMIN, I want to view statistics of the transactions and accounts in the system
 Plan to meet requirement: The team will provide a view for ADMINS to see statistics involving the transactions and accounts. 
 Precondition: User must be logged in as an ADMIN

@@ -82,6 +82,7 @@ A representation for the type of loan. Describes the purpose of the loan.
 
 
 
+
 ## High Level Requirements
 
 Manage 4-7 database tables (entities) that are independent concepts. A simple bridge table doesn't count.
@@ -96,31 +97,36 @@ In this section, you will outline how you plan to meet the high-level requiremen
 
 Manage 4-7 Database Tables (Entities) that are Independent Concepts
 Plan to meet requirement:
-I will design and implement 4-7 independent database entities that represent different core concepts within the application. These entities will not simply be connected via a bridge table but will each have unique attributes and relationships to other entities. For example, I will create separate tables for users, running clubs, runs, and memberships.
+The team will design and implement 4 Database Entities that are independent concepts. These Entities are User, Account, Transaction and Loan. Additionally, the team will implement a category table and a loan type table that are meant to help with the descrition and categorization of transactions and loans respectively. 
+
 
 MySQL for Data Management
 Plan to meet requirement:
-I will use MySQL as the relational database management system for storing and retrieving data. I will design the schema to ensure data integrity and optimize query performance. I’ll use Spring Data JPA with MySQL to manage the entities and perform CRUD operations.
+The team will use MySQL as the relational database management system for storing and retrieving data. The team will design the schema to ensure data integrity and optimize query performance. The team will use Spring Data JPA with MySQL to manage the entities and perform CRUD operations.
 
 Spring Boot, MVC, JDBC, Testing, React
 Plan to meet requirement:
-I will implement the backend of the application using Spring Boot, utilizing the MVC (Model-View-Controller) architecture for organizing the application structure. The JDBC will be used for database connections and data transactions. For the frontend, I will build the UI with React, ensuring it is responsive and functional. I will also write unit and integration tests to ensure that both the backend and frontend meet the application requirements.
+The team will implement the backend of the application using Spring Boot, utilizing the MVC (Model-View-Controller) architecture for organizing the application structure. The JDBC will be used for database connections and data transactions. For the frontend, The team will build the UI with React, ensuring it is responsive and functional. the team will also write unit and integration tests to ensure that both the backend and frontend meet the application requirements.
 
 An HTML and CSS UI Built with React
 Plan to meet requirement:
-I will create the user interface using React, ensuring a clean, user-friendly design with HTML and CSS. I will follow modern web development practices, including responsive design to ensure the app works on both mobile and desktop devices. The layout will be organized and intuitive for users to browse and sign up for runs.
+The team will create the user interface using React, ensuring a clean, user-friendly design with HTML and CSS. The team will follow modern web development practices, including responsive design to ensure the app works on both mobile and desktop devices. The layout will be organized and intuitive for users to browse and sign up for runs.
 
 Sensible Layering and Pattern Choices
 Plan to meet requirement:
-I will follow best practices for application architecture, utilizing layered design patterns. This includes separating the logic into distinct layers such as controller, service, and repository. I will ensure that the backend follows the Single Responsibility Principle and that the code is easy to maintain and scale.
+The team will follow best practices for application architecture, utilizing layered design patterns. This includes separating the logic into distinct layers such as controller, service, and repository. The team will ensure that the backend follows the Single Responsibility Principle and that the code is easy to maintain and scale.
 
 A Full Test Suite that Covers the Domain and Data Layers
 Plan to meet requirement:
-I will implement a comprehensive test suite for the project. This will include unit tests for the domain layer (services and models) and the data layer (repositories and database interactions). I will also write integration tests to ensure that the application components work together as expected.
+The team will implement a comprehensive test suite for the project. This will include unit tests for the domain layer (services and models) and the data layer (repositories and database interactions). The Team will also write integration tests to ensure that the application components work together as expected.
 
 Must Have at Least 2 Roles (Example: User and Admin)
 Plan to meet requirement:
-I will implement role-based access control using Spring Security. The system will have at least two roles: User and Admin. Users will be able to sign up for runs, while admins will have privileges to create and manage runs, as well as approve or deny runner sign-ups. I will ensure the roles are securely handled through authentication and authorization.
+The team will implement role-based access control using Spring Security. The system will have at least two roles: User and Admin. 
+
+Users will be able to : Create a userAccount, login to a user account, Create a Bank account, create a loan application, withdraw/deposit (update) from Bank Account, View accounts, approved loans and pending loans, close (Delete) a bank account, withdraw (delete) a loan Application while its pending, and pay loans.
+
+Admins will be able to: view all loan applications, accept loan applications, reject loan application ,create transaction categories, view transaction categories, delete transaction categories (Not in use), delete loan applications (Must be pending), update transaction categories, view statistics.
 
 ## User Stories
 

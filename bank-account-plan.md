@@ -158,6 +158,12 @@ Plan to meet requirement: The team will provide a form where USERs will submit l
 Precondition: User must be logged in with the USER role.
 Post-condition: If user is a USER and the account fields are not empty, then create a new account.
 
+withdraw a loan application
+Goal: As a USER, I want to withdraw a loan application.
+Plan to meet requirement: The team will provide a button that allows users to withdraw from loan applications that are pending.
+Precondition: User must be logged in with the USER role.
+Post-condition: If user is a USER and the loan application is pending then allow the user to withdraw the application.
+
 Withdraw from Bank Account
 Goal: As a user, I want to withdraw from my accounts.
 Plan to meet requirement: The team will provide a form that shows the account being withdrawn from and the amount being withdrawn.
@@ -180,79 +186,70 @@ Pay loans
 Goal: As a USER, I want to pay mhy loans.
 Plan to meet requirement: The team will provide a form that allows users to select the loan to pay and the ammount being payed.
 Precondition: User must be logged in and have active loans.
-Post-condition: If the user is logged in as a USER and 
+Post-condition: If the user is logged in as a USER and the amount being payed is positive, then allow the user to pay the loan.
 
 
 
-View all loan applications
-Pay loans
-Goal: As a runner, I want to apply to become a member of a running club.
-Plan to meet requirement: The team will provide an option for runners to apply for membership with a club after attending runs. The application will be sent for approval to the club’s ADMIN.
-Precondition: User must be logged in and not already a member of the club.
-Post-condition: The membership status will be set to pending and await approval by an ADMIN.
+View all loans
+Goal: As an ADMIN, I want to view all of the loans in the system
+Plan to meet requirement: The team will provide a button for ADMINS to view all of the loans 
+Precondition: User must be logged in as an ADMIN
+Post-condition: If the User logged in is an ADMIN, then display all of the loans.
 
 
 Accept loan applications, 
-Pay loans
-Goal: As a runner, I want to apply to become a member of a running club.
-Plan to meet requirement: The team will provide an option for runners to apply for membership with a club after attending runs. The application will be sent for approval to the club’s ADMIN.
-Precondition: User must be logged in and not already a member of the club.
-Post-condition: The membership status will be set to pending and await approval by an ADMIN.
+Goal: As an ADMIN, I want to be able to accept loan applications that are pending.
+Plan to meet requirement: The team will provide an option for ADMINS to accept pending loan applications.
+Precondition: User must be logged in as an ADMIN and loan application must be pending.
+Post-condition: If the User logged in is an ADMIN and the loan application is Pending then allow the ADMIN to accept the loan.
 
 Reject loan application,
-Pay loans
-Goal: As a runner, I want to apply to become a member of a running club.
-Plan to meet requirement: The team will provide an option for runners to apply for membership with a club after attending runs. The application will be sent for approval to the club’s ADMIN.
-Precondition: User must be logged in and not already a member of the club.
-Post-condition: The membership status will be set to pending and await approval by an ADMIN.
+Goal: As an ADMIN, I want to be able to reject loan applications that are pending.
+Plan to meet requirement: The team will provide an option for ADMINS to reject pending loan applications.
+Precondition: User must be logged in as an ADMIN and loan application must be pending.
+Post-condition: If the User logged in is an ADMIN and the loan application is Pending then allow the ADMIN to reject the loan.
 
 Create transaction categories,
-Pay loans
-Goal: As a runner, I want to apply to become a member of a running club.
-Plan to meet requirement: The team will provide an option for runners to apply for membership with a club after attending runs. The application will be sent for approval to the club’s ADMIN.
-Precondition: User must be logged in and not already a member of the club.
-Post-condition: The membership status will be set to pending and await approval by an ADMIN.
+Goal: As an ADMIN, I want to be able to create transaction categories.
+Plan to meet requirement: The team will provide a form where ADMINS can submit category information to create transaction categories.
+Precondition: User must be logged in as an ADMIN.
+Post-condition: If the User logged in is an ADMIN and The category information is not null and unique, then allow the ADMIN to accept th loan.
 
 View transaction categories,
-Pay loans
-Goal: As a runner, I want to apply to become a member of a running club.
-Plan to meet requirement: The team will provide an option for runners to apply for membership with a club after attending runs. The application will be sent for approval to the club’s ADMIN.
-Precondition: User must be logged in and not already a member of the club.
-Post-condition: The membership status will be set to pending and await approval by an ADMIN.
+Goal: As an ADMIN, I want to view all of the transaction categories in the system.
+Plan to meet requirement: The team will provide a button for ADMINS to view all of the transaction categories. 
+Precondition: User must be logged in as an ADMIN
+Post-condition: If the User logged in is an ADMIN, then display all of the transaction categories.
 
 Delete transaction categories (Not in use), 
-Pay loans
-Goal: As a runner, I want to apply to become a member of a running club.
-Plan to meet requirement: The team will provide an option for runners to apply for membership with a club after attending runs. The application will be sent for approval to the club’s ADMIN.
-Precondition: User must be logged in and not already a member of the club.
-Post-condition: The membership status will be set to pending and await approval by an ADMIN.
+Goal: As an ADMIN, I want to delete transaction categories that are not in use.
+Plan to meet requirement: The team will provide a button for ADMINS to remove categories. 
+Precondition: User must be logged in as an ADMIN
+Post-condition: If the User logged in is an ADMIN, and the category is not in use, then allow the ADMIN to delete the transaction category.
 
 Delete loan applications (Must be pending), 
-Pay loans
-Goal: As a runner, I want to apply to become a member of a running club.
-Plan to meet requirement: The team will provide an option for runners to apply for membership with a club after attending runs. The application will be sent for approval to the club’s ADMIN.
-Precondition: User must be logged in and not already a member of the club.
-Post-condition: The membership status will be set to pending and await approval by an ADMIN.
+Goal: As an ADMIN, I want to delete loan applications that are pending.
+Plan to meet requirement: The team will provide a button for ADMINS to remove loan applications. 
+Precondition: User must be logged in as an ADMIN
+Post-condition: If the User logged in is an ADMIN, and the loan application is pending, then allow the ADMIN to delete the loan application.
 
 Update transaction categories
-Pay loans
-Goal: As a runner, I want to apply to become a member of a running club.
-Plan to meet requirement: The team will provide an option for runners to apply for membership with a club after attending runs. The application will be sent for approval to the club’s ADMIN.
-Precondition: User must be logged in and not already a member of the club.
-Post-condition: The membership status will be set to pending and await approval by an ADMIN.
+Goal: As an ADMIN, I want to update transaction category values.
+Plan to meet requirement: The team will provide a form for ADMINS to update category values. 
+Precondition: User must be logged in as an ADMIN
+Post-condition: If the User logged in is an ADMIN, and the category value submited is unique, then allow the ADMIN to update the transaction category.
 
 view statistics
-Pay loans
-Goal: As a runner, I want to apply to become a member of a running club.
-Plan to meet requirement: The team will provide an option for runners to apply for membership with a club after attending runs. The application will be sent for approval to the club’s ADMIN.
-Precondition: User must be logged in and not already a member of the club.
-Post-condition: The membership status will be set to pending and await approval by an ADMIN.
+Goal: As an ADMIN, I want to view statistics of the transactions and accounts in the system
+Plan to meet requirement: The team will provide a view for ADMINS to see statistics involving the transactions and accounts. 
+Precondition: User must be logged in as an ADMIN
+Post-condition: If the User logged in is an ADMIN, then allow the ADMIN view the statistics of the transactions and accounts.
 
-Approve a Membership (Optional)
-Goal: As an ADMIN, I want to approve or reject membership applications for the club.
-Plan to meet requirement: The team will create an administrative interface where admins can see pending membership applications and accept or reject them.
-Precondition: User must be logged in with the ADMIN role.
-Post-condition: The membership will either be approved or rejected, preventing the runner from reapplying multiple times if rejected.
+Process Payment (Optional)
+Goal: As a USER, I want to create a transaction using a debit or credit card.
+Plan to meet requirement: The team will provide a form for USERS to enter card information to complete transaction. 
+Precondition: User must be logged in as an USER
+Post-condition: If the User is logged in as a USER and the user provides valid card data, then allow the user to complete transaction using a credit or debit card.
 
 ## Learning Goal 
 

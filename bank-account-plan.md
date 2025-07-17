@@ -235,24 +235,54 @@ Plan to meet requirement: The team will provide a form for USERS to enter card i
 Precondition: User must be logged in as an USER
 Post-condition: If the User is logged in as a USER and the user provides valid card data, then allow the user to complete transaction using a credit or debit card.
 
+## Problem Statement
+
+Context: There are many, many bank companies in the world. With these banks, you can deposit or withdrawal at their locations with ease, but what if someone wanted to deposit or withdrawal money without having to travel to the bank. What if someone needed a loan, but did not want to go to their location and go through their process of applying on paper?
+
+Core Problem: Banking companies need to have a working system in order for users to add or withdrawal money and also need a loan system for these users in order to make it easier on them.
+
+Impact on Users: It makes it less efficient on their clients to have to either go to the bank to do their business which can lead to a loss of clientele.
+
+Opportunity for Solution: Creating an application in which a user can deposit and withdraw money and request/receive loans from the bank will make it easier on the customers of the bank and the bank owners themselves and can lead to more customers using their banking service.
+
+## Technical Solution 
+
+Overview of the Solution: We will build a web application that allows people to sign up for a bank and be able to make accounts to add or withdraw money into that bank. They can also request loans where the admin can deny or approve the loans. The admin can also see the statistics of the users’ transactions and see what accounts are in their system in order to manage it. They can also edit the categories that are in the system for the users to categorize their transactions.
+
+
+Key Features and Functionalities:
+
+Account Creation: Users can create banking accounts in order to withdraw and deposit into it. They can see their past payments in said accounts in their UI and pay their loans from their account. Admins will be able to delete these accounts if needed. 
+
+Loan System: Users can request up to two loans and the admin can deny or approve these loans and can see all loans in the system.
+
+Charts: Admin will be able to see charts of the statistics of everything in the system in order to see how their system is performing and how much is being put in and taken from them.
+
+Categories: Admins will be able to add, edit, and delete the categories of the payments so that users can add more specific categories to their transactions if it is needed.
+
+
+
+User Scenarios:
+
+Scenario 1: Jay just got a new job and has a card with all of their money, but wants to be able to deposit it into their account. They go to the banking app, makes a new account and makes a deposit by putting in their card information into the system and depositing how much they made that week.
+Scenario 2: Cee wants to buy a car, but does not have the funds for it, they request a loan of  $5000. The admin sees this, and sees that Cee does make a lot of deposits and also sees that the bank has a good amount of money due to the high bar charts of deposits. They then accept their request for a loan. Cee can then see that they have a loan and they need to pay back 5100 due to a fixed interest increase.
+
+Frontend: React for building interactive UIs with dynamic features.
+Backend: Spring Boot for creating a secure REST API to handle user authentication, account and loan management, category management, transactions, and data storage.
+Database: MySQL to store user, transaction and account/loan data, including relationships between accounts and transactions, users and loans/accounts, etc.
+Chart Integration: Charts.js or mui to be able to visualize the data in the system.
+Payment Integration: Stripe api for the user to put in their payment info and pay
+Authentication: JWT (JSON Web Token) for secure user login.
+
+
 ## Learning Goal 
 
-- What specific knowledge or skill do you aim to gain from this project that you haven’t yet learned? Why is it meaningful to you or the project?
-- Describe how this new knowledge or skill will be used within the project. What specific part of the application or feature will rely on it?
-- List initial resources you plan to use to understand this concept (e.g., official documentation, tutorials, or textbooks). Are there any third-party libraries or tools? Will you need an API key or extra setup?
-- What challenges do you anticipate in learning and applying this skill? How do you plan to address them (e.g., experimenting, testing with dummy data, seeking mentorship)?
-- How will you measure whether you have achieved your learning goal? What will the successful implementation of this skill or technology look like in your project?
+Learning Goal: I want to learn how to integrate Graphs and Stripe Api into a web application.
 
-Note: pick a learning goal that is both ambitious and realistic, one that will directly improve the quality of their capstone project while also pushing you to expand your skill set.
-
-Example: 
-
-Learning Goal: I want to learn how to integrate Google Maps into a web application.
-
-Application: I will use Google Maps API to display the location of each run on an interactive map within the app.
-Research and Resources: I’ll start with the official Google Maps API documentation and a Udemy course on map APIs in JavaScript.
-Challenges: I anticipate needing to figure out how to dynamically load map locations and handle API key security. To address this, I’ll practice with dummy data first and research security best practices for frontend applications.
-Success Criteria: If users can see a Google Maps widget in the app that dynamically updates with each run location, then I’ll consider this learning goal achieved.
+Application: I will use graphs to visualize data and stripe in order to make payments (maybe?)
+Research and Resources: I’ll start with the official Stripe and Charts API documentation.
+Challenges: I anticipate needing to figure out how to have valid payments, but we will be using a sandbox of stripe. I also think we will need to implement a way to take in sql aggregation and make it into data we can use for graphs
+Success Criteria: If users can see a dynamic graph that changes as transactions are made, I will consider my goal achieved.
 
 ## Class Diagram 
 ```

@@ -9,55 +9,42 @@
 
 ## Problem Statement
 
-Context: Briefly describe the context or environment in which the problem exists. Who are the primary users or groups affected? What is the scope of the issue?
+Context: There are many, many bank companies in the world. With these banks, you can deposit or withdrawal at their locations with ease, but what if someone wanted to deposit or withdrawal money without having to travel to the bank. What if someone needed a loan, but did not want to go to their location and go through their process of applying on paper?
 
-Core Problem: What specific, unmet need or challenge does this project address? Explain in simple terms what is currently missing, difficult, or ineffective for users.
+Core Problem: Banking companies need to have a working system in order for users to add or withdrawal money and also need a loan system for these users in order to make it easier on them.
 
-Impact on Users: Describe how this problem affects the users or stakeholders. What pain points do they experience as a result of this issue? What specific frustrations, inefficiencies, or missed opportunities arise from the current situation?
+Impact on Users: It makes it less efficient on their clients to have to either go to the bank to do their business which can lead to a loss of clientele.
 
-Opportunity for Solution: Why is solving this problem meaningful for your intended audience? How would a solution add value to their experience or address their needs in a unique way?
-
-Example:
-Context: Running clubs worldwide organize public group runs to foster community, celebrate events, and encourage active lifestyles. However, these group runs are often informal, without centralized registration or event discovery platforms.
-
-Core Problem: There is no centralized platform for runners to easily discover and sign up for group runs. Clubs typically post run information inconsistently—on homepages, social media, or not at all—making it difficult for potential participants to find events and know whether they are still open for sign-ups.
-
-Impact on Users: Runners miss out on group runs that could be beneficial for their training and social goals due to lack of awareness or difficulty in finding event information. Running clubs, in turn, face uncertainty with attendance, which can be disappointing if the turnout is too low or too high.
-
-Opportunity for Solution: By creating an application to post, organize, and manage group runs, both clubs and runners will benefit. Clubs will have a predictable attendance rate, while runners will find it easier to join group runs that fit their schedules and locations, helping both parties achieve their objectives effectively.
+Opportunity for Solution: Creating an application in which a user can deposit and withdraw money and request/receive loans from the bank will make it easier on the customers of the bank and the bank owners themselves and can lead to more customers using their banking service.
 
 ## Technical Solution 
 
-Overview of the Solution: Describe the high-level approach you plan to take to solve the problem outlined in your Problem Statement. What kind of application or system will you create? How will it address the core problem?
+Overview of the Solution: We will build a web application that allows people to sign up for a bank and be able to make accounts to add or withdraw money into that bank. They can also request loans where the admin can deny or approve the loans. The admin can also see the statistics of the users’ transactions and see what accounts are in their system in order to manage it. They can also edit the categories that are in the system for the users to categorize their transactions.
 
-Key Features and Functionalities: List and describe the main features of the application. What are the critical functionalities that users will need to perform in order to effectively interact with the system?
-
-User Scenarios: Explain how the technical solution will support different user needs. Provide two to three specific use cases or scenarios that illustrate how users (e.g., runners, club admins) will interact with the system and what value they will gain from each interaction.
-
-Technology Stack: Briefly mention the key technologies, frameworks, and tools you will use to build the application. Why did you choose these tools, and how will they help you achieve your solution?
-
-Example:
-
-Overview of the Solution: We will build a web application that allows running clubs to post group runs on a formal calendar, where runners can browse upcoming runs, sign up, and join events. The application will allow both club admins to create, edit, and manage runs, and runners to discover events, sign up, and apply for membership.
 
 Key Features and Functionalities:
 
-Run Creation: Club admins can create group runs, specifying key details like time, location, route (optional), and maximum participants.
-Run Discovery: Runners can browse upcoming group runs via a map, calendar, or list view. They can filter by date, location, and running club.
-Sign-Up for Runs: Runners can sign up for available runs that are not at capacity. They will receive notifications for upcoming runs.
-Admin Approval: Admins have the ability to approve or reject runs and membership applications.
-User Registration: Users (runners) can create an account, log in, and track their run history and preferences.
+Account Creation: Users can create banking accounts in order to withdraw and deposit into it. They can see their past payments in said accounts in their UI and pay their loans from their account. Admins will be able to delete these accounts if needed. 
+
+Loan System: Users can request up to two loans and the admin can deny or approve these loans and can see all loans in the system.
+
+Charts: Admin will be able to see charts of the statistics of everything in the system in order to see how their system is performing and how much is being put in and taken from them.
+
+Categories: Admins will be able to add, edit, and delete the categories of the payments so that users can add more specific categories to their transactions if it is needed.
+
+
+
 User Scenarios:
 
-Scenario 1: Emma, a traveler, uses the Group Run app to search for runs in Austin during her vacation. She finds a few runs, signs up, and meets local runners to stay active and enjoy her time in the city.
-Scenario 2: Kelsey, a casual runner, enjoys joining occasional runs near his Chicago neighborhood. He uses the app to filter available runs and easily signs up for the ones that suit his schedule, without needing to commit to a club.
-Technology Stack:
+Scenario 1: Jay just got a new job and has a card with all of their money, but wants to be able to deposit it into their account. They go to the banking app, makes a new account and makes a deposit by putting in their card information into the system and depositing how much they made that week.
+Scenario 2: Cee wants to buy a car, but does not have the funds for it, they request a loan of  $5000. The admin sees this, and sees that Cee does make a lot of deposits and also sees that the bank has a good amount of money due to the high bar charts of deposits. They then accept their request for a loan. Cee can then see that they have a loan and they need to pay back 5100 due to a fixed interest increase.
 
 Frontend: React for building interactive UIs with dynamic features.
-Backend: Spring Boot for creating a secure REST API to handle user authentication, run management, and data storage.
-Database: MySQL to store user and run data, including relationships between users and runs.
-Map Integration: Google Maps API to display run locations on a map.
-Authentication: JWT (JSON Web Token) for secure user login and role management.
+Backend: Spring Boot for creating a secure REST API to handle user authentication, account and loan management, category management, transactions, and data storage.
+Database: MySQL to store user, transaction and account/loan data, including relationships between accounts and transactions, users and loans/accounts, etc.
+Chart Integration: Charts.js or mui to be able to visualize the data in the system.
+Payment Integration: Stripe api for the user to put in their payment info and pay
+Authentication: JWT (JSON Web Token) for secure user login.
 
 ## Glossary
 
@@ -235,44 +222,7 @@ Plan to meet requirement: The team will provide a form for USERS to enter card i
 Precondition: User must be logged in as an USER
 Post-condition: If the User is logged in as a USER and the user provides valid card data, then allow the user to complete transaction using a credit or debit card.
 
-## Problem Statement
 
-Context: There are many, many bank companies in the world. With these banks, you can deposit or withdrawal at their locations with ease, but what if someone wanted to deposit or withdrawal money without having to travel to the bank. What if someone needed a loan, but did not want to go to their location and go through their process of applying on paper?
-
-Core Problem: Banking companies need to have a working system in order for users to add or withdrawal money and also need a loan system for these users in order to make it easier on them.
-
-Impact on Users: It makes it less efficient on their clients to have to either go to the bank to do their business which can lead to a loss of clientele.
-
-Opportunity for Solution: Creating an application in which a user can deposit and withdraw money and request/receive loans from the bank will make it easier on the customers of the bank and the bank owners themselves and can lead to more customers using their banking service.
-
-## Technical Solution 
-
-Overview of the Solution: We will build a web application that allows people to sign up for a bank and be able to make accounts to add or withdraw money into that bank. They can also request loans where the admin can deny or approve the loans. The admin can also see the statistics of the users’ transactions and see what accounts are in their system in order to manage it. They can also edit the categories that are in the system for the users to categorize their transactions.
-
-
-Key Features and Functionalities:
-
-Account Creation: Users can create banking accounts in order to withdraw and deposit into it. They can see their past payments in said accounts in their UI and pay their loans from their account. Admins will be able to delete these accounts if needed. 
-
-Loan System: Users can request up to two loans and the admin can deny or approve these loans and can see all loans in the system.
-
-Charts: Admin will be able to see charts of the statistics of everything in the system in order to see how their system is performing and how much is being put in and taken from them.
-
-Categories: Admins will be able to add, edit, and delete the categories of the payments so that users can add more specific categories to their transactions if it is needed.
-
-
-
-User Scenarios:
-
-Scenario 1: Jay just got a new job and has a card with all of their money, but wants to be able to deposit it into their account. They go to the banking app, makes a new account and makes a deposit by putting in their card information into the system and depositing how much they made that week.
-Scenario 2: Cee wants to buy a car, but does not have the funds for it, they request a loan of  $5000. The admin sees this, and sees that Cee does make a lot of deposits and also sees that the bank has a good amount of money due to the high bar charts of deposits. They then accept their request for a loan. Cee can then see that they have a loan and they need to pay back 5100 due to a fixed interest increase.
-
-Frontend: React for building interactive UIs with dynamic features.
-Backend: Spring Boot for creating a secure REST API to handle user authentication, account and loan management, category management, transactions, and data storage.
-Database: MySQL to store user, transaction and account/loan data, including relationships between accounts and transactions, users and loans/accounts, etc.
-Chart Integration: Charts.js or mui to be able to visualize the data in the system.
-Payment Integration: Stripe api for the user to put in their payment info and pay
-Authentication: JWT (JSON Web Token) for secure user login.
 
 
 ## Learning Goal 

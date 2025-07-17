@@ -167,7 +167,7 @@ Precondition: user must be logged in as a USER
 Post-condition: If the USER is loged in and they click loans button, then their active and pending loans will be displayed.
 
 Pay loans
-Goal: As a USER, I want to pay mhy loans.
+Goal: As a USER, I want to pay my loans.
 Plan to meet requirement: The team will provide a form that allows users to select the loan to pay and the ammount being payed.
 Precondition: User must be logged in and have active loans.
 Post-condition: If the user is logged in as a USER and the amount being payed is positive, then allow the user to pay the loan.

@@ -274,7 +274,7 @@ Challenges: I anticipate needing to figure out how to dynamically load map locat
 Success Criteria: If users can see a Google Maps widget in the app that dynamically updates with each run location, then I’ll consider this learning goal achieved.
 
 ## Class Diagram 
-
+```
  init2WinIt
     ├── server
     │   └── src
@@ -379,7 +379,7 @@ Success Criteria: If users can see a Google Maps widget in the app that dynamica
                     ├── AdminLoansPage.jsx
                     ├── AdminTransactionCategoriesPage.jsx
                     └── AdminAccountsPage.jsx 
-
+```
 ## Class List 
 
 ### App
@@ -446,6 +446,67 @@ Contract for LoanFileRepository and LoanRepositoryTestDouble.
 
 
 ### data.TransactionCategoryRepository
+
+
+## client
+### components
+#### UserNav 1.5 h
+ - `getUserAccounts(userId)` -- get all the user accounts to show on the navbar
+ - `getUserLoans(userId)` -- get all the user loans to show on the navbar
+ - `handleAddAccount()` -- open new page for adding a new user account
+#### AdminNav 1 h
+ - showing what the admin can do.
+#### Transaction 1 h
+ - seeing transaction details
+#### Transactions 0.5 h
+ - `getAccountTransactions(accountId)` -- get all of the account transactions and call Transaction to show the details
+#### UserAccountHeader 1 h
+ - `getAccount(accountId)` -- get the user account to show details like balance.
+#### Modal 1 h
+ - generic modal sheet
+#### NewLoanModal 2 h
+ - `getLoanTypes()` -- get an enum of the loan types
+ - `postNewLoanApplication()` -- add new loan
+#### NewTransactionModal 4 h
+ - stripe API
+#### LoanHeader 1.5 h
+ - `getLoan(loanId)` -- get a loan to show details like balance.
+#### PendingLoan 2 h
+ - widget for showing a pending loan
+#### AdminLoan 1 h
+ - widget for showing an approved or disapproved loan
+#### AdminTransactionCategory 0.5 h
+ - widget for a transaction category
+#### AdminTransactionCategories 0.5 h
+ - `getTransactionCategories()` -- get all the transaction categories and call AdminTransactionCategory on each
+#### NewTransactionCategoryModal 2 h
+ - `postNewTransactionCategory()` -- add a new transaction category
+#### AdminAccount 1 h
+ - widget for showing account details
+#### AdminAccounts 0.5 h
+ - `getAllAccounts()` -- get all the bank accounts and call AdminAccount on each
+### pages
+#### LoginPage 2 h
+ - `login()` -- log in to the bank
+#### SignUpPage 2 h
+ - `signUp()` -- sign a new user up
+#### NewAccount 2 h
+ - `postNewAccount()` -- create a new account
+#### UserAccountPage 3 h
+ - `handleDeposit()` -- deposit to the account
+ - `handleWithdraw()` -- withdraw from the account
+ - `handleNewLoan()` -- open a new loan modal
+#### UserLoanPage 1 h
+ - `handleDeposit()` -- deposit to the loan
+#### AdminStatisticsPage 4 h
+ - showing a few statistics about the bank
+#### AdminLoansPage 0.5 h
+ - `getAllLoans()` -- get all the loans and call AdminLoan or PendingLoan based on status
+#### AdminTransactionCategoriesPage 0.5 h
+ - `handleAddCategory()` -- open a modal to add transaction category
+#### AdminAccountsPage 0.5 h
+ - call the AdminAccounts component
+
 
 ## Task List with estimated compeletion times 
 

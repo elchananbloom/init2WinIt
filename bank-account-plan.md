@@ -275,11 +275,177 @@ Success Criteria: If users can see a Google Maps widget in the app that dynamica
 
 ## Class Diagram 
 
-In this section, you will provide a visual representation of the relationships between the main classes in your application. The class diagram should illustrate how different entities in your system are connected and how they interact. It will include the classes, their attributes (fields), methods (functions), and relationships (e.g., inheritance, associations). You should focus on clearly depicting the objects and the role they play in the overall architecture of your system. The goal is to show the structure of your application in a way that makes it easy to understand how the system components are related to each other.
+ init2WinIt
+    ├── server
+    │   └── src
+    │       ├── main
+    │       │   └── java
+    │       │       └── learn
+    │       │           └── bank
+    │       │               ├── App.java
+    │       │               ├── mappers
+    │       │               │   ├── AccountMapper.java                               --account model
+    │       │               │   ├── LoanMapper.java                                  --map loan to java
+    │       │               │   ├── TransactionCategoryMapper.java                   --map transaction category to java
+    │       │               │   ├── TransactionMapper.java                           --map transaction to java
+    │       │               │   ├── LoanTypeMapper.java                              --map loan type to java
+    │       │               │   └── StatisticsMapper.Java                            --map statistics to java
+    │       │               ├── data
+    │       │               │   ├── DataException.java
+    │       │               │   ├── AccountJDBCTemplateRepository.java               --account repository
+    │       │               │   ├── LoanJDBCTemplateRepository.java                  --loan repository
+    │       │               │   ├── TransactionCategoryJDBCTemplateRepository.java   --transaction category repository
+    │       │               │   ├── TransactionJDBCTemplateRepository.java           --transaction repository
+    │       │               │   ├── StatisticsJDBCTemplateRepository.java            --statistics repository
+    │       │               │   ├── AccountRepository.java                           --account repository interface
+    │       │               │   ├── LoanRepository.java                              --loan repository interface
+    │       │               │   ├── CategoryRepository.java                          --category repository interface
+    │       │               │   ├── TransactionRepository.java                       --transaction repository interface
+    │       │               │   └── StatisticsRepository.java                        --statistic repository interface
+    │       │               ├── domain
+    │       │               │   ├── Result.java                                      --domain result for handling
+    │       │               │   ├── ResultType.java                                  --result enums
+    │       │               │   ├── AccountService.java                              --account validation rules
+    │       │               │   ├── LoanService.java                                 --loan validation rules
+    │       │               │   ├── CategoryService.java                             --category validation rules
+    │       │               │   ├── TransactionService.java                          --transaction validation rules
+    │       │               │   └── StatisticsService.java                           --statistics pass through sql calls
+    │       │               ├── models
+    │       │               │   ├── Account.java                                     --account model
+    │       │               │   ├── Loan.java                                        --loan model
+    │       │               │   ├── TransactionCategory.java                         --transaction category model
+    │       │               │   ├── Transaction.java                                 --transaction model
+    │       │               │   └── LoanType.java                                    --loan type enum
+    │       │               └── ui
+    │       │                   ├── AccountController.java                           --UI account controller
+    │       │                   ├── LoanController.java                              --UI loan controller
+    │       │                   ├── TransactionCategoryController.java               --UI transaction category controller
+    │       │                   ├── TransactionController.java                       --UI transaction controller
+    │       │                   └── StatisticsController.java                        --UI statistics controller
+    │       └── test
+    │           └── java
+    │               └── learn
+    │                   └── solar
+    │                       ├── data
+    │                       │   ├── AccountJDBCTemplateRepositoryTest.java             --account repository tests
+    │                       │   ├── LoanJDBCTemplateRepositoryTest.java                --loan repository tests
+    │                       │   ├── TransactionCategoryJDBCTemplateRepositoryTest.java --transaction category repository tests
+    │                       │   ├── TransactionJDBCTemplateRepositoryTest.java         --transaction repository tests
+    │                       │   └── StatisticsJDBCTemplateRepositoryTest.java          --statistics repository tests
+    │                       ├── domain
+    │                       │   ├── AccountServiceTest.java                        --account service tests
+    │                       │   ├── LoanServiceTest.java                           --loan service tests
+    │                       │   ├── CategoryServiceTest.java                       --category service tests
+    │                       │   ├── TransactionServiceTest.java                    --transaction service tests
+    │                       │   └── StatisticsServiceTest.java                     --statistics service tests
+    │                       └── controller
+    │                           ├── AccountController.java                             --UI account controller tests
+    │                           ├── LoanController.java                                --UI loan controller tests
+    │                           ├── TransactionCategoryController.java                 --UI transaction category controller tests
+    │                           ├── TransactionController.java                         --UI transaction controller tests
+    │                           └── StatisticsController.java                          --UI statistics controller test
+    └── client
+        └── innit2WinIt
+            ├── public
+            │   └── index.html
+            └── src
+                ├── App.js
+                ├── index.js
+                ├── package.json
+                ├── components
+                │   ├── UserNav.jsx
+                │   ├── AdminNav.jsx
+                │   ├── Transaction.jsx
+                │   ├── Transactions.jsx
+                │   ├── UserAccountHeader.jsx
+                │   ├── Modal.jsx
+                │   ├── NewLoanModal.jsx
+                │   ├── NewTransactionModal.jsx
+                │   ├── LoanHeader.jsx
+                │   ├── PendingLoan.jsx
+                │   ├── AdminLoan.jsx
+                │   ├── AdminTrasactionCategory.jsx
+                │   ├── AdminTransactionCategories.jsx
+                │   ├── NewTransactionCategoryModal.jsx
+                │   ├── AdminAccount.jsx
+                │   └── AdminAccounts,jsx
+                └── pages
+                    ├── LoginPage.jsx
+                    ├── SignUpPage.jsx
+                    ├── NewAccount.jsx
+                    ├── UserAccountPage.jsx
+                    ├── UserLoanPage.jsx
+                    ├── AdminStatisticsPage.jsx
+                    ├── AdminLoansPage.jsx
+                    ├── AdminTransactionCategoriesPage.jsx
+                    └── AdminAccountsPage.jsx 
 
 ## Class List 
 
-In this section, you will list all the classes that are part of your application. For each class, provide a brief description of its role in the system, and then include a list of methods and fields. The methods should describe what the class is capable of (e.g., creating a run, deleting a membership, etc.), while the fields represent the data it stores (e.g., a user’s name, a run’s date). This will give a comprehensive overview of your application’s components and their functionality. Be sure to include any constructors and important logic for each class to fully describe how it operates.
+### App
+- `public static void main(String[])` -- instantiate all required classes with valid arguments, dependency injection. run controller
+
+
+### data.DataException
+
+
+Custom data layer exception.
+
+
+- `public DataException(String, Throwable)` -- constructor, Throwable arg is the root cause exception
+
+
+### data.AccountJDBCTemplateRepository
+- `private String filePath`
+- `public Account add(Account)` -- create a Account
+- `private List<Account> findAll() -- finds all Accounts in the data
+- `private List<Account> findByUserId(int)` -- finds all Accounts in the data source that belongs to a user
+- `private String serialize(Account)` -- convert a Account into a String (a line) in the file
+- `private Account deserialize(String)` -- convert a String into a Account
+
+
+### data.AccountRepository (interface)
+
+
+Contract for AccountFileRepository and AccountRepositoryTestDouble.
+-  `List<Account> findAll()`
+- `List<Account> findById(int)`
+- `Account add(Account)`
+
+
+### data.LoanJDBCTemplateRepository
+- `private String filePath`
+- `public Loan add(Loan)` -- create a Loan
+- `public Loan delete(int)` -- delete a Loan
+- `public Loan update(int)` -- update a Loan
+- `private List<Loan> findAll() -- finds all Loans in the data
+- `private List<Loan> findByUserId(int)` -- finds all Loans in the data source that belongs to a user
+- `private String serialize(Loan)` -- convert a Loan into a String (a line) in the file
+- `private Loan deserialize(String)` -- convert a String into a Loan
+
+
+### data.LoanRepository (interface)
+
+
+Contract for LoanFileRepository and LoanRepositoryTestDouble.
+-  `List<Loan> findAll()`
+- `List<Loan> findById(int)`
+- `Loan add(Loan)`
+- `Loan delete(Loan)`
+- `Loan update(Loan)`
+
+
+### data.TransactionCategoryJDBCTemplateRepository
+- `private String filePath`
+- `public TransactionCategory add(TransactionCategory)` -- create a TransactionCategory
+- `public List<TransactionCategory> findAll() -- finds all TransactionCategorys in the data
+- `public delete(int)`--delete Transaction Category
+- `public update(int)` --update Transaction Category
+- `private String serialize(TransactionCategory)` -- convert a Account into a String (a line) in the file
+- `private Account deserialize(TransactionCategory)` -- convert a String into a Account
+
+
+### data.TransactionCategoryRepository
 
 ## Task List with estimated compeletion times 
 

@@ -551,7 +551,7 @@ Contract for StatisticsRepository.
 - `public Account add(Account)` -- create a Account
 - `public List<Account> findAll()` -- finds all Accounts in the data
 - `public List<Account> findByUserId(int)` -- finds all Accounts in the data source that belongs to a user
-- `public Account findById(int)` -- finds Account in the data source that
+- `public Account findById(int)` -- finds Account in the data source by it's id
 
 ### controllers.LoanController 1 h
 - `public Loan add(Loan)` -- create a Loan

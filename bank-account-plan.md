@@ -79,6 +79,10 @@ MySQL for Data Management
 Plan to meet requirement:
 The team will use MySQL as the relational database management system for storing and retrieving data. The team will design the schema to ensure data integrity and optimize query performance. The team will use Spring Data JPA with MySQL to manage the entities and perform CRUD operations.
 
+Docker and Docker Compose
+Plan to meet requirement:
+The team will use Docker and Docker compose to containerize the application. The team will ensure application portability using a consistent environment definition.
+
 Spring Boot, MVC, JDBC, Testing, React
 Plan to meet requirement:
 The team will implement the backend of the application using Spring Boot, utilizing the MVC (Model-View-Controller) architecture for organizing the application structure. The JDBC will be used for database connections and data transactions. For the frontend, The team will build the UI with React, ensuring it is responsive and functional. The team will also write unit and integration tests to ensure that both the backend and frontend meet the application requirements.
@@ -695,3 +699,9 @@ See above in the class list
  - TransactionCategory 0.5 h
  - Transaction 0.5 h
  - Statistics 0.5 h
+
+ ## Docker Containerization
+- Docker & Docker Compose 2-3 h
+- Container orchestration for development 1h
+- Environment-specific configurations 1 h
+- Database containerization 1h

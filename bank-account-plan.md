@@ -63,7 +63,7 @@ Authentication: JWT (JSON Web Token) for secure user login and role management.
 
 
 User
-Anyone with accepted login credentials. Can be an Admin of the system, or a customer accessing their account.
+Anyone above 18 with accepted login credentials. Can be an Admin of the system, or a customer accessing their account.
 
 Account
 A representation of a banking account for a user. Contains a balance and can have a series of transactions.
@@ -316,12 +316,12 @@ Success Criteria: If users can see a Google Maps widget in the app that dynamica
     │       │               │   ├── TransactionCategory.java                         --transaction category model
     │       │               │   ├── Transaction.java                                 --transaction model
     │       │               │   └── LoanType.java                                    --loan type enum
-    │       │               └── ui
-    │       │                   ├── AccountController.java                           --UI account controller
-    │       │                   ├── LoanController.java                              --UI loan controller
-    │       │                   ├── TransactionCategoryController.java               --UI transaction category controller
-    │       │                   ├── TransactionController.java                       --UI transaction controller
-    │       │                   └── StatisticsController.java                        --UI statistics controller
+    │       │               └── Controllers
+    │       │                   ├── AccountController.java                           --account controller
+    │       │                   ├── LoanController.java                              --loan controller
+    │       │                   ├── TransactionCategoryController.java               --transaction category controller
+    │       │                   ├── TransactionController.java                       --transaction controller
+    │       │                   └── StatisticsController.java                        --statistics controller
     │       └── test
     │           └── java
     │               └── learn
@@ -338,12 +338,12 @@ Success Criteria: If users can see a Google Maps widget in the app that dynamica
     │                       │   ├── CategoryServiceTest.java                       --category service tests
     │                       │   ├── TransactionServiceTest.java                    --transaction service tests
     │                       │   └── StatisticsServiceTest.java                     --statistics service tests
-    │                       └── controller
-    │                           ├── AccountController.java                             --UI account controller tests
-    │                           ├── LoanController.java                                --UI loan controller tests
-    │                           ├── TransactionCategoryController.java                 --UI transaction category controller tests
-    │                           ├── TransactionController.java                         --UI transaction controller tests
-    │                           └── StatisticsController.java                          --UI statistics controller test
+    │                       └── controllers
+    │                           ├── AccountController.java                             --account controller tests
+    │                           ├── LoanController.java                                --loan controller tests
+    │                           ├── TransactionCategoryController.java                 --transaction category controller tests
+    │                           ├── TransactionController.java                         --transaction controller tests
+    │                           └── StatisticsController.java                          --statistics controller test
     └── client
         └── innit2WinIt
             ├── public
@@ -382,70 +382,253 @@ Success Criteria: If users can see a Google Maps widget in the app that dynamica
 ```
 ## Class List 
 
-### App
+### App 10 m
 - `public static void main(String[])` -- instantiate all required classes with valid arguments, dependency injection. run controller
 
 
-### data.DataException
-
-
+### data.DataException 0.5 h
 Custom data layer exception.
-
-
 - `public DataException(String, Throwable)` -- constructor, Throwable arg is the root cause exception
 
+### data.UserJDBCTemplateRepository 0.5 h
+- `public findById(int)` -- find user by id
+- `public add(User)` -- create a user
 
-### data.AccountJDBCTemplateRepository
-- `private String filePath`
+
+### data.UserRepository 10 m
+Contract for UserRepository.
+- `public findById(int)`
+- `public add(User)`
+
+
+### data.AccountJDBCTemplateRepository 0.5 h
 - `public Account add(Account)` -- create a Account
-- `private List<Account> findAll() -- finds all Accounts in the data
-- `private List<Account> findByUserId(int)` -- finds all Accounts in the data source that belongs to a user
-- `private String serialize(Account)` -- convert a Account into a String (a line) in the file
-- `private Account deserialize(String)` -- convert a String into a Account
+- `public List<Account> findAll()` -- finds all Accounts in the data
+- `public List<Account> findByUserId(int)` -- finds all Accounts in the data source that belongs to a user
+- `public Account findById(int)` -- finds Account in the data source
+- `private User getUserById(int)` -- finds Account user
 
 
-### data.AccountRepository (interface)
-
-
-Contract for AccountFileRepository and AccountRepositoryTestDouble.
--  `List<Account> findAll()`
+### data.AccountRepository (interface) 10 m
+Contract for AccountRepository.
+- `List<Account> findAll()`
 - `List<Account> findById(int)`
 - `Account add(Account)`
+- `Account findById(int)`
 
 
-### data.LoanJDBCTemplateRepository
-- `private String filePath`
+### data.LoanJDBCTemplateRepository 1 h
 - `public Loan add(Loan)` -- create a Loan
 - `public Loan delete(int)` -- delete a Loan
-- `public Loan update(int)` -- update a Loan
-- `private List<Loan> findAll() -- finds all Loans in the data
-- `private List<Loan> findByUserId(int)` -- finds all Loans in the data source that belongs to a user
-- `private String serialize(Loan)` -- convert a Loan into a String (a line) in the file
-- `private Loan deserialize(String)` -- convert a String into a Loan
+- `public Loan update(Loan)` -- update a Loan
+- `public List<Loan> findAll()` -- finds all Loans in the data
+- `public List<Loan> findByUserId(int)` -- finds all Loans in the data source that belongs to a user
+- `public Loan findById(int)` -- finds a Loan in the data source
+- `private User getUserById(int)` -- finds Account user
+- `private User getLoanTypeById(int)` -- finds Account loan type
 
 
-### data.LoanRepository (interface)
 
-
-Contract for LoanFileRepository and LoanRepositoryTestDouble.
--  `List<Loan> findAll()`
-- `List<Loan> findById(int)`
+### data.LoanRepository (interface) 10 m
+Contract for LoanRepository.
+- `List<Loan> findAll()`
+- `List<Loan> findByUserId(int)`
 - `Loan add(Loan)`
-- `Loan delete(Loan)`
+- `Loan delete(int)`
 - `Loan update(Loan)`
+- `Loan findById(int)`
 
 
-### data.TransactionCategoryJDBCTemplateRepository
-- `private String filePath`
+### data.TransactionCategoryJDBCTemplateRepository 0.5 h
 - `public TransactionCategory add(TransactionCategory)` -- create a TransactionCategory
-- `public List<TransactionCategory> findAll() -- finds all TransactionCategorys in the data
-- `public delete(int)`--delete Transaction Category
+- `public List<TransactionCategory> findAll()` -- finds all TransactionCategories in the data
+- `public delete(int)` --delete Transaction Category
 - `public update(int)` --update Transaction Category
-- `private String serialize(TransactionCategory)` -- convert a Account into a String (a line) in the file
-- `private Account deserialize(TransactionCategory)` -- convert a String into a Account
 
 
-### data.TransactionCategoryRepository
+### data.TransactionCategoryRepository 10 m
+Contract for TransactionCategoryRepository.
+- `public TransactionCategory add(TransactionCategory)`
+- `public List<TransactionCategory> findAll()`
+- `public delete(int)`
+- `public update(int)`
+
+### data.TransactionJDBCTemplateRepository 1 h
+- `public Transaction add(Transaction)` -- add a new transaction
+- `public List<Transaction> findByAccount(int)` -- find all transactions for an account
+- `public List<Transaction> findByLoan(int)` -- find all transactions for a loan
+- `private User getAccountById(int)` -- finds Account
+- `private User getCategoryById(int)` -- finds transaction category 
+- `private User getLoanById(int)` -- finds transaction loan
+
+
+### data.TransactionRepository 10 m
+Contract for TransactionRepository.
+- `Transaction add(Transaction)`
+- `List<Transaction> findByAccount(int)`
+- `List<Transaction> findByLoan(int)`
+
+### data.StatisticsJDBCTemplateRepository 1.5 h
+ - `Map<Integer, Double> getDepositsByYear()` -- get all the deposits made and group by a year
+ - `Map<Integer, Double> getWithdrawsByYear()` -- get all the withdraws made and group by a year
+ - `Map<String, Double> getWithdrawsByCategory()` -- get all the withdraws made and group by a transaction category
+
+### data.StatisticsRepository 10 m
+Contract for StatisticsRepository.
+ - `Map<Integer, Double> getDepositsByYear()`
+ - `Map<Integer, Double> getWithdrawsByYear()`
+ - `Map<String, Double> getWithdrawsByCategory()`
+
+### domain.Result 20 m
+- `private ArrayList<String> messages` -- error messages
+- `private T payload` -- an optional generic type
+- `public List<String> getMessages()` -- messages getter, create a new list
+- `public T getPayload()` -- T getter
+- `public void setPayload(T)` -- T setter
+- `public void addMessage(String)` -- adds an error message to messages
+
+### domain.ResultType 10 m
+ - enum for the result type (SUCCESS, INVALID, NOT_FOUND)
+
+### domain.UserService 20 m
+- `public findById(int)` -- find user by id
+- `public add(User)` -- create a user
+
+### domain.AccountService 0.5 h
+- `public Account add(Account)` -- create a Account
+- `public List<Account> findAll()` -- finds all Accounts in the data
+- `public List<Account> findByUserId(int)` -- finds all Accounts in the data source that belongs to a user
+- `public Account findById(int)` -- finds Account in the data source that
+
+### domain.LoanService 1 h
+- `public Loan add(Loan)` -- create a Loan
+- `public Loan delete(int)` -- delete a Loan
+- `public Loan update(Loan)` -- update a Loan
+- `public List<Loan> findAll()` -- finds all Loans in the data
+- `public List<Loan> findByUserId(int)` -- finds all Loans in the data source that belongs to a user
+- `public Loan findById(int)` -- finds a Loan in the data source
+
+### domain.TransactionCategoryService 0.5 h
+- `public TransactionCategory add(TransactionCategory)` -- create a TransactionCategory
+- `public List<TransactionCategory> findAll()` -- finds all TransactionCategories in the data
+- `public delete(int)` --delete Transaction Category
+- `public update(int)` --update Transaction Category
+
+### domain.TransactionService 2 h
+- `public Transaction add(Transaction)` -- add a new transaction
+- `public List<Transaction> findByAccount(int)` -- find all transactions for an account
+- `public List<Transaction> findByLoan(int)` -- find all transactions for a loan
+
+### domain.StatisticsService 0.5 h
+ - `Map<Integer, Double> getDepositsByYear()` -- get all the deposits made and group by a year
+ - `Map<Integer, Double> getWithdrawsByYear()` -- get all the withdraws made and group by a year
+ - `Map<String, Double> getWithdrawsByCategory()` -- get all the withdraws made and group by a transaction category
+
+### models.User 20 m
+ - `private int userId`
+ - `private String firstName`
+ - `private String lastName`
+ - `private String address`
+ - `private String phone`
+ - `private String email`
+ - `private String passwordHash`
+ - `private Date createdAt`
+ - `private String role`
+
+### models.Account 20 m
+ - `private int accountId`
+ - `private String accountName`
+ - `private String accountType`
+ - `private BigDecimal accountBalance`
+ - `private String accountNumber`
+ - `private User user`
+ - `private Date createdAt`
+
+### models.Loan 20 m
+ - `private int loanId`
+ - `private LoanType loanType`
+ - `private Date loanDateApproved`
+ - `private double loanFlatInterest`
+ - `private BigDecimal loanInitialAmount`
+ - `private Date loanDueDate`
+ - `private String loanStatus`
+ - `private User user`
+ - `private String loanDescription`
+ - `private Date createdAt`
+ - `private Date loanBalance`
+
+### models.TransactionCategory 10 m
+ - `private int TransactionCategoryId`
+ - `private int TransactionCategoryName`
+
+### models.Transaction 20 m
+ - `private int TransactionId`
+ - `private BigDecimal TransactionAmount`
+ - `private String TransactionType`
+ - `private TransactionCategory TransactionCategory`
+ - `private Account account`
+ - `private Date TransactionDate`
+ - `private String TransactionDescription`
+ - `private Loan loan`
+
+### models.LoanType 20 m
+ - `private int loanTypeId`
+ - `private String name`
+
+### controllers.UserController 0.5 h
+- `public findById(int)` -- find user by id
+- `public add(User)` -- create a user
+
+### controllers.AccountController 1 h
+- `public Account add(Account)` -- create a Account
+- `public List<Account> findAll()` -- finds all Accounts in the data
+- `public List<Account> findByUserId(int)` -- finds all Accounts in the data source that belongs to a user
+- `public Account findById(int)` -- finds Account in the data source that
+
+### controllers.LoanController 1 h
+- `public Loan add(Loan)` -- create a Loan
+- `public Loan delete(int)` -- delete a Loan
+- `public Loan update(Loan)` -- update a Loan
+- `public List<Loan> findAll()` -- finds all Loans in the data
+- `public List<Loan> findByUserId(int)` -- finds all Loans in the data source that belongs to a user
+- `public Loan findById(int)` -- finds a Loan in the data source
+
+### controllers.TransactionCategoryController 1 h
+- `public TransactionCategory add(TransactionCategory)` -- create a TransactionCategory
+- `public List<TransactionCategory> findAll()` -- finds all TransactionCategories in the data
+- `public delete(int)` --delete Transaction Category
+- `public update(int)` --update Transaction Category
+
+### controllers.TransactionController 1 h
+- `public Transaction add(Transaction)` -- add a new transaction
+- `public List<Transaction> findByAccount(int)` -- find all transactions for an account
+- `public List<Transaction> findByLoan(int)` -- find all transactions for a loan
+
+### controllers.StatisticsController 1 h
+ - `Map<Integer, Double> getDepositsByYear()` -- get all the deposits made and group by a year
+ - `Map<Integer, Double> getWithdrawsByYear()` -- get all the withdraws made and group by a year
+ - `Map<String, Double> getWithdrawsByCategory()` -- get all the withdraws made and group by a transaction category
+
+### mappers.UserMapper 0.5 h
+map sql results to User
+
+### mappers.AccountMapper 0.5 h
+map sql results to Account
+
+### mappers.LoanMapper 0.5 h
+map sql results to Loan
+
+### mappers.TransactionCategoryMapper 0.5 h
+map sql results to TransactionCategory
+
+### mappers.TransactionMapper 0.5 h
+map sql results to Transaction
+
+### mappers.LoanTypeMapper 0.5 h
+map sql results to LoanType
+
+### mappers.StatisticsMapper 0.5 h
+map sql results to Statistics
 
 
 ## client
@@ -512,3 +695,36 @@ Contract for LoanFileRepository and LoanRepositoryTestDouble.
 
 In this section, you will provide a detailed breakdown of the tasks required to complete your project (any task over 4 hours must be broken down further). List each task involved in building and implementing the system, from setting up the database to creating the UI and testing the functionality. For each task, estimate how much time you expect it to take to complete, based on its complexity. This will help you manage your time and ensure that the project stays on track. Tasks should be organized logically, and you should be as detailed as possible, covering all the components required for your application.
 
+See above in the class list
+
+## Repository Tests
+ - User 1.5 h
+ - Account 1.5 h
+ - Loan 1.5 h
+ - TransactionCategory 1.5 h
+ - Transaction 1.5 h
+ - Statistics 1.5 h
+
+## Service Tests
+ - User 1.5 h
+ - Account 1.5 h
+ - Loan 1.5 h
+ - TransactionCategory 1.5 h
+ - Transaction 1.5 h
+ - Statistics 1.5 h
+
+## Controller Tests
+ - User 1.5 h
+ - Account 1.5 h
+ - Loan 1.5 h
+ - TransactionCategory 1.5 h
+ - Transaction 1.5 h
+ - Statistics 1.5 h
+
+## Module Tests
+ - User 0.5 h
+ - Account 0.5 h
+ - Loan 0.5 h
+ - TransactionCategory 0.5 h
+ - Transaction 0.5 h
+ - Statistics 0.5 h

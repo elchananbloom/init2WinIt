@@ -81,7 +81,7 @@ The team will use MySQL as the relational database management system for storing
 
 Spring Boot, MVC, JDBC, Testing, React
 Plan to meet requirement:
-The team will implement the backend of the application using Spring Boot, utilizing the MVC (Model-View-Controller) architecture for organizing the application structure. The JDBC will be used for database connections and data transactions. For the frontend, The team will build the UI with React, ensuring it is responsive and functional. the team will also write unit and integration tests to ensure that both the backend and frontend meet the application requirements.
+The team will implement the backend of the application using Spring Boot, utilizing the MVC (Model-View-Controller) architecture for organizing the application structure. The JDBC will be used for database connections and data transactions. For the frontend, The team will build the UI with React, ensuring it is responsive and functional. The team will also write unit and integration tests to ensure that both the backend and frontend meet the application requirements.
 
 An HTML and CSS UI Built with React
 Plan to meet requirement:
@@ -661,7 +661,6 @@ map sql results to Statistics
 
 ## Task List with estimated compeletion times 
 
-In this section, you will provide a detailed breakdown of the tasks required to complete your project (any task over 4 hours must be broken down further). List each task involved in building and implementing the system, from setting up the database to creating the UI and testing the functionality. For each task, estimate how much time you expect it to take to complete, based on its complexity. This will help you manage your time and ensure that the project stays on track. Tasks should be organized logically, and you should be as detailed as possible, covering all the components required for your application.
 
 See above in the class list
 

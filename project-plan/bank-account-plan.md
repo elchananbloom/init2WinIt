@@ -365,6 +365,8 @@ Custom data layer exception.
 ### data.UserJDBCTemplateRepository 0.5 h
 - `public findById(int)` -- find user by id
 - `public add(User)` -- create a user
+- `public getUserByEmail(String)` -- get user by email for security purposes
+
 
 
 ### data.UserRepository 10 m

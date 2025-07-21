@@ -4,10 +4,10 @@ import org.springframework.cglib.core.Local;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class User {
 
-    @NotBlank(message="userId must not be blank")
     private int userId;
     @NotBlank(message="first name must not be blank")
     private String firstName;
@@ -22,7 +22,10 @@ public class User {
     @NotBlank(message="passwordHash must not be blank")
     private String passwordHash;
 
+    @NotNull(message="Role must not be null")
+    private Role role;
     private LocalDate createdAt;
+
 
     public User(){}
 
@@ -110,7 +113,15 @@ public class User {
         this.role = role;
     }
 
-    private Role role;
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return userId == user.userId && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(address, user.address) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(email, user.email) && Objects.equals(passwordHash, user.passwordHash) && role == user.role && Objects.equals(createdAt, user.createdAt);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, firstName, lastName, address, phoneNumber, email, passwordHash, role, createdAt);
+    }
 }

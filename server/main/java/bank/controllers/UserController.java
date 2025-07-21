@@ -24,10 +24,11 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> addUser(@RequestBody User user){
+    public ResponseEntity<Object> addUser(@RequestBody User user){
         Result<User> result = service.addUser(user);
         if(!result.isSuccess()){
-            ErrorResponse.build(result);
+            ResponseEntity<Object> res = ErrorResponse.build(result);
+            return res;
         }
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }

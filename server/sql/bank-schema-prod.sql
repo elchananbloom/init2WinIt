@@ -11,7 +11,7 @@ create table `user` (
     email varchar(256) not null,
     password_hash varchar(250) not null,
     created_at datetime not null,
-    `role` varchar(6) not null,
+    role varchar(6) not null,
     UNIQUE(email)
     );
     
@@ -21,24 +21,28 @@ create table `account` (
     balance decimal(20, 2) not null,
     account_number varchar(10) not null,
     created_at datetime not null,
-    user_id int not null,
     UNIQUE(account_number),
     constraint fk_account_user_id
 		foreign key (user_id)
         references `user`(user_id)
 );
 
-create table transaction_category (
-	transaction_category_id int primary key auto_increment,
-    `name` varchar(20) not null
+create table `transaction` (
+	transaction_id int primary key auto_increment,
+    amount decimal(20, 2) not null,
+    type varchar(20) not null,
+    transaction_date datetime not null,
+    description varchar(100) null,
+    constraint fk_transaction_category_id
+		foreign key (transaction_category_id)
+        references category(transaction_category_id),
+	constraint fk_transaction_account_ud
+		foreign key (account_id)
+        references `account`(account_id),
+	constraint fk_transaction_loan_id,
+		foreign key (loan_id)
+        references loan(loan_id)
 );
-
-create table loan_type (
-	loan_type_id int primary key auto_increment,
-    `name` varchar(20) not null
-); 
-
-
 
 create table loan (
 	loan_id int primary key auto_increment,
@@ -46,11 +50,9 @@ create table loan (
     flat_interest decimal(10,2) not null,
     initial_amount decimal(10,2) not null,
     date_due datetime null,
-    `status` varchar(10) not null,
+    status varchar(10) not null,
     created_at datetime not null,
     balance decimal(10,2) not null,
-    user_id int not null,
-    loan_type_id int not null,
     constraint fk_loan_user_id
 		foreign key (user_id)
         references user(user_id),
@@ -59,27 +61,15 @@ create table loan (
         references loan_type(loan_type_id)
 );
 
-create table `transaction` (
-	transaction_id int primary key auto_increment,
-    amount decimal(20, 2) not null,
-    `type` varchar(20) not null,
-    transaction_date datetime not null,
-    `description` varchar(100) null,
-    transaction_category_id int not null,
-    account_id int not null,
-    loan_id int null,
-    constraint fk_transaction_category_id
-		foreign key (transaction_category_id)
-        references transaction_category(transaction_category_id),
-	constraint fk_transaction_account_id
-		foreign key (account_id)
-        references `account`(account_id),
-	constraint fk_transaction_loan_id
-		foreign key (loan_id)
-        references loan(loan_id)
+create table transaction_category (
+	transaction_category int primary key auto_increment,
+    `name` varchar(20) not null
 );
 
-
+create table loan_type (
+	loan_type_key int primary key auto_increment,
+    `name` varchar(20) not null
+); 
 
 insert into loan_type (`name`)
 values

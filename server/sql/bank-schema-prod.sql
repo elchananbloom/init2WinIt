@@ -46,7 +46,7 @@ create table loan (
     flat_interest decimal(10,2) not null,
     initial_amount decimal(10,2) not null,
     date_due datetime null,
-    `status` varchar(10) not null,
+    `status` varchar(20) not null,
     created_at datetime not null,
     balance decimal(10,2) not null,
     user_id int not null,

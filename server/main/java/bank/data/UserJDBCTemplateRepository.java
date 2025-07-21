@@ -50,7 +50,7 @@ public class UserJDBCTemplateRepository implements UserRepository{
                 "created_at, " +
                 "role " +
                 "FROM user " +
-                "WHERE userEmail = ?;";
+                "WHERE email = ?;";
 
         User res = jdbcTemplate.query(sql, new UserMapper(), userEmail).stream().findFirst().orElse(null);
         return res;

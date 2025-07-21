@@ -7,23 +7,36 @@ import java.time.LocalDate;
 
 public class User {
 
-    @NotBlank
+    @NotBlank(message="userId must not be blank")
     private int userId;
-    @NotBlank
+    @NotBlank(message="first name must not be blank")
     private String firstName;
-    @NotBlank
+    @NotBlank(message="last name must not be blank")
     private String lastName;
-    @NotBlank
+    @NotBlank(message="address must not be blank")
     private String address;
-    @NotBlank
+    @NotBlank(message="phone must not be blank")
     private String phoneNumber;
-    @NotBlank
+    @NotBlank(message="email must not be blank")
     private String email;
-    @NotBlank
+    @NotBlank(message="passwordHash must not be blank")
     private String passwordHash;
 
     private LocalDate createdAt;
 
+    public User(){}
+
+    public User(int userId, String firstName, String lastName, String address, String phoneNumber, String email, String passwordHash, LocalDate createdAt, Role role) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.createdAt = createdAt;
+        this.role = role;
+    }
 
     public int getUserId() {
         return userId;

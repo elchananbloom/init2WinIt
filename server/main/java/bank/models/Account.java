@@ -7,12 +7,15 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Account {
+    @NotNull(message="accountId cannot be null")
     private int accountId;
+    @NotNull(message="account number cannot be null")
     private String accountNumber;
     @NotBlank(message="you must include the type")
     private AccountType accountType;
     @PositiveOrZero(message="You cannot have a negative balance")
     private BigDecimal balance;
+    @NotNull(message="created at date cannot be null")
     private LocalDate createdAt;
     @NotNull(message = "user cannot be null")
     private int userId;

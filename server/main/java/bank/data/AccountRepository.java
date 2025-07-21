@@ -10,5 +10,4 @@ public interface AccountRepository {
     List<Account> findByUserId(int userId);
     List<Account> findAll();
     Account findById(int accountId);
-    User getUserById(int userId);
 }

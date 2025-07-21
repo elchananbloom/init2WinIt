@@ -40,7 +40,7 @@ public class UserService {
         }
         else {
             if (user.getUserId() != 0) {
-                res.addMessage("agentId cannot be set for `add` operation", ResultType.INVALID);
+                res.addMessage("userId cannot be set for `add` operation", ResultType.INVALID);
                 return res;
             }
             User userAdded = repository.addUser(user);

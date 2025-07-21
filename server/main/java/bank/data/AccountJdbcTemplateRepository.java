@@ -16,7 +16,6 @@ import java.util.List;
 @Repository
 public class AccountJdbcTemplateRepository implements AccountRepository{
     private JdbcTemplate jdbcTemplate;
-    private UserRepository
 
     public AccountJdbcTemplateRepository(JdbcTemplate template) {
         this.jdbcTemplate = template;
@@ -74,10 +73,5 @@ public class AccountJdbcTemplateRepository implements AccountRepository{
                 .orElse(null);
     }
 
-    @Override
-    public User getUserById(int userId) {
-        final String sql ="select"
-        return null;
-    }
 
 }

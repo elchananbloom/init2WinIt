@@ -2,7 +2,6 @@ package bank.controllers;
 
 import bank.data.UserRepository;
 import bank.models.Role;
-import bank.models.TransactionCategory;
 import bank.models.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -16,10 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -68,7 +63,6 @@ class UserControllerTest {
         expected.setPasswordHash("passwordHash");
         expected.setRole(Role.USER);
 
-//        when(repository.addUser(user)).thenReturn(expected);
 
         ObjectMapper jsonMapper = new ObjectMapper();
 
@@ -109,13 +103,12 @@ class UserControllerTest {
         expected.setPasswordHash("passwordHash");
         expected.setRole(Role.USER);
 
-//        when(repository.addUser(user)).thenReturn(expected);
+
 
         ObjectMapper jsonMapper = new ObjectMapper();
 
         String userJson = jsonMapper.writeValueAsString(user);
 
-        String expectedJson = jsonMapper.writeValueAsString(expected);
 
 
         var req = post("/api/user")

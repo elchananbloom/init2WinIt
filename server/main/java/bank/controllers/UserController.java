@@ -29,12 +29,18 @@ public class UserController {
     @PostMapping
     public ResponseEntity<Object> addUser(@RequestBody @Valid User user, BindingResult bindingResult){
 
-
-        Result<User> result = service.addUser(user);
         if(bindingResult.hasErrors()){
-             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
+        Result<User> result = service.addUser(user);
+        if(result.isSuccess()){
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
+        }
+        else{
+            return ErrorResponse.build(result);
+        }
+
+
     }
 
 }

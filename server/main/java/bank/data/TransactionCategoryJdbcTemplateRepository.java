@@ -22,14 +22,14 @@ public class TransactionCategoryJdbcTemplateRepository implements TransactionCat
 
     @Override
     public List<TransactionCategory> findAll() {
-        final String sql = "select transaction_category_id, name " +
+        final String sql = "select transaction_category_id, `name` " +
                 "from transaction_category;";
         return jdbcTemplate.query(sql, new TransactionCategoryMapper());
     }
 
     @Override
     public TransactionCategory add(TransactionCategory transactionCategory) {
-        final String sql = "insert into transaction_category (name) " +
+        final String sql = "insert into transaction_category (`name`) " +
                 "values (?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
@@ -49,7 +49,7 @@ public class TransactionCategoryJdbcTemplateRepository implements TransactionCat
     @Override
     public boolean update(TransactionCategory transactionCategory) {
         final String sql = "update transaction_category set " +
-                "name = ? " +
+                "`name` = ? " +
                 "where transaction_category_id = ?;";
 
         return jdbcTemplate.update(sql,

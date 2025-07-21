@@ -46,7 +46,7 @@ create table loan (
     flat_interest decimal(10,2) not null,
     initial_amount decimal(10,2) not null,
     date_due datetime null,
-    `status` varchar(10) not null,
+    `status` varchar(20) not null,
     created_at datetime not null,
     balance decimal(10,2) not null,
     user_id int not null,
@@ -83,6 +83,19 @@ delimiter //
 create procedure set_known_good_state()
 begin
 
+delete from `transaction`;
+alter table `transaction` auto_increment = 1;
+delete from loan;
+alter table loan auto_increment = 1;
+delete from loan_type;
+alter table loan_type auto_increment = 1;
+delete from transaction_category;
+alter table transaction_category auto_increment = 1;
+delete from `account`;
+alter table `account` auto_increment = 1;
+delete from `user`;
+alter table `user` auto_increment = 1;
+
 insert into user(user_id, first_name, last_name, address, phone_number, email, password_hash, created_at, role)
 values 
 (1, 'Guy', 'One', '123 Street', 1234567890, 'test1@example.com', 'ABCDEF', '2025-01-01', 'ADMIN'),
@@ -118,7 +131,7 @@ insert into loan values
 
 insert into `transaction` values
 (1, 200.00, 'WITHDRAWAL', '2025-01-02', 'emergency car fix', 3, 1, null),
-(2, 120.00, 'LOAN', '2025-01-23', null, 1, 4, 1),
+(2, 120.00, 'LOAN', '2025-01-23', null, 1, 2, 1),
 (3, 50.00, 'DEPOSIT', '2025-03-23', 'got paid', 2, 3, null);
 	
 

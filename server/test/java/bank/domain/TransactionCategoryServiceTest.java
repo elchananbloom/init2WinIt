@@ -28,7 +28,7 @@ class TransactionCategoryServiceTest {
                 new TransactionCategory(2, "Culture")
         );
         when(repository.findAll()).thenReturn(expected);
-        List<TransactionCategory> actual = repository.findAll();
+        List<TransactionCategory> actual = service.findAll();
         assertEquals(expected, actual);
     }
 

@@ -3,6 +3,8 @@ package bank.controllers;
 import bank.domain.Result;
 import bank.domain.TransactionCategoryService;
 import bank.models.TransactionCategory;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000"})
 @RequestMapping("api/transaction/category")
+@ImportAutoConfiguration(exclude = { SecurityAutoConfiguration.class })
 public class TransactionCategoryController {
 
     private final TransactionCategoryService service;
@@ -51,6 +54,17 @@ public class TransactionCategoryController {
         if (result.isSuccess()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+        return ErrorResponse.build(result);
+    }
+
+    @DeleteMapping("/{transactionCategoryId}")
+    public ResponseEntity<Object> deleteById(@PathVariable int transactionCategoryId) {
+        Result<TransactionCategory> result = service.delete(transactionCategoryId);
+
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
         return ErrorResponse.build(result);
     }
 }

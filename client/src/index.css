@@ -11,3 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.sidebar {
+  width: 25%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.content-area-wrapper {
+  margin-left: 25%;
+  height: 100vh;
+  position: relative;
+}
+
+.content-area {
+  height: 100%;
+  overflow-y: scroll;
+  padding: 1.5rem;
+}
+
+.floating-button {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  z-index: 1000;
+}

@@ -26,7 +26,7 @@ public class LoanJdbcTemplateRepository implements LoanRepository{
                 "from loan l " +
                 "inner join loan_type lt " +
                 "on l.loan_type_id = lt.loan_type_id " +
-                "order by created_at limit 1000;";
+                "order by created_at desc limit 1000;";
         return jdbcTemplate.query(sql, new LoanMapper());
     }
 

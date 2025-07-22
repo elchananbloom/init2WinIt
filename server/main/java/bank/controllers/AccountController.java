@@ -3,6 +3,8 @@ package bank.controllers;
 import bank.domain.AccountService;
 import bank.domain.Result;
 import bank.models.Account;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000"})
 @RequestMapping("api/account")
+@ImportAutoConfiguration(exclude = { SecurityAutoConfiguration.class })
 public class AccountController {
 
     private AccountService service;

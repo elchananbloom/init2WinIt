@@ -2,6 +2,7 @@ package bank.models;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -9,20 +10,20 @@ import java.time.LocalDate;
 public class Account {
     @NotNull(message="accountId cannot be null")
     private int accountId;
-    @NotNull(message="account number cannot be null")
+    @NotBlank(message="account number cannot be null")
     private String accountNumber;
     @NotBlank(message="you must include the type")
     private AccountType accountType;
     @PositiveOrZero(message="You cannot have a negative balance")
     private BigDecimal balance;
     @NotNull(message="created at date cannot be null")
+    @Past(message="date must be in the past")
     private LocalDate createdAt;
-    @NotNull(message = "user cannot be null")
     private int userId;
 
     public Account(){};
 
-    public Account(int accountId, String accountNumber, AccountType accountType, BigDecimal balance, LocalDate createdAt, int userId) {
+    public Account(int accountId, AccountType accountType, BigDecimal balance, String accountNumber, LocalDate createdAt, int userId) {
         this.accountId = accountId;
         this.accountNumber = accountNumber;
         this.accountType = accountType;

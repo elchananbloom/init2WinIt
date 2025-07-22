@@ -40,7 +40,7 @@ public class UserStatisticsJdbcRepository implements UserStatisticsRepository{
     @Override
     public Map<String, BigDecimal> getTotalAccountsBalance(int userId) {
 
-        String sql = "select sum(acc.balance) `value`, \"Total Account Balance\" label " +
+        String sql = "select sum(acc.balance) `value`, \"Total_Account_Balance\" label " +
                 "from `account` acc " +
                 "where acc.user_id = ?;";
 

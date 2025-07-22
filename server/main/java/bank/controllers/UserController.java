@@ -6,7 +6,10 @@ import bank.models.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/api/user")
@@ -24,12 +27,20 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> addUser(@RequestBody User user){
-        Result<User> result = service.addUser(user);
-        if(!result.isSuccess()){
-            ErrorResponse.build(result);
+    public ResponseEntity<Object> addUser(@RequestBody @Valid User user, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
+        Result<User> result = service.addUser(user);
+        if(result.isSuccess()){
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
+        }
+        else{
+            return ErrorResponse.build(result);
+        }
+
+
     }
 
 }

@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-const NewAccountPage = () => {
-  const [user, setUser] = useState[[]];
+const SignUp = () => {
+  const [user, setUser] = useState();
   const [errors, setErrors] = useState([]);
 
   const url = "http://localhost:8080/api/user";
@@ -22,8 +22,9 @@ const NewAccountPage = () => {
   };
 
   const addUser = () => {
+    user.role = 'USER';
     const init = {
-      method: "POST",
+      method: 'POST',
       headers: {
         "Content-Type": "application/json",
       },
@@ -39,8 +40,10 @@ const NewAccountPage = () => {
       })
       .then((data) => {
         if (data.userId) {
+          console.log(data);
           navigate("/");
         } else {
+          console.log(data);
           setErrors(data);
         }
       })
@@ -48,18 +51,18 @@ const NewAccountPage = () => {
   };
 
   const validateInput = (value) => {};
-
+//implement toasts
   return (
     <>
-      <div classname="container">
-        <h2 className="mb-4">{id > 0 ? "Update Agent" : "Add Agent"}</h2>
+      <div className="container flex">
+        <h2 className="mb-4">Sign Up</h2>
         {errors.length > 0 && (
           <div className="alert alert-danger">
             <p>The following errors were found:</p>
             <ul>
-              {errors.map((error) => (
+              {/* {errors.map((error) => (
                 <li key={error}>{error}</li>
-              ))}
+              ))} */}
             </ul>
           </div>
         )}
@@ -71,7 +74,6 @@ const NewAccountPage = () => {
               name="firstName"
               type="text"
               className="form-control"
-              value={user.firstName}
               onChange={handleChange}
             />
           </fieldset>
@@ -82,7 +84,6 @@ const NewAccountPage = () => {
               name="lastName"
               type="text"
               className="form-control"
-              value={user.lastName}
               onChange={handleChange}
             />
           </fieldset>
@@ -93,35 +94,42 @@ const NewAccountPage = () => {
               name="email"
               type="email"
               className="form-control"
-              value={user.email}
               onChange={handleChange}
             />
           </fieldset>
           <fieldset className="form-group">
-            <label htmlFor="phoneNumber">Height in Inches</label>
+            <label htmlFor="phoneNumber">Phone</label>
             <input
               id="phoneNumber"
               name="phoneNumber"
               type="tel"
               className="form-control"
-              value={user.phoneNumber}
               onChange={handleChange}
             />
           </fieldset>
           <fieldset className="form-group">
-            <label htmlFor="password">Height in Inches</label>
+            <label htmlFor="address">Phone</label>
             <input
-              id="password"
-              name="password"
+              id="address"
+              name="address"
+              type="text"
+              className="form-control"
+              onChange={handleChange}
+            />
+          </fieldset>
+          <fieldset className="form-group">
+            <label htmlFor="passwordHash">Password</label>
+            <input
+              id="passwordHash"
+              name="passwordHash"
               type="password"
               className="form-control"
-              value={user.password}
-              onblur="validate()"
+              /*onblur="validate()"*/
               onChange={handleChange}
             />
           </fieldset>
           {/* <fieldset className="form-group">
-                <label htmlFor="password">Height in Inches</label>
+                <label htmlFor="password">Retype Password</label>
                 <input
                   id="retype_password"
                   name="retypepassword"
@@ -134,7 +142,7 @@ const NewAccountPage = () => {
               </fieldset>               */}
           <div className="mt-4">
             <button type="submit" className="btn btn-outline-success mr-4 mt-4">
-              Create Account
+              Sign Up
             </button>
             <Link
               type="button"
@@ -150,4 +158,4 @@ const NewAccountPage = () => {
   );
 };
 
-export default NewAccountForm;
+export default SignUp;

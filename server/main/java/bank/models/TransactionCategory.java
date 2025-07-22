@@ -2,6 +2,7 @@ package bank.models;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @NotNull(message = "Transaction Category cannot be null")
 public class TransactionCategory {
@@ -33,5 +34,17 @@ public class TransactionCategory {
 
     public void setTransactionCategoryName(String transactionCategoryName) {
         this.transactionCategoryName = transactionCategoryName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof TransactionCategory)) return false;
+        TransactionCategory that = (TransactionCategory) o;
+        return transactionCategoryId == that.transactionCategoryId && Objects.equals(transactionCategoryName, that.transactionCategoryName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(transactionCategoryId, transactionCategoryName);
     }
 }

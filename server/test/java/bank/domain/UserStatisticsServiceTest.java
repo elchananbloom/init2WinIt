@@ -47,16 +47,15 @@ class UserStatisticsServiceTest {
     @Test
     void getTotalAccountsBalance() {
 
-        Map<String, BigDecimal> row = new HashMap<>();
-        row.put("Total Account Balance",new BigDecimal(2000).setScale(2));
+        BigDecimal expected = new BigDecimal(2000).setScale(2);
 
-        when(repository.getTotalAccountsBalance(1)).thenReturn(row);
+        when(repository.getTotalAccountsBalance(1)).thenReturn(expected);
 
-        Map<String, BigDecimal> actual = service.getTotalAccountsBalance(1);
-
+       BigDecimal actual = service.getTotalAccountsBalance(1);
 
 
-        assertEquals(row,actual);
+
+        assertEquals(expected,actual);
 
     }
 }

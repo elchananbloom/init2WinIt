@@ -43,12 +43,11 @@ class UserStatisticsJdbcRepositoryTest {
     @Test
     void getTotalAccountsBalance() {
 
-        Map<String, BigDecimal> row = new HashMap<>();
-        row.put("Total Account Balance",new BigDecimal(2000).setScale(2));
+       BigDecimal expected = new BigDecimal(2000).setScale(2);
 
-        Map<String, BigDecimal> actual = repository.getTotalAccountsBalance(1);
+        BigDecimal actual = repository.getTotalAccountsBalance(1);
 
-        assertEquals(row,actual);
+        assertEquals(expected,actual);
     }
 
 

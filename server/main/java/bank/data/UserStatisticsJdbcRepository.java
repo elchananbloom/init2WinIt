@@ -38,13 +38,13 @@ public class UserStatisticsJdbcRepository implements UserStatisticsRepository{
     }
 
     @Override
-    public Map<String, BigDecimal> getTotalAccountsBalance(int userId) {
+    public BigDecimal getTotalAccountsBalance(int userId) {
 
-        String sql = "select sum(acc.balance) `value`, \"Total_Account_Balance\" label " +
+        String sql = "select sum(acc.balance) `value` " +
                 "from `account` acc " +
                 "where acc.user_id = ?;";
 
-        Map<String, BigDecimal> res = (Map<String, BigDecimal>) jdbcTemplate.query(sql,new UserStatisticsMapper(), userId).stream().findFirst().orElse(null);
-        return res;
+        return jdbcTemplate.queryForObject(sql , BigDecimal.class, userId);
+
     }
 }

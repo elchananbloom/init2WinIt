@@ -26,7 +26,7 @@ public class UserStatisticsController {
     }
 
     @GetMapping("/account_total/{userId}")
-    public Map<String, BigDecimal> getTotalAccountsBalance(@PathVariable int userId){
+    public BigDecimal getTotalAccountsBalance(@PathVariable int userId){
         return service.getTotalAccountsBalance(userId);
     }
 

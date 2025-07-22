@@ -3,6 +3,9 @@ import bank.data.AccountRepository;
 import bank.models.Account;
 import bank.models.AccountType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
@@ -38,6 +41,14 @@ class AccountControllerTest {
     @Autowired
     MockMvc mvc;
 
+    private final ObjectMapper jsonMapper = new ObjectMapper();
+
+    @BeforeEach
+    void setup() {
+        jsonMapper.registerModule(new JavaTimeModule());
+        jsonMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    }
+
     @Test
     void findAllShouldReturn200() throws Exception {
         var req = get("/api/account");
@@ -52,7 +63,6 @@ class AccountControllerTest {
         Account account = new Account(0,AccountType.SAVINGS, new BigDecimal("2000.00"), "123451", LocalDate.of(2025, 1, 1),1);
         when(repository.add(any(Account.class))).thenReturn(expected);
 
-        ObjectMapper jsonMapper = new ObjectMapper();
 
         String accountJson = jsonMapper.writeValueAsString(account);
         String expectedJson = jsonMapper.writeValueAsString(expected);
@@ -79,7 +89,6 @@ class AccountControllerTest {
     void addShouldReturn400WhenInvalid() throws Exception {
         Account account = new Account();
 
-        ObjectMapper jsonMapper = new ObjectMapper();
 
         String accountJson = jsonMapper.writeValueAsString(account);
 

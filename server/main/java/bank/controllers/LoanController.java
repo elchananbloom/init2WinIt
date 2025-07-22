@@ -63,4 +63,13 @@ public class LoanController {
         }
         return ErrorResponse.build(result);
     }
+
+    @DeleteMapping("/{loanId}")
+    public ResponseEntity<Object> delete(@PathVariable int loanId) {
+        Result<Loan> result = service.delete(loanId);
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ErrorResponse.build(result);
+    }
 }

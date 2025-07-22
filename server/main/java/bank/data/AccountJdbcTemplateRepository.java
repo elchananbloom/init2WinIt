@@ -58,7 +58,7 @@ public class AccountJdbcTemplateRepository implements AccountRepository{
                 " from `account` " +
                 "where user_id = ? " +
                 "order by `type`;";
-        return jdbcTemplate.query(sql, new AccountMapper());
+        return jdbcTemplate.query(sql, new AccountMapper(), userId);
     }
 
     @Override

@@ -37,7 +37,7 @@ class AccountJdbcTemplateRepositoryTest {
 
     @Test
     void shouldAdd() {
-        Account account = new Account(4, AccountType.SAVINGS, new BigDecimal("2000.00"), "123456", LocalDate.of(2025, 1, 1), 1);
+        Account account = new Account(4, AccountType.SAVINGS, new BigDecimal("2000.00"), "12345634", LocalDate.of(2025, 1, 1), 1);
 
         Account actual = repository.add(account);
         assertNotNull(actual);
@@ -46,8 +46,8 @@ class AccountJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindByUserId(){
-        List<Account> accounts = repository.findByUserId(1);
-        assertEquals(AccountType.SAVINGS, accounts.get(1).getAccountType());
+        List<Account> accounts = repository.findByUserId(2);
+        assertEquals(AccountType.CHECKING, accounts.get(0).getAccountType());
         assertEquals(1, accounts.size());
     }
 

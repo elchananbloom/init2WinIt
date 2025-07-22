@@ -47,8 +47,8 @@ public class LoanJdbcTemplateRepository implements LoanRepository{
 
     @Override
     public Loan add(Loan loan) {
-        final String sql = "insert into loan (date_approved, flat_interest, initial_amount, date_due, `status`, created_at, balance, user_id, loan_type_id) " +
-                "values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        final String sql = "insert into loan (date_approved, flat_interest, initial_amount, date_due, `status`, balance, user_id, loan_type_id) " +
+                "values (?, ?, ?, ?, ?, ?, ?, ?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -57,10 +57,9 @@ public class LoanJdbcTemplateRepository implements LoanRepository{
             ps.setBigDecimal(3, loan.getInitialAmount());
             ps.setString(4, loan.getDateDue().toString());
             ps.setString(5, loan.getStatus().getValue());
-            ps.setString(6, loan.getCreatedAt().toString());
-            ps.setBigDecimal(7, loan.getBalance());
-            ps.setInt(8, loan.getUserId());
-            ps.setInt(9, loan.getLoanType().getLoanTypeId());
+            ps.setBigDecimal(6, loan.getBalance());
+            ps.setInt(7, loan.getUserId());
+            ps.setInt(8, loan.getLoanType().getLoanTypeId());
             return ps;
         }, keyHolder);
 

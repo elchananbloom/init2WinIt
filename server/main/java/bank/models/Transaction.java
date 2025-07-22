@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @NotNull(message= "Transaction must not be null")
 public class Transaction {
@@ -111,5 +112,17 @@ public class Transaction {
 
     public void setTransactionId(int transactionId) {
         this.transactionId = transactionId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Transaction)) return false;
+        Transaction that = (Transaction) o;
+        return transactionId == that.transactionId && accountId == that.accountId && loanId == that.loanId && Objects.equals(amount, that.amount) && Objects.equals(type, that.type) && Objects.equals(transactionDate, that.transactionDate) && Objects.equals(description, that.description) && Objects.equals(transactionCategory, that.transactionCategory);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(transactionId, amount, type, transactionDate, description, transactionCategory, accountId, loanId);
     }
 }

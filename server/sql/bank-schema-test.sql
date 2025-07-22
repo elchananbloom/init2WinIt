@@ -10,7 +10,7 @@ create table `user` (
     phone_number varchar(10) not null,
     email varchar(256) not null,
     password_hash varchar(250) not null,
-    created_at datetime not null,
+    created_at datetime default now(),
     `role` varchar(6) not null,
     UNIQUE(email)
     );
@@ -20,7 +20,7 @@ create table `account` (
     `type` varchar(50) not null,
     balance decimal(20, 2) not null,
     account_number varchar(10) not null,
-    created_at datetime not null,
+    created_at datetime default now(),
     user_id int not null,
     UNIQUE(account_number),
     constraint fk_account_user_id
@@ -45,9 +45,9 @@ create table loan (
     date_approved datetime null,
     flat_interest decimal(10,2) not null,
     initial_amount decimal(10,2) not null,
-    date_due datetime null,
+    date_due datetime not null,
     `status` varchar(20) not null,
-    created_at datetime not null,
+    created_at datetime default now(),
     balance decimal(10,2) not null,
     user_id int not null,
     loan_type_id int not null,
@@ -63,10 +63,10 @@ create table `transaction` (
 	transaction_id int primary key auto_increment,
     amount decimal(20, 2) not null,
     `type` varchar(20) not null,
-    transaction_date datetime not null,
+    transaction_date datetime default now(),
     `description` varchar(100) null,
     transaction_category_id int not null,
-    account_id int not null,
+    account_id int null,
     loan_id int null,
     constraint fk_transaction_category_id
 		foreign key (transaction_category_id)
@@ -98,15 +98,15 @@ alter table `user` auto_increment = 1;
 
 insert into user(user_id, first_name, last_name, address, phone_number, email, password_hash, created_at, role)
 values 
-(1, 'Guy', 'One', '123 Street', 1234567890, 'test1@example.com', 'ABCDEF', '2025-01-01', 'ADMIN'),
-(2, 'Person', 'Two', '456 Ave', 0987654321, 'test2@example.com', 'ASFGR', '2025-02-02', 'USER'),
-(3, 'Girl', 'Three', '123 Street', 1234567890, 'test3@example.com', 'BFSBF', '2025-03-03', 'USER');
+(1, 'Guy', 'One', '123 Street', '1234567890', 'test1@example.com', 'ABCDEF', '2025-01-01', 'ADMIN'),
+(2, 'Person', 'Two', '456 Ave', '0987654321', 'test2@example.com', 'ASFGR', '2025-02-02', 'USER'),
+(3, 'Girl', 'Three', '123 Street', '1234567890', 'test3@example.com', 'BFSBF', '2025-03-03', 'USER');
 
 insert into `account`(`type`, balance, account_number, created_at, user_id)
 values
-('Saving', 2000.00, 123456, '2025-01-01', 1),
-('Checking', 4000.00, 134123, '2025-02-23', 2),
-('Checking',  300.00, 246810, '2024-03-04', 3);
+('Saving', 2000.00, '123456', '2025-01-01', 1),
+('Checking', 4000.00, '134123', '2025-02-23', 2),
+('Checking',  300.00, '246810', '2024-03-04', 3);
 
 insert into transaction_category values
 (1, 'Groceries'),

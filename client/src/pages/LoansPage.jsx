@@ -21,27 +21,27 @@ const LoansPage = () => {
             },
             body: JSON.stringify(loan)
         };
-        fetch(`${url}loan/${loanId}`,options)
-        .then(res => {
-            if (res.status === 204) {
-                return loan;
-            }
-            if (res.status === 400) {
-                return res.json();
-            }
-            if (res.status === 403) {
-                navigate('/login');
-            }
-        })
-        .then(data => {
-            if (data.loanId) {
-                navigate('/admin/loans');
-            }
-        })
+        fetch(`${url}loan/${loanId}`, options)
+            .then(res => {
+                if (res.status === 204) {
+                    return loan;
+                }
+                if (res.status === 400) {
+                    return res.json();
+                }
+                if (res.status === 403) {
+                    navigate('/login');
+                }
+            })
+            .then(data => {
+                if (data.loanId) {
+                    navigate('/admin/loans');
+                }
+            })
     }
 
     const handleReject = (loanId) => {
-const loan = loans.find(l => l.loanId === loanId);
+        const loan = loans.find(l => l.loanId === loanId);
         loan.status = 'REJECTED';
         const options = {
             method: 'PUT',
@@ -50,23 +50,23 @@ const loan = loans.find(l => l.loanId === loanId);
             },
             body: JSON.stringify(loan)
         };
-        fetch(`${url}loan/${loanId}`,options)
-        .then(res => {
-            if (res.status === 204) {
-                return loan;
-            }
-            if (res.status === 400) {
-                return res.json();
-            }
-            if (res.status === 403) {
-                navigate('/login');
-            }
-        })
-        .then(data => {
-            if (data.loanId) {
-                navigate('/admin/loans');
-            }
-        })
+        fetch(`${url}loan/${loanId}`, options)
+            .then(res => {
+                if (res.status === 204) {
+                    return loan;
+                }
+                if (res.status === 400) {
+                    return res.json();
+                }
+                if (res.status === 403) {
+                    navigate('/login');
+                }
+            })
+            .then(data => {
+                if (data.loanId) {
+                    navigate('/admin/loans');
+                }
+            })
     }
 
     useEffect(() => {
@@ -87,7 +87,7 @@ const loan = loans.find(l => l.loanId === loanId);
     return (<Page>
         {loans.map(loan => {
             if (loan.status === 'IN_PROGRESS') {
-                return <PendingLoanWidget loan={loan} handleAccept={handleAccept} handleReject={handleReject}/>
+                return <PendingLoanWidget loan={loan} handleAccept={handleAccept} handleReject={handleReject} />
             }
             else {
                 return <AdminLoanWidget loan={loan} />

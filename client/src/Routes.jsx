@@ -5,6 +5,7 @@ import SideBar from './components/SideBar';
 import Account from './components/Account';
 import StatisticsPage from './pages/StatisticsPage';
 import LoansPage from './pages/LoansPage';
+import CategoriesPage from './pages/CategoriesPage';
 
 const AppRoutes = () => {
     const user = useContext(UserContext);
@@ -24,7 +25,7 @@ const AppRoutes = () => {
                         <>
                             <Route path='/admin/statistics' element={<StatisticsPage />} />
                             <Route path='/admin/loans' element={<LoansPage/>} />
-                            <Route path='/admin/categories' element={<></>} />
+                            <Route path='/admin/categories' element={<CategoriesPage/>} />
                             <Route path='/admin/accounts' element={<></>} />
                         </>}
                 </Routes>

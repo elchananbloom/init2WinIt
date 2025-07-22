@@ -57,4 +57,15 @@ public class TransactionCategoryJdbcTemplateRepository implements TransactionCat
                 transactionCategory.getTransactionCategoryId()) > 0;
     }
 
+    @Override
+    public boolean delete(int transactionCategoryId) {
+        return jdbcTemplate.update("delete from transaction_category where transaction_category_id = ?;", transactionCategoryId) > 0;
+    }
+
+    @Override
+    public int getUsageCount(int transactionCategoryId) {
+        return jdbcTemplate.queryForObject(
+                "select count(*) from transaction where transaction_category_id = ?;", Integer.class, transactionCategoryId);
+    }
+
 }

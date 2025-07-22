@@ -32,7 +32,7 @@ public class LoanController {
         return service.findById(loanId);
     }
 
-    @GetMapping
+    @GetMapping(params = "userId")
     public List<Loan> findByUserId(@RequestParam int userId) {
         return service.findByUserId(userId);
     }

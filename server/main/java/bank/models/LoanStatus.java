@@ -1,9 +1,9 @@
 package bank.models;
 
 public enum LoanStatus {
-    APPROVED("Approved"),
-    REJECTED("Rejected"),
-    IN_PROGRESS("In Progress");
+    APPROVED("APPROVED"),
+    REJECTED("REJECTED"),
+    IN_PROGRESS("IN-PROGRESS");
 
     private String value;
 

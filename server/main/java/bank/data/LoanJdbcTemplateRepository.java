@@ -22,24 +22,30 @@ public class LoanJdbcTemplateRepository implements LoanRepository{
 
     @Override
     public List<Loan> findAll() {
-        final String sql = "select loan_id, date_approved, flat_interest, initial_amount, date_due, `status`, created_at, balance, user_id, loan_type_id " +
-                "from loan " +
+        final String sql = "select loan_id, date_approved, flat_interest, initial_amount, date_due, `status`, created_at, balance, user_id, lt.loan_type_id, lt.`name` " +
+                "from loan l " +
+                "inner join loan_type lt " +
+                "on l.loan_type_id = lt.loan_type_id " +
                 "order by created_at limit 1000;";
         return jdbcTemplate.query(sql, new LoanMapper());
     }
 
     @Override
     public Loan findById(int loanId) {
-        final String sql = "select loan_id, date_approved, flat_interest, initial_amount, date_due, `status`, created_at, balance, user_id, loan_type_id " +
-                "from loan " +
+        final String sql = "select loan_id, date_approved, flat_interest, initial_amount, date_due, `status`, created_at, balance, user_id, lt.loan_type_id, lt.`name` " +
+                "from loan l " +
+                "inner join loan_type lt " +
+                "on l.loan_type_id = lt.loan_type_id " +
                 "where loan_id = ?;";
         return jdbcTemplate.query(sql, new LoanMapper(), loanId).stream().findFirst().orElse(null);
     }
 
     @Override
     public List<Loan> findByUserId(int userId) {
-        final String sql = "select loan_id, date_approved, flat_interest, initial_amount, date_due, `status`, created_at, balance, user_id, loan_type_id " +
-                "from loan " +
+        final String sql = "select loan_id, date_approved, flat_interest, initial_amount, date_due, `status`, created_at, balance, user_id, lt.loan_type_id, lt.`name` " +
+                "from loan l " +
+                "inner join loan_type lt " +
+                "on l.loan_type_id = lt.loan_type_id " +
                 "where user_id = ? " +
                 "order by created_at limit 1000;";
         return jdbcTemplate.query(sql, new LoanMapper(), userId);
@@ -76,7 +82,7 @@ public class LoanJdbcTemplateRepository implements LoanRepository{
         final String sql = "update loan set " +
                 "date_approved = ?, " +
                 "`status` = ?, " +
-                "balance = ?, " +
+                "balance = ? " +
                 "where loan_id = ?";
 
         return jdbcTemplate.update(sql,

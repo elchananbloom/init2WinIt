@@ -1,7 +1,9 @@
 package bank.models;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDate;
@@ -13,24 +15,26 @@ public class Loan {
 
     private LocalDate dateApproved;
 
-    @NotBlank(message = "Flat interest is required")
+    @Min(value = 0, message = "Flat interest is required")
     private double flatInterest;
 
-    @NotBlank(message = "Initial amount is required")
+    @PositiveOrZero(message = "Initial amount is required")
+    @NotNull(message = "Initial amount is required")
     private BigDecimal initialAmount;
 
-    @NotBlank(message = "Due date is required")
+    @NotNull(message = "Due date is required")
     private LocalDate dateDue;
 
-    @NotBlank(message = "Statue is required")
+    @NotNull(message = "Statue is required")
     private LoanStatus status;
 
     private LocalDate createdAt;
 
-    @NotBlank(message = "Balance is required")
+    @PositiveOrZero(message = "Balance is required")
+    @NotNull(message = "Balance is required")
     private BigDecimal balance;
 
-    @NotBlank(message = "User Id is required")
+    @Min(value = 1, message = "User Id is required")
     private int userId;
 
     private LoanType loanType;

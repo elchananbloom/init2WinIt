@@ -21,7 +21,7 @@ public class UserStatisticsController {
     }
 
     @GetMapping("/category_average/{userId}")
-    public List<Map<String, BigDecimal>> getAverageAmountByCategory(@PathVariable int userId){
+    public Map<String, BigDecimal> getAverageAmountByCategory(@PathVariable int userId){
         return service.getAverageAmountByCategory(userId);
     }
 

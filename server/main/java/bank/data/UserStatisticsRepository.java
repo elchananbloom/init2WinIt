@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface UserStatisticsRepository {
-    List<Map<String, BigDecimal>> getAverageAmountByCategory(int userId);
+    Map<String, BigDecimal> getAverageAmountByCategory(int userId);
     Map<String, BigDecimal> getTotalAccountsBalance(int userId);
 
 

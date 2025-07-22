@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository
 public class UserStatisticsJdbcRepository implements UserStatisticsRepository{
@@ -19,7 +20,7 @@ public class UserStatisticsJdbcRepository implements UserStatisticsRepository{
         this.jdbcTemplate = template;
     }
     @Override
-    public List<Map<String, BigDecimal>> getAverageAmountByCategory(int userId) {
+    public Map<String, BigDecimal> getAverageAmountByCategory(int userId) {
         String sql = "select avg(transaction_amount) `value`, transaction_category label " +
                 "from user_transactions " +
                 "where user_id = ? and transaction_year = year(now()) " +
@@ -28,8 +29,12 @@ public class UserStatisticsJdbcRepository implements UserStatisticsRepository{
 
         List<Map<String, BigDecimal>> res = jdbcTemplate.query(sql,new UserStatisticsMapper(), userId);
 
+        Map<String, BigDecimal> concatResult = new HashMap<>();
 
-        return res;
+        res.stream().forEach(concatResult::putAll);
+
+
+        return concatResult;
     }
 
     @Override

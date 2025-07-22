@@ -31,15 +31,15 @@ class UserStatisticsServiceTest {
 
         Map<String, BigDecimal> row = new HashMap<>();
         row.put("Car",new BigDecimal(200).setScale(6));
-        List<Map<String, BigDecimal>> expected = new ArrayList<>();
-        expected.add(row);
 
-        when(repository.getAverageAmountByCategory(1)).thenReturn(expected);
 
-        List<Map<String,BigDecimal>> actual = service.getAverageAmountByCategory(1);
+
+        when(repository.getAverageAmountByCategory(1)).thenReturn(row);
+
+        Map<String,BigDecimal> actual = service.getAverageAmountByCategory(1);
 
         assertEquals(1, actual.size());
-        assertEquals(expected.get(0), actual.get(0));
+        assertEquals(row, actual);
 
 
     }

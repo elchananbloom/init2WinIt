@@ -32,13 +32,11 @@ class UserStatisticsJdbcRepositoryTest {
     void getAverageAmountByCategory() {
         Map<String, BigDecimal> row = new HashMap<>();
         row.put("Car",new BigDecimal(200).setScale(6));
-        List<Map<String, BigDecimal>> expected = new ArrayList<>();
-        expected.add(row);
 
-        List<Map<String, BigDecimal>> actual = repository.getAverageAmountByCategory(1);
+        Map<String, BigDecimal> actual = repository.getAverageAmountByCategory(1);
 
         assertEquals(1, actual.size());
-        assertEquals(expected.get(0),actual.get(0));
+        assertEquals(row,actual);
 
     }
 

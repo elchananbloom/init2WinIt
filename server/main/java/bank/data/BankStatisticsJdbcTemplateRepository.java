@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public class BankStatisticsJdbcTemplateRepository implements BankStatisticsRepos
         jdbcTemplate = template;
     }
     @Override
-    public List<Map<String,BigDecimal>> getTotalTransactionsPerTransactionType() {
+    public Map<String,BigDecimal> getTotalTransactionsPerTransactionType() {
 
         String sql = "select avg(transaction_amount) `value`, transaction_type label " +
                 "                from user_transactions " +
@@ -25,7 +26,11 @@ public class BankStatisticsJdbcTemplateRepository implements BankStatisticsRepos
                 "                group by transaction_type;";
 
         List<Map<String,BigDecimal>> res = jdbcTemplate.query(sql,new BankStatistcsMapper());
-        return res;
+
+        Map<String, BigDecimal> concatResult = new HashMap<>();
+
+        res.stream().forEach(concatResult::putAll);
+        return concatResult;
     }
 
 

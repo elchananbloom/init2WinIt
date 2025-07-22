@@ -17,7 +17,7 @@ public class UserStatisticsService {
         this.repository = userStatisticsRepository;
     }
 
-    public List<Map<String, BigDecimal>> getAverageAmountByCategory(int userId){
+    public Map<String, BigDecimal> getAverageAmountByCategory(int userId){
         return repository.getAverageAmountByCategory(userId);
     }
 

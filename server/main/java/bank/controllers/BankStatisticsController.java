@@ -23,7 +23,7 @@ public class BankStatisticsController {
     }
 
     @GetMapping("/")
-    public List<Map<String, BigDecimal>> getTotalTransactionsPerTransactionType(){
+    public Map<String, BigDecimal> getTotalTransactionsPerTransactionType(){
         return service.getTotalTransactionsPerTransactionType();
     }
 

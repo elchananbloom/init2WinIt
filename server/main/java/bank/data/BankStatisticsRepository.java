@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface BankStatisticsRepository {
 
-    List<Map<String, BigDecimal>> getTotalTransactionsPerTransactionType();
+    Map<String, BigDecimal> getTotalTransactionsPerTransactionType();
 
 
 }

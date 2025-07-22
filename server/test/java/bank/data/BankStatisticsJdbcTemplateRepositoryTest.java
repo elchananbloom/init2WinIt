@@ -31,24 +31,14 @@ class BankStatisticsJdbcTemplateRepositoryTest {
 
     @Test
     void getTotalTransactionsPerTransactionType() {
-        List<Map<String, BigDecimal>> expected = new ArrayList<>();
 
-        Map<String, BigDecimal> cat1 = new HashMap<>();
-        cat1.put("WITHDRAWAL",new BigDecimal(200).setScale(6));
-        expected.add(cat1);
+        Map<String, BigDecimal> expected = new HashMap<>();
+        expected.put("WITHDRAWAL",new BigDecimal(200).setScale(6));
+        expected.put("LOAN",new BigDecimal(120).setScale(6));
+        expected.put("DEPOSIT",new BigDecimal(50).setScale(6));
 
-        Map<String, BigDecimal> cat2 = new HashMap<>();
-        cat2.put("LOAN",new BigDecimal(120).setScale(6));
-        expected.add(cat2);
-
-        Map<String, BigDecimal> cat3 = new HashMap<>();
-        cat3.put("DEPOSIT",new BigDecimal(50).setScale(6));
-        expected.add(cat3);
-
-
-        List<Map<String, BigDecimal>> actual = repository.getTotalTransactionsPerTransactionType();
+        Map<String, BigDecimal> actual = repository.getTotalTransactionsPerTransactionType();
 
         assertEquals(3, actual.size());
-        assertEquals(expected.get(0),actual.get(0));
     }
 }

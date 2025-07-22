@@ -18,7 +18,7 @@ public class BankStatisticsService {
         this.repository = bankStatisticsRepository;
     }
 
-    public List<Map<String, BigDecimal>> getTotalTransactionsPerTransactionType(){
+    public Map<String, BigDecimal> getTotalTransactionsPerTransactionType(){
         return repository.getTotalTransactionsPerTransactionType();
     }
 }

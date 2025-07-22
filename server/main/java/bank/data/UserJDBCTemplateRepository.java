@@ -58,7 +58,7 @@ public class UserJDBCTemplateRepository implements UserRepository{
 
     @Override
     public User addUser(User user) {
-        String sql = "Insert into user (first_name, last_name, address, phone_number, email, password_hash, created_at, role) values (?,?,?,?,?,?,?,?);";
+        String sql = "Insert into user (first_name, last_name, address, phone_number, email, password_hash, role) values (?,?,?,?,?,?,?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         int rowsAffected = jdbcTemplate.update(connection -> {
@@ -69,8 +69,7 @@ public class UserJDBCTemplateRepository implements UserRepository{
             ps.setString(4, user.getPhoneNumber());
             ps.setString(5, user.getEmail());
             ps.setString(6, user.getPasswordHash());
-            ps.setDate(7, Date.valueOf(user.getCreatedAt()));
-            ps.setString(8, user.getRole().getValue());
+            ps.setString(7, user.getRole().getValue());
             return ps;
         }, keyHolder);
 

@@ -1,15 +1,17 @@
 import Page from "./Page";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function Account() {
   const [transactions, setTransactions] = useState([]);
   const [account, setAccount] = useState();
-  const urlAccount = "http://localhost:8080/api/account/:id";
+  const { id } = useParams();
+
+  const urlAccount = "http://localhost:8080/api/account/";
   const urlTransactions = "http://localhost:8080/api/transaction?accountId=";
 
   useEffect(() => {
-    fetch(urlAccount)
+    fetch(urlAccount + id)
       .then((response) => {
         if (response.status === 200) {
           return response.json();
@@ -20,9 +22,9 @@ function Account() {
       .then((data) => setAccount(data))
       .catch(console.log);
   }, []);
-  
+
   useEffect(() => {
-    fetch(urlTransactions + account.accountId)
+    fetch(urlTransactions + id)
       .then((response) => {
         if (response.status === 200) {
           return response.json();
@@ -36,12 +38,13 @@ function Account() {
 
   return (
     <Page>
+        {account && <>
       <div className="container">
         <h1>Here is Account</h1>
         <div id="top-half">
           <div className="balance">
             <h2>Current Balance</h2>
-            <h3>{account.getBalance}</h3>
+            <h3>{account.balance}</h3>
           </div>
 
           <div id="graph" name="graph">
@@ -49,11 +52,17 @@ function Account() {
           </div>
         </div>
         <table className="table table-dark table-striped table-hover">
-          <thead className="thead-light"> Transactions</thead>
+          <thead className="thead-light"> 
+            <tr>
+                <th> Category</th>
+                <th> Date</th>
+                <th> Amount</th>
+            </tr>
+          </thead>
           <tbody>
             {transactions.map((transaction) => (
               <tr>
-                <td>{transaction.transactionCategory}</td>
+                <td>{transaction.transactionCategory.transactionCategoryName}</td>
                 <td>{transaction.transactionDate}</td>
                 <td>{transaction.amount}</td>
               </tr>
@@ -72,6 +81,8 @@ function Account() {
           Request a Loan
         </Link>
       </div>
+      </>
+      }
     </Page>
   );
 }

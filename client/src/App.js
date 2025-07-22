@@ -5,7 +5,7 @@ import UserContext from './contexts/UserContext';
 function App() {
 
   return (
-    <UserContext.Provider value={{role: 'ADMIN'}}>
+    <UserContext.Provider value={{role: 'ADMIN',userId:1}}>
       <AppRoutes />
     </UserContext.Provider>
   )

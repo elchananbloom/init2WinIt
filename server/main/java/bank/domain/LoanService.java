@@ -83,7 +83,7 @@ public class LoanService {
     public Result<Loan> delete(int loanId) {
         Result<Loan> result = new Result<>();
         Loan loan = findById(loanId);
-        if (loan.getStatus() != LoanStatus.IN_PROGRESS) {
+        if (loan != null && loan.getStatus() != LoanStatus.IN_PROGRESS) {
             result.addMessage("Cannot delete loan not in 'in progress' mode", ResultType.INVALID);
             return result;
         }

@@ -27,8 +27,8 @@ public class AccountController {
     public List<Account> findAll(){
         return service.findAll();
     }
-    @GetMapping
-    public List<Account> findByUserId(int userId){
+    @GetMapping(params = "userId")
+    public List<Account> findByUserId(@RequestParam int userId){
         return service.findByUserId(userId);
     }
 

@@ -65,10 +65,6 @@ public class TransactionCategoryService {
             }
         }
 
-        if (!result.isSuccess()) {
-            return result;
-        }
-
         if (transactionCategory.getTransactionCategoryId() <= 0) {
             result.addMessage("TransactionCategoryId cannot be set for 'update' operation", ResultType.INVALID);
         }

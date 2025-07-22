@@ -11,4 +11,8 @@ public interface TransactionCategoryRepository {
     public TransactionCategory add(TransactionCategory transactionCategory);
 
     public boolean update(TransactionCategory transactionCategory);
+
+    public boolean delete(int transactionCategoryId);
+
+    public int getUsageCount(int transactionCategoryId);
 }

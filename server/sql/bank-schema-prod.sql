@@ -89,3 +89,57 @@ values
 ('Debt Consolidation'),
 ('Auto'),
 ('Auto Refinance');
+
+-- set sql_safe_update = 0;
+-- delete from `account`;
+-- alter table `account` auto_increment = 1;
+-- delete from loan;
+-- alter table loan auto_increment = 1;
+-- delete from `user`;
+-- alter table `user` auto_increment = 1;
+-- delete from loan_type;
+-- alter table loan_type auto_increment = 1;
+-- delete from `transaction`;
+-- alter table `transaction` auto_increment = 1;
+-- delete from transaction_category;
+-- alter table transaction_category auto_increment = 1;
+-- set sql_safe_update = 1;
+
+insert into user(user_id, first_name, last_name, address, phone_number, email, password_hash, created_at, role)
+values 
+(1, 'Guy', 'One', '123 Street', '1234567890', 'test1@example.com', 'ABCDEF', '2025-01-01', 'ADMIN'),
+(2, 'Person', 'Two', '456 Ave', '0987654321', 'test2@example.com', 'ASFGR', '2025-02-02', 'USER'),
+(3, 'Girl', 'Three', '123 Street', '1234567890', 'test3@example.com', 'BFSBF', '2025-03-03', 'USER');
+
+insert into `account`(`type`, balance, account_number, created_at, user_id)
+values
+('Savings', 2000.00, '123456', '2025-01-01', 1),
+('Checking', 4000.00, '134123', '2025-02-23', 2),
+('Checking',  300.00, '246810', '2024-03-04', 3);
+
+insert into transaction_category values
+(1, 'Groceries'),
+(2, 'Check'),
+(3, 'Car'),
+(4, 'Loan');
+
+insert into loan_type (`name`)
+values
+('Personal'),
+('Home Improvement'),
+('Small Business'),
+('Debt Consolidation'),
+('Auto'),
+('Auto Refinance');
+
+insert into loan values
+(1, '2025-01-02', 20.00, 1020.00, '2025-02-02', 'APPROVED', '2025-01-01', 900.00, 1, 2),
+(2, '2025-02-02', 20.00, 2020.00, '2025-02-02', 'REJECTED', '2025-01-01', 2020.00, 2, 4),
+(3, '2025-03-03', 20.00, 520.00, '2025-02-02', 'IN-PROGRESS', '2025-04-04', 520.00, 3, 5);
+
+
+insert into `transaction` values
+(1, 200.00, 'WITHDRAWAL', '2025-01-02', 'emergency car fix', 3, 1, null),
+(2, 120.00, 'LOAN', '2025-01-23', null, 1, 2, 1),
+(3, 50.00, 'DEPOSIT', '2025-03-23', 'got paid', 2, 3, null);
+	

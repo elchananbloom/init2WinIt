@@ -56,4 +56,15 @@ public class TransactionCategoryController {
         }
         return ErrorResponse.build(result);
     }
+
+    @DeleteMapping("/{transactionCategoryId}")
+    public ResponseEntity<Object> deleteById(@PathVariable int transactionCategoryId) {
+        Result<TransactionCategory> result = service.delete(transactionCategoryId);
+
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return ErrorResponse.build(result);
+    }
 }

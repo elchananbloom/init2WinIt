@@ -75,4 +75,22 @@ public class TransactionCategoryService {
         }
         return result;
     }
+
+    public Result<TransactionCategory> delete(int transactionCategoryId) {
+        Result<TransactionCategory> result = new Result<>();
+
+        int usageCount = repository.getUsageCount(transactionCategoryId);
+        if (usageCount > 0) {
+            String msg = String.format("transactionCategoryId: %s, is in use", transactionCategoryId);
+            result.addMessage(msg, ResultType.INVALID);
+            return result;
+        }
+
+        if (!repository.delete(transactionCategoryId)) {
+            String msg = String.format("transactionCategoryId: %s, not found", transactionCategoryId);
+            result.addMessage(msg, ResultType.NOT_FOUND);
+        }
+
+        return result;
+    }
 }

@@ -16,5 +16,7 @@ public interface LoanRepository {
 
     boolean update(Loan loan);
 
+    boolean delete(int loanId);
+
 
 }

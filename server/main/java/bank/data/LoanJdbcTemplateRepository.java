@@ -87,4 +87,9 @@ public class LoanJdbcTemplateRepository implements LoanRepository{
                 loan.getLoanId()
                 ) > 0;
     }
+
+    @Override
+    public boolean delete(int loanId) {
+        return jdbcTemplate.update("delete from loan where loan_id = ?;", loanId) > 0;
+    }
 }

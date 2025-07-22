@@ -2,6 +2,7 @@ package bank.domain;
 
 import bank.data.LoanRepository;
 import bank.models.Loan;
+import bank.models.LoanStatus;
 import bank.models.User;
 import org.springframework.stereotype.Service;
 
@@ -77,5 +78,20 @@ public class LoanService {
             res.addMessage(msg, ResultType.NOT_FOUND);
         }
         return res;
+    }
+
+    public Result<Loan> delete(int loanId) {
+        Result<Loan> result = new Result<>();
+        Loan loan = findById(loanId);
+        if (loan.getStatus() != LoanStatus.IN_PROGRESS) {
+            result.addMessage("Cannot delete loan not in 'in progress' mode", ResultType.INVALID);
+            return result;
+        }
+        if (!repository.delete(loanId)) {
+            String msg = String.format("loanId: %s, not found", loanId);
+            result.addMessage(msg, ResultType.NOT_FOUND);
+        }
+
+        return result;
     }
 }

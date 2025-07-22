@@ -1,6 +1,6 @@
-import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import {Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
-export default Routes = () => {
+const AppRoutes = () => {
     return (
         <>
         <Router>
@@ -20,3 +20,5 @@ export default Routes = () => {
         </>
     );
 }
+
+export default AppRoutes;

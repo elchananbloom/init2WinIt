@@ -1,7 +1,8 @@
 import React from 'react';
+import AppRoutes from './Routes';
 
 function App() {
-  return <h2>Innit 2 Win It</h2>;
+  return <AppRoutes/>;
 }
 
 export default App;

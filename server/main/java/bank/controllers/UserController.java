@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@Controller
+@RestController
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RequestMapping("/api/user")
 @ImportAutoConfiguration(exclude = { SecurityAutoConfiguration.class })
 public class UserController {

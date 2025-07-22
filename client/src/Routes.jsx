@@ -3,24 +3,27 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import UserContext from './contexts/UserContext';
 import SideBar from './components/SideBar';
 import Account from './components/Account';
+import StatisticsPage from './pages/StatisticsPage';
+import LoansPage from './pages/LoansPage';
 
 const AppRoutes = () => {
     const user = useContext(UserContext);
     return (
         <>
             <Router>
-                {user && <SideBar/>}
+                {user && <SideBar />}
                 <Routes>
                     <Route path='/' element={<></>} />
                     <Route path='/login' element={<></>} />
                     <Route path='/signup' element={<></>} />
                     <Route path='account/new' element={<></>} />
-                    <Route path='/account/:id' element={<Account/>} />
+                    <Route path='/account/:id' element={<Account />} />
                     <Route path='/loan/new' element={<></>} />
                     <Route path='/loan/:id' element={<></>} />
                     {user.role === 'ADMIN' &&
-                        <><Route path='/admin/statistics' element={<></>} />
-                            <Route path='/admin/loans' element={<></>} />
+                        <>
+                            <Route path='/admin/statistics' element={<StatisticsPage />} />
+                            <Route path='/admin/loans' element={<LoansPage/>} />
                             <Route path='/admin/categories' element={<></>} />
                             <Route path='/admin/accounts' element={<></>} />
                         </>}

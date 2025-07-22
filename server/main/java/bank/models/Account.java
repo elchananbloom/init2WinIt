@@ -7,11 +7,12 @@ import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@NotNull(message = "Account cannot be null")
 public class Account {
     @NotNull(message="accountId cannot be null")
     private int accountId;
     private String accountNumber;
-    @NotBlank(message="you must include the type")
+    @NotNull(message ="Account type cannot be null")
     private AccountType accountType;
     @PositiveOrZero(message="You cannot have a negative balance")
     private BigDecimal balance;

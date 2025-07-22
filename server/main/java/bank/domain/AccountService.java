@@ -9,6 +9,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -58,7 +59,7 @@ public class AccountService {
     }
 
     public Account generateAccountNumber(Account account){
-        account.setAccountNumber(String.valueOf(account.getUserId()) + String.valueOf(account.getAccountId()) + String.valueOf(account.getCreatedAt().getYear()));
+        account.setAccountNumber(String.valueOf(account.getUserId()) + String.valueOf(account.getAccountId()) + String.valueOf(LocalDate.now().getYear()));
         return account;
     }
 

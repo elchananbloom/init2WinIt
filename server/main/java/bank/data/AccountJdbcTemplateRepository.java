@@ -30,8 +30,8 @@ public class AccountJdbcTemplateRepository implements AccountRepository{
 
     @Override
     public Account add (Account account) {
-        final String sql = "insert into `account` (`type`, balance, account_number, created_at, user_id) " +
-                "values (?,?,?,?,?);";
+        final String sql = "insert into `account` (`type`, balance, account_number, user_id) " +
+                "values (?,?,?,?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
@@ -39,8 +39,7 @@ public class AccountJdbcTemplateRepository implements AccountRepository{
             ps.setString(1, account.getAccountType().getValue());
             ps.setBigDecimal(2, account.getBalance());
             ps.setString(3, account.getAccountNumber());
-            ps.setDate(4, Date.valueOf(account.getCreatedAt()));
-            ps.setInt(5, account.getUserId());
+            ps.setInt(4, account.getUserId());
             return ps;
 
         }, keyHolder);
@@ -57,7 +56,7 @@ public class AccountJdbcTemplateRepository implements AccountRepository{
     public List<Account> findByUserId(int userId) {
         final String sql = "select account_id, `type`, balance, account_number, created_at, user_id " +
                 " from `account` " +
-                "where user_id = ?" +
+                "where user_id = ? " +
                 "order by `type`;";
         return jdbcTemplate.query(sql, new AccountMapper());
     }
@@ -66,7 +65,7 @@ public class AccountJdbcTemplateRepository implements AccountRepository{
     public Account findById(int accountId) {
         final String sql = "select account_id, `type`, balance, account_number, created_at, user_id " +
                 " from `account` " +
-                "where account_id = ?" +
+                "where account_id = ? " +
                 "order by `type`;";
         return jdbcTemplate.query(sql, new AccountMapper(), accountId).stream()
                 .findFirst()

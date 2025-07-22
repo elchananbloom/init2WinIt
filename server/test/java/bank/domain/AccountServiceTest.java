@@ -3,7 +3,6 @@ package bank.domain;
 import bank.data.AccountRepository;
 import bank.models.Account;
 import bank.models.AccountType;
-import bank.models.TransactionCategory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

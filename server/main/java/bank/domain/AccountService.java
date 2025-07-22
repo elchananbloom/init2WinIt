@@ -34,7 +34,6 @@ public class AccountService {
     }
 
     public Result<Account> add(Account account){
-        account = generateAccountNumber(account);
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<Account>> violations = validator.validate(account);
@@ -51,6 +50,7 @@ public class AccountService {
                 res.addMessage("accountId cannot be set for `add` operation", ResultType.INVALID);
                 return res;
             }
+            account = generateAccountNumber(account);
             Account accountAdded = repository.add(account);
             res.setPayload(accountAdded);
             return res;

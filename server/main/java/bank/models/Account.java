@@ -10,14 +10,11 @@ import java.time.LocalDate;
 public class Account {
     @NotNull(message="accountId cannot be null")
     private int accountId;
-    @NotBlank(message="account number cannot be null")
     private String accountNumber;
     @NotBlank(message="you must include the type")
     private AccountType accountType;
     @PositiveOrZero(message="You cannot have a negative balance")
     private BigDecimal balance;
-    @NotNull(message="created at date cannot be null")
-    @Past(message="date must be in the past")
     private LocalDate createdAt;
     private int userId;
 

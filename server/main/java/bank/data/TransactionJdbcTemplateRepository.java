@@ -37,7 +37,8 @@ public class TransactionJdbcTemplateRepository implements TransactionRepository{
                 "tc.`name` as `name` "+
                 "from `transaction` t inner join transaction_category tc " +
                 "on t.transaction_category_id = tc.transaction_category_id " +
-                "where account_id = ?;";
+                "where account_id = ? " +
+                "order by transaction_id desc;";
 
         return jdbcTemplate.query(sql, new TransactionMapper(), accountId);
     }

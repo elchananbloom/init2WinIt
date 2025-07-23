@@ -2,6 +2,7 @@ package bank.data;
 
 import bank.data.mappers.AccountMapper;
 import bank.models.Account;
+import bank.models.Loan;
 import bank.models.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -70,6 +71,16 @@ public class AccountJdbcTemplateRepository implements AccountRepository{
         return jdbcTemplate.query(sql, new AccountMapper(), accountId).stream()
                 .findFirst()
                 .orElse(null);
+    }
+
+
+    @Override
+    public boolean update(Account account) {
+        final String sql = "update account set " +
+                "balance = ? " +
+                "where account_id = ?";
+
+        return jdbcTemplate.update(sql, account.getBalance(), account.getAccountId()) > 0;
     }
 
 }

@@ -4,7 +4,6 @@ package bank.domain;
 import bank.data.AccountRepository;
 import bank.models.Account;
 import org.springframework.stereotype.Service;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -58,6 +57,29 @@ public class AccountService {
         }
     }
 
+    public Result<Account> update(Account account) {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Account>> violations = validator.validate(account);
+        Result<Account> res = new Result<>();
+        if(!violations.isEmpty()){
+            violations.forEach(violation -> {
+                res.addMessage(violation.getMessage(), ResultType.INVALID);
+            });
+            return res;
+        }
+
+        if (account.getAccountId() <= 0) {
+            res.addMessage("accountId cannot be set for `update` operation", ResultType.INVALID);
+            return res;
+        }
+
+        if (!repository.update(account)) {
+            String msg = String.format("accountId: %s, not found", account.getAccountId());
+            res.addMessage(msg, ResultType.NOT_FOUND);
+        }
+        return res;
+    }
     public Account generateAccountNumber(Account account){
         account.setAccountNumber(String.valueOf(account.getUserId()) + String.valueOf(account.getAccountId()) + String.valueOf(LocalDate.now().getYear()));
         return account;

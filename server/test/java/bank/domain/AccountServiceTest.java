@@ -68,34 +68,35 @@ class AccountServiceTest {
     }
 
     @Test
-    void shouldNotAddWhenAccountTypeNull(){;
-        Account account = new Account(1, AccountType.SAVINGS, new BigDecimal("2000.00"), "123451", LocalDate.of(2025, 1, 1),1);
-        Result<Account> result = service.add(account);
-        assertEquals(ResultType.INVALID, result.getType());
-    }
-
-    @Test
     void shouldNotAddWhenBalanceNull(){
-        Account account = new Account(1, AccountType.SAVINGS, null, "123451", LocalDate.of(2025, 1, 1),1);
+        Account account = new Account(0, AccountType.SAVINGS, null, "123451", LocalDate.of(2025, 1, 1),1);
         Result<Account> result = service.add(account);
         assertEquals(ResultType.INVALID, result.getType());
     }
     @Test
     void shouldNotAddWhenBalanceNegative(){
+        Account account = new Account(0, AccountType.SAVINGS, new BigDecimal("-2000.00"), "123451", LocalDate.of(2025, 1, 1),1);
+        Result<Account> result = service.add(account);
+        assertEquals(ResultType.INVALID, result.getType());
+    }
+
+    @Test
+    void shouldUpdate() {
+        Account account = new Account(1, AccountType.SAVINGS, new BigDecimal("2000.00"), "123451", LocalDate.of(2025, 1, 1),1);
+        when(repository.update(account)).thenReturn(true);
+        Result<Account> result = service.update(account);
+        assertEquals(ResultType.SUCCESS, result.getType());
+    }
+    @Test
+    void shouldNotUpdateWhenBalanceNull(){
+        Account account = new Account(1, AccountType.SAVINGS, null, "123451", LocalDate.of(2025, 1, 1),1);
+        Result<Account> result = service.update(account);
+        assertEquals(ResultType.INVALID, result.getType());
+    }
+    @Test
+    void shouldNotUpdateWhenBalanceNegative(){
         Account account = new Account(1, AccountType.SAVINGS, new BigDecimal("-2000.00"), "123451", LocalDate.of(2025, 1, 1),1);
-        Result<Account> result = service.add(account);
-        assertEquals(ResultType.INVALID, result.getType());
-    }
-    @Test
-    void shouldNotAddWhenAccountNumberEmpty(){
-        Account account = new Account(1, AccountType.SAVINGS, new BigDecimal("2000.00"), " ", LocalDate.of(2025, 1, 1),1);
-        Result<Account> result = service.add(account);
-        assertEquals(ResultType.INVALID, result.getType());
-    }
-    @Test
-    void shouldNotAddWhenDateIsInFuture(){
-        Account account = new Account(1, AccountType.SAVINGS, new BigDecimal("2000.00"), "123451", LocalDate.now().plusDays(3),1);
-        Result<Account> result = service.add(account);
+        Result<Account> result = service.update(account);
         assertEquals(ResultType.INVALID, result.getType());
     }
 

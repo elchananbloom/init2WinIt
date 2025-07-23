@@ -53,6 +53,20 @@ public class AccountController {
         }
         return ErrorResponse.build(result);
     }
+    @PutMapping("/{accountId}")
+    public ResponseEntity<Object> update(@PathVariable int accountId, @RequestBody @Valid Account account, BindingResult bindingResult) {
+        if (accountId != account.getAccountId()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        if(bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+        Result<Account> result = service.update(account);
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ErrorResponse.build(result);
+    }
 
 
 }

@@ -15,6 +15,7 @@ public class Account {
     @NotNull(message ="Account type cannot be null")
     private AccountType accountType;
     @PositiveOrZero(message="You cannot have a negative balance")
+    @NotNull(message="You cannot have a null balance")
     private BigDecimal balance;
     private LocalDate createdAt;
     private int userId;

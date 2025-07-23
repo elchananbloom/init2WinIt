@@ -63,26 +63,25 @@ public class TransactionJdbcTemplateRepository implements TransactionRepository{
 
     @Override
     public Transaction add(Transaction transaction) {
-        String sql = "insert into `transaction`(amount, `type`, transaction_date, `description`, transaction_category_id, account_id, loan_id)" +
-                " values(?,?,?,?,?,?,?);";
+        String sql = "insert into `transaction`(amount, `type`, `description`, transaction_category_id, account_id, loan_id)" +
+                " values(?,?,?,?,?,?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setBigDecimal(1, transaction.getAmount());
             ps.setString(2, transaction.getType());
-            ps.setDate(3, Date.valueOf(transaction.getTransactionDate()));
-            ps.setString(4, transaction.getDescription());
-            ps.setInt(5, transaction.getTransactionCategory().getTransactionCategoryId());
+            ps.setString(3, transaction.getDescription());
+            ps.setInt(4, transaction.getTransactionCategory().getTransactionCategoryId());
             if( transaction.getAccountId() > 0){
-                ps.setInt(6, transaction.getAccountId());
+                ps.setInt(5, transaction.getAccountId());
             }else{
-                ps.setNull(6, Types.INTEGER);
+                ps.setNull(5, Types.INTEGER);
             }
 
             if( transaction.getLoanId() > 0){
-                ps.setInt(7, transaction.getLoanId());
+                ps.setInt(6, transaction.getLoanId());
             }else{
-                ps.setNull(7, Types.INTEGER);
+                ps.setNull(6, Types.INTEGER);
             }
 
             return ps;

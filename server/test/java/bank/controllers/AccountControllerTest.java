@@ -2,6 +2,7 @@ package bank.controllers;
 import bank.data.AccountRepository;
 import bank.models.Account;
 import bank.models.AccountType;
+import bank.models.Account;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -99,6 +100,66 @@ class AccountControllerTest {
         mvc.perform(req)
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    void updateShouldReturn204() throws Exception {
+        Account account = new Account(1,AccountType.SAVINGS, new BigDecimal("2000.00"), "123451", LocalDate.of(2025, 1, 1),1);
+
+        when(repository.update(any(Account.class))).thenReturn(true);
+
+        String json = jsonMapper.writeValueAsString(account);
+
+        mvc.perform(put("/api/account/" + account.getAccountId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void updateShouldReturn400WhenEmpty() throws Exception {
+        mvc.perform(put("/api/account/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void updateShouldReturn400WhenInvalid() throws Exception {
+        Account invalid = new Account();
+        invalid.setAccountId(1);
+        String invalidJson = jsonMapper.writeValueAsString(invalid);
+
+        mvc.perform(put("/api/account/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(invalidJson))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void updateShouldReturn409WhenConflict() throws Exception {
+        Account account = new Account(0,AccountType.SAVINGS, new BigDecimal("2000.00"), "123451", LocalDate.of(2025, 1, 1),1);
+        account.setAccountId(2);
+        String json = jsonMapper.writeValueAsString(account);
+
+        mvc.perform(put("/api/account/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(status().isConflict());
+    }
+
+    @Test
+    void updateShouldReturn404WhenNotFound() throws Exception {
+        Account account = new Account(1,AccountType.SAVINGS, new BigDecimal("2000.00"), "123451", LocalDate.of(2025, 1, 1),1);
+
+        when(repository.update(any(Account.class))).thenReturn(false);
+
+        String json = jsonMapper.writeValueAsString(account);
+
+        mvc.perform(put("/api/account/" + account.getAccountId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(status().isNotFound());
+    }
+
 
 
 }

@@ -53,19 +53,18 @@ public class LoanJdbcTemplateRepository implements LoanRepository{
 
     @Override
     public Loan add(Loan loan) {
-        final String sql = "insert into loan (date_approved, flat_interest, initial_amount, date_due, `status`, balance, user_id, loan_type_id) " +
-                "values (?, ?, ?, ?, ?, ?, ?, ?);";
+        final String sql = "insert into loan (flat_interest, initial_amount, date_due, `status`, balance, user_id, loan_type_id) " +
+                "values (?, ?, ?, ?, ?, ?, ?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, loan.getDateApproved().toString());
-            ps.setDouble(2, loan.getFlatInterest());
-            ps.setBigDecimal(3, loan.getInitialAmount());
-            ps.setString(4, loan.getDateDue().toString());
-            ps.setString(5, loan.getStatus().getValue());
-            ps.setBigDecimal(6, loan.getBalance());
-            ps.setInt(7, loan.getUserId());
-            ps.setInt(8, loan.getLoanType().getLoanTypeId());
+            ps.setDouble(1, loan.getFlatInterest());
+            ps.setBigDecimal(2, loan.getInitialAmount());
+            ps.setString(3, loan.getDateDue().toString());
+            ps.setString(4, loan.getStatus().getValue());
+            ps.setBigDecimal(5, loan.getBalance());
+            ps.setInt(6, loan.getUserId());
+            ps.setInt(7, loan.getLoanType().getLoanTypeId());
             return ps;
         }, keyHolder);
 

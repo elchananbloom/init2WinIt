@@ -1,14 +1,18 @@
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext";
 import { Link, useNavigate, useNavigation } from "react-router-dom";
+import AddLoan from "./AddLoan";
+import Modal from "./Modal";
 
 const url = 'http://localhost:8080/api/';
 
-const UserSideBar = () => {
+const UserSideBar = ({loans}) => {
     const [accounts, setAccounts] = useState([]);
-    const [loans, setLoans] = useState([]);
+    // const [loans, setLoans] = useState([]);
     const user = useContext(UserContext);
     const navigate = useNavigate();
+
+
 
     useEffect(() => {
         fetch(`${url}/account?userId=${user.userId}`)
@@ -23,20 +27,25 @@ const UserSideBar = () => {
             .then(data => {
                 setAccounts(data);
             });
+        
+    }, []);
 
-        fetch(`${url}/loan?userId=${user.userId}`)
-            .then(res => {
-                if (res.status === 200) {
-                    return res.json();
-                }
-                if (res.status === 403) {
-                    navigate('/login');
-                }
-            })
-            .then(data => {
-                setLoans(data);
-            });
-    }, [])
+    // const fetchLoans = () => {
+    //     fetch(`${url}/loan?userId=${user.userId}`)
+    //         .then(res => {
+    //             if (res.status === 200) {
+    //                 return res.json();
+    //             }
+    //             if (res.status === 403) {
+    //                 navigate('/login');
+    //             }
+    //         })
+    //         .then(data => {
+    //             setLoans(data);
+    //         });
+    // }
+
+
 
     return (
         <>
@@ -54,7 +63,8 @@ const UserSideBar = () => {
                     <Link to={`/loan/${loan.loanId}`} className="btn btn-light mb-3 text-left">{loan.loanType.loanTypeName}</Link>
                 )
             })}
-            <Link to={`/loan/new`} className="btn btn-light mt-5 mb-3 text-left">Add Loan</Link>
+            <Link to={`/user/${user.userId}/loan/new`} className="btn btn-light mt-5 mb-3 text-left">Add Loan</Link>
+            
             <Link to={`/account/new`} className="btn btn-light mb-3 text-left">Add Account</Link>
 
         </>

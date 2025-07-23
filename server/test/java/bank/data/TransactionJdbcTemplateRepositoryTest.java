@@ -62,8 +62,6 @@ class TransactionJdbcTemplateRepositoryTest {
         assertEquals(expected, actual);
 
 
-
-
     }
 
     @Test
@@ -74,7 +72,7 @@ class TransactionJdbcTemplateRepositoryTest {
         added.setType("Deposit");
         added.setAccountId(2);
         added.setTransactionDate(LocalDate.parse("2025-01-23"));
-        added.setLoanId(1);
+        added.setLoanId(2);
         added.setDescription(null);
 
         Transaction actual = repository.add(added);

@@ -63,10 +63,12 @@ public class TransactionCategoryService {
             for (ConstraintViolation<TransactionCategory> violation: violations) {
                 result.addMessage(violation.getMessage(), ResultType.INVALID);
             }
+            return result;
         }
 
         if (transactionCategory.getTransactionCategoryId() <= 0) {
             result.addMessage("TransactionCategoryId cannot be set for 'update' operation", ResultType.INVALID);
+            return result;
         }
 
         if (!repository.update(transactionCategory)) {

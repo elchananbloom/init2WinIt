@@ -46,7 +46,7 @@ class TransactionCategoryJdbcTemplateRepositoryTest {
     void shouldUpdate() {
         TransactionCategory transactionCategory = new TransactionCategory();
         transactionCategory.setTransactionCategoryName("Clothes");
-        transactionCategory.setTransactionCategoryId(1);
+        transactionCategory.setTransactionCategoryId(2);
 
         assertTrue(repository.update(transactionCategory));
 

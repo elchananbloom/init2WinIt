@@ -9,6 +9,7 @@ create table `user` (
     address varchar(125) not null,
     phone_number varchar(10) not null,
     email varchar(256) not null,
+    dob datetime not null,
     password_hash varchar(250) not null,
     created_at datetime default now(),
     `role` varchar(6) not null,
@@ -105,11 +106,11 @@ values
 -- alter table transaction_category auto_increment = 1;
 -- set sql_safe_update = 1;
 
-insert into user(user_id, first_name, last_name, address, phone_number, email, password_hash, created_at, role)
+insert into user(user_id, first_name, last_name, address, phone_number, email, dob, password_hash, created_at, role)
 values 
-(1, 'Guy', 'One', '123 Street', '1234567890', 'test1@example.com', 'ABCDEF', '2025-01-01', 'ADMIN'),
-(2, 'Person', 'Two', '456 Ave', '0987654321', 'test2@example.com', 'ASFGR', '2025-02-02', 'USER'),
-(3, 'Girl', 'Three', '123 Street', '1234567890', 'test3@example.com', 'BFSBF', '2025-03-03', 'USER');
+(1, 'Guy', 'One', '123 Street', '1234567890', 'test1@example.com','2000-01-01', 'ABCDEF', '2025-01-01', 'ADMIN'),
+(2, 'Person', 'Two', '456 Ave', '0987654321', 'test2@example.com','2000-02-02', 'ASFGR', '2025-02-02', 'USER'),
+(3, 'Girl', 'Three', '123 Street', '1234567890', 'test3@example.com','2000-03-03', 'BFSBF', '2025-03-03', 'USER');
 
 insert into `account`(`type`, balance, account_number, created_at, user_id)
 values

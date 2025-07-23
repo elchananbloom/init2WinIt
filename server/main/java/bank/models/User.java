@@ -6,6 +6,8 @@ import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@NotNull(message = "User cannot be null")
+@NoYoungerThan16()
 public class User {
 
     private int userId;
@@ -22,6 +24,9 @@ public class User {
     @NotBlank(message="passwordHash must not be blank")
     private String passwordHash;
 
+    @NotNull(message = "Date of Birth is required")
+    private LocalDate dob;
+
     @NotNull(message="Role must not be null")
     private Role role;
     private LocalDate createdAt;
@@ -29,16 +34,25 @@ public class User {
 
     public User(){}
 
-    public User(int userId, String firstName, String lastName, String address, String phoneNumber, String email, String passwordHash, LocalDate createdAt, Role role) {
+    public User(int userId, String firstName, String lastName, String address, String phoneNumber, String email, LocalDate dob, String passwordHash, LocalDate createdAt, Role role) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.dob = dob;
         this.passwordHash = passwordHash;
         this.createdAt = createdAt;
         this.role = role;
+    }
+
+    public LocalDate getDob() {
+        return dob;
+    }
+
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
     }
 
     public int getUserId() {
@@ -115,13 +129,13 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof User)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return userId == user.userId && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(address, user.address) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(email, user.email) && Objects.equals(passwordHash, user.passwordHash) && role == user.role && Objects.equals(createdAt, user.createdAt);
+        return userId == user.userId && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(address, user.address) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(email, user.email) && Objects.equals(passwordHash, user.passwordHash) && Objects.equals(dob, user.dob) && role == user.role && Objects.equals(createdAt, user.createdAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, firstName, lastName, address, phoneNumber, email, passwordHash, role, createdAt);
+        return Objects.hash(userId, firstName, lastName, address, phoneNumber, email, passwordHash, dob, role, createdAt);
     }
 }

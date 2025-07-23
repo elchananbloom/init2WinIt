@@ -4,6 +4,8 @@ import bank.data.UserRepository;
 import bank.models.Role;
 import bank.models.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
@@ -34,7 +36,7 @@ class UserControllerTest {
 
     @Test
     void findByShouldReturn200() throws Exception {
-        User user = new User(1, "Guy", "One", "123 Street", "1234567890", "test1@example.com", "ABCDEF", LocalDate.parse("2025-01-01"), Role.ADMIN);
+        User user = new User(1, "Guy", "One", "123 Street", "1234567890", "test1@example.com",LocalDate.parse("2000-01-01"), "ABCDEF", LocalDate.parse("2025-01-01"), Role.ADMIN);
 
         var req = get("/api/user/1");
         when(repository.findById(1)).thenReturn(user);
@@ -50,6 +52,7 @@ class UserControllerTest {
         user.setAddress("address");
         user.setEmail("email@gmail.com");
         user.setPhoneNumber("9991234567");
+        user.setDob(LocalDate.parse("2000-01-01"));
         user.setPasswordHash("passwordHash");
         user.setRole(Role.USER);
 
@@ -59,12 +62,15 @@ class UserControllerTest {
         expected.setLastName("lastName2");
         expected.setAddress("address");
         expected.setEmail("email@gmail.com");
+        expected.setDob(LocalDate.parse("2000-01-01"));
         expected.setPhoneNumber("9991234567");
         expected.setPasswordHash("passwordHash");
         expected.setRole(Role.USER);
 
 
         ObjectMapper jsonMapper = new ObjectMapper();
+        jsonMapper.registerModule(new JavaTimeModule());
+        jsonMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
         String userJson = jsonMapper.writeValueAsString(user);
 
@@ -90,6 +96,7 @@ class UserControllerTest {
         user.setAddress("address");
         user.setEmail("email@gmail.com");
         user.setPhoneNumber("9991234567");
+        user.setDob(LocalDate.parse("2000-01-01"));
         user.setPasswordHash("passwordHash");
         user.setRole(Role.USER);
 
@@ -99,6 +106,7 @@ class UserControllerTest {
         expected.setLastName("lastName2");
         expected.setAddress("address");
         expected.setEmail("email@gmail.com");
+        expected.setDob(LocalDate.parse("2000-01-01"));
         expected.setPhoneNumber("9991234567");
         expected.setPasswordHash("passwordHash");
         expected.setRole(Role.USER);

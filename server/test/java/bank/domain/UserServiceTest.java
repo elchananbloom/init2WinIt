@@ -27,7 +27,7 @@ class UserServiceTest {
 
     @Test
     void findUserById() {
-        User user = new User(1, "firstName", "lastName", "address", "9991234567", "email@gmail.com", "passwordHash", LocalDate.now()
+        User user = new User(1, "firstName", "lastName", "address", "9991234567", "email@gmail.com",LocalDate.parse("2000-02-02"), "passwordHash", LocalDate.now()
                 , Role.USER);
 
         when(repository.findById(1)).thenReturn(user);
@@ -45,12 +45,13 @@ class UserServiceTest {
         user.setAddress("address");
         user.setEmail("email@gmail.com");
         user.setPhoneNumber("9991234567");
+        user.setDob(LocalDate.parse("2000-02-02"));
         user.setPasswordHash("passwordHash");
         user.setCreatedAt(LocalDate.now());
         user.setRole(Role.USER);
 
 
-        User expected = new User(2, "firstName2", "lastName2", "address", "9991234567", "email@gmail.com", "passwordHash", LocalDate.now()
+        User expected = new User(2, "firstName2", "lastName2", "address", "9991234567", "email@gmail.com",LocalDate.parse("2000-02-02"), "passwordHash", LocalDate.now()
                 , Role.USER);
 
         when(repository.addUser(user)).thenReturn(expected);

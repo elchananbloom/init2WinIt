@@ -52,7 +52,7 @@ function Account() {
     <Page>
         {account && <>
       <div className="container">
-        <h1>Here is Account</h1>
+        <h1>Account {account.accountNumber}</h1>
         <div id="top-half">
           <div className="balance">
             <h2>Current Balance</h2>

@@ -2,6 +2,7 @@ package bank.data;
 
 import bank.models.Account;
 import bank.models.AccountType;
+import bank.models.Loan;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,13 @@ class AccountJdbcTemplateRepositoryTest {
         List<Account> accounts = repository.findByUserId(2);
         assertEquals(AccountType.CHECKING, accounts.get(0).getAccountType());
         assertEquals(1, accounts.size());
+    }
+
+    @Test
+    void shouldUpdate() {
+        Account account = new Account(4, AccountType.SAVINGS, new BigDecimal("3000.00"), "12345634", LocalDate.of(2025, 1, 1), 1);
+        account.setAccountId(2);
+        assertTrue(repository.update(account));
     }
 
     @Test

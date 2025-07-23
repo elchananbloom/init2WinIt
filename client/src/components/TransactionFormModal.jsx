@@ -21,15 +21,18 @@ function TransactionFormModal({id, handleShowModal, transactionType, fetchTransa
     fetch(urlAccount + id)
       .then((response) => {
         if (response.status === 200) {
+          console.log('hi');
           return response.json();
         } else {
           return Promise.reject(`Unexpected Status Code: ${response.status}`);
         }
       })
-      .then((data) => setAccount(data))
+      .then((data) => {setAccount(data)
+      console.log(data);
+      
+      })
       .catch(console.log);
   }, []);
-
   useEffect(() => {
     fetch(urlCategories)
       .then((response) => {
@@ -52,7 +55,44 @@ function TransactionFormModal({id, handleShowModal, transactionType, fetchTransa
   const handleSubmit = (event) => {
     event.preventDefault();
     handleAdd();
+    updateAccount();
   };
+
+  const updateAccount = () => {
+
+    account.accountId = id;
+    const init = {
+        method: "PUT",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(account)
+    }
+    fetch(`${urlAccount}/${id}`, init)
+        .then(response => {
+            if(response.status === 204){
+                return null;
+            } else if (response.status === 400){
+                return response.json();
+            } else {
+                return Promise.reject(`Unexpected Status Code: ${response.status}`);
+            }
+        })
+        .then(data => {
+            if(data) {  
+                setErrors(data);
+            }
+        })
+        .catch(console.log)
+  };
+
+  const handleAccountTransaction = () => {
+    if(transactionType != null && transactionType == "DEPOSIT"){
+        account.balance += Number(transaction.amount);
+      } else {
+        account.balance -= Number(transaction.amount);
+      }
+};
 
   const handleAdd = () => {
       if(transactionType != null && transactionType == "DEPOSIT"){
@@ -79,7 +119,9 @@ function TransactionFormModal({id, handleShowModal, transactionType, fetchTransa
       .then((data) => {
         if (data.transactionId) {
           fetchTransactions();
-          //accountHandleTransaction();
+          console.log(account);
+          handleAccountTransaction();
+          updateAccount();
           handleShowModal(false);
         } else {
           setErrors(data);

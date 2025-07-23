@@ -20,6 +20,10 @@ function Account() {
   const urlTransactions = "http://localhost:8080/api/transaction?accountId=";
 
   useEffect(() => {
+    fetchAccount();
+  }, []);
+
+  const fetchAccount = () => {
     fetch(urlAccount + id)
       .then((response) => {
         if (response.status === 200) {
@@ -30,7 +34,7 @@ function Account() {
       })
       .then((data) => setAccount(data))
       .catch(console.log);
-  }, []);
+  }
 
   function fetchTransactions(){
     fetch(urlTransactions + id)
@@ -91,7 +95,7 @@ function Account() {
           onClose={() => setShowModal(false)}
           title={type}
         >
-          <TransactionFormModal id={id} handleShowModal={handleShowModal} transactionType={type} fetchTransactions={fetchTransactions}></TransactionFormModal>
+          <TransactionFormModal id={id} handleShowModal={handleShowModal} transactionType={type} fetchTransactions={fetchTransactions} fetchAccount={fetchAccount}></TransactionFormModal>
         </Modal>
         
       </div>

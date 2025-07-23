@@ -40,6 +40,8 @@ const UserSideBar = () => {
 
     return (
         <>
+            <Link to={`/user/${user.userId}`} className="btn btn-light mb-3 text-left">Account</Link>
+
             Accounts
             {accounts.map(acc => {
                 return (

@@ -59,6 +59,23 @@ public class UserController {
         }
     }
 
+    @PutMapping("/{userId}")
+    public ResponseEntity<Object> updateUser(@PathVariable int userId, @RequestBody @Valid User user, BindingResult bindingResult){
+        if (userId != user.getUserId()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        if(bindingResult.hasErrors()){
+            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+        Result<User> result = service.updateUser(user);
+        if(result.isSuccess()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        else{
+            return ErrorResponse.build(result);
+        }
+    }
+
 //    @PostMapping("/authenticate")
 //    public ResponseEntity<Object> authenticate(@RequestBody Map<String, String> credentials) {
 //        System.out.println(credentials);

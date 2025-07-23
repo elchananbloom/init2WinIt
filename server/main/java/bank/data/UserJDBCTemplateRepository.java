@@ -82,4 +82,21 @@ public class UserJDBCTemplateRepository implements UserRepository{
         user.setUserId(keyHolder.getKey().intValue());
         return user;
     }
+
+    @Override
+    public boolean update(User user) {
+        final String sql = "update user set " +
+                "first_name = ?, " +
+                "last_name = ?, " +
+                "phone_number = ?, " +
+                "address = ? " +
+                "where user_id = ?;";
+
+        return jdbcTemplate.update(sql,
+                user.getFirstName(),
+                user.getLastName(),
+                user.getPhoneNumber(),
+                user.getAddress(),
+                user.getUserId()) > 0;
+    }
 }

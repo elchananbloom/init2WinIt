@@ -2,6 +2,8 @@ package bank.controllers;
 
 
 import bank.domain.UserStatisticsService;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +13,8 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000"})
-@RequestMapping("/api/statistics/user")
+@RequestMapping("api/statistics/user")
+@ImportAutoConfiguration(exclude = { SecurityAutoConfiguration.class })
 public class UserStatisticsController {
 
     private UserStatisticsService service;

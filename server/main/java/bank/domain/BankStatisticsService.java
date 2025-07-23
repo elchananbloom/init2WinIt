@@ -12,7 +12,7 @@ import java.util.Map;
 @Service
 public class BankStatisticsService {
 
-    private BankStatisticsRepository repository;
+    private final BankStatisticsRepository repository;
 
     public BankStatisticsService(BankStatisticsRepository bankStatisticsRepository){
         this.repository = bankStatisticsRepository;

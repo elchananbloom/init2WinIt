@@ -7,13 +7,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.bind.annotation.*;
+
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000"})
-@RequestMapping("api/statistic/bank")
+@RequestMapping("api/statistics/bank")
 public class BankStatisticsController {
 
     BankStatisticsService service;
@@ -22,7 +25,7 @@ public class BankStatisticsController {
         service = bankStatisticsService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public Map<String, BigDecimal> getTotalTransactionsPerTransactionType(){
         return service.getTotalTransactionsPerTransactionType();
     }

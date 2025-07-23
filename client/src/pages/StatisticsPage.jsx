@@ -7,6 +7,7 @@ import CategoryTransactions from "../components/statistics/CategoryTransactions"
 import UserTransactionCategories from "../components/statistics/UserTransactionCategories";
 import Page from "../components/Page";
 import TotalBalanceAcrossAccounts from "../components/statistics/TotalBalanceAcrossAccounts";
+import AmountSpentByCategoryForAccount from "../components/statistics/AmountSpentByCategoryForAccount";
 
 
 
@@ -19,6 +20,7 @@ const StatisticsPage = () => {
         <CategoryTransactions/>
         <UserTransactionCategories/>
         <TotalBalanceAcrossAccounts/>
+        <AmountSpentByCategoryForAccount accountId={1}/>
 
     
 

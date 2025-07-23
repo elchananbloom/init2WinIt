@@ -138,3 +138,20 @@ insert into `transaction` values
 end //
 
 delimiter ;
+
+
+
+create view user_transactions as
+select u.user_id, u.first_name, u.last_name, acc.account_id, t.loan_id, t.transaction_id, acc.`type` account_type, t.amount transaction_amount, t.`type` transaction_type, tc.`name` transaction_category, t.transaction_date, year(t.transaction_date) `transaction_year`, month(t.transaction_date) `transaction_month`, (quarter(t.transaction_date)) `transaction_quarter`
+from `user` u
+inner join `account` acc
+on u.user_id = acc.user_id
+inner join `transaction` t
+on t.account_id = acc.account_id
+inner join transaction_category tc
+on tc.transaction_category_id = t.transaction_category_id;
+
+
+create view bank_transactions as
+select t.amount, year(t.transaction_date) `year`, month(t.transaction_date) `month` , quarter(t.transaction_date) `quarter`, t.`type`
+from `transaction` t; 

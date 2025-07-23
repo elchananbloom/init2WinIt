@@ -90,20 +90,26 @@ values
 ('Auto'),
 ('Auto Refinance');
 
--- set sql_safe_update = 0;
--- delete from `account`;
--- alter table `account` auto_increment = 1;
--- delete from loan;
--- alter table loan auto_increment = 1;
--- delete from `user`;
--- alter table `user` auto_increment = 1;
--- delete from loan_type;
--- alter table loan_type auto_increment = 1;
--- delete from `transaction`;
--- alter table `transaction` auto_increment = 1;
--- delete from transaction_category;
--- alter table transaction_category auto_increment = 1;
--- set sql_safe_update = 1;
+
+
+
+create view user_transactions as
+select u.user_id, u.first_name, u.last_name, acc.account_id, t.loan_id, t.transaction_id, acc.`type` account_type, t.amount transaction_amount, t.`type` transaction_type, tc.`name` transaction_category, t.transaction_date, year(t.transaction_date) `transaction_year`, month(t.transaction_date) `transaction_month`, (quarter(t.transaction_date)) `transaction_quarter`
+from `user` u
+inner join `account` acc
+on u.user_id = acc.user_id
+inner join `transaction` t
+on t.account_id = acc.account_id
+inner join transaction_category tc
+on tc.transaction_category_id = t.transaction_category_id;
+
+
+create view bank_transactions as
+select t.amount, year(t.transaction_date) `year`, month(t.transaction_date) `month` , quarter(t.transaction_date) `quarter`, t.`type`
+from `transaction` t;
+
+
+
 
 insert into user(user_id, first_name, last_name, address, phone_number, email, password_hash, created_at, role)
 values 
@@ -143,3 +149,4 @@ insert into `transaction` values
 (2, 120.00, 'LOAN', '2025-01-23', null, 1, 2, 1),
 (3, 50.00, 'DEPOSIT', '2025-03-23', 'got paid', 2, 3, null);
 	
+

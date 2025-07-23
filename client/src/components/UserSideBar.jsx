@@ -6,7 +6,7 @@ import Modal from "./Modal";
 
 const url = 'http://localhost:8080/api/';
 
-const UserSideBar = ({ loans }) => {
+const UserSideBar = ({ loans, fetchLoans }) => {
     const [accounts, setAccounts] = useState([]);
     // const [loans, setLoans] = useState([]);
     const user = useContext(UserContext);
@@ -78,6 +78,27 @@ const UserSideBar = ({ loans }) => {
 
     }
 
+    const deleteLoan = (loanId) => {
+        const options = {
+            method: 'DELETE'
+        };
+        fetch(`${url}loan/${loanId}`, options)
+            .then(response => {
+                if (response.status === 204) {
+                    fetchLoans();
+                } else {
+                    return Promise.reject(`Unexpected Error, Status Code: ${response.status}`);
+                }
+            })
+            .catch(console.log);
+    }
+
+    const handleDelete = (loanId) => {
+        if (window.confirm(`Are you sure you want to delete Loan: ${loanId}?`)) {
+            deleteLoan(loanId);
+        }
+    }
+
 
     return (
         <>
@@ -91,8 +112,18 @@ const UserSideBar = ({ loans }) => {
             })}
             Loans
             {loans.map(loan => {
+                console.log(loan)
                 return (
-                    <Link to={`/loan/${loan.loanId}`} className="btn btn-light mb-3 text-left">{loan.loanType.loanTypeName}</Link>
+                    <>{loan.status !== 'REJECTED' && <><Link to={`/loan/${loan.loanId}`}
+                        className={`btn btn-light mb-3 text-left ${loan.status === 'IN_PROGRESS' ? 'disabled' : ''}`}
+                        aria-disabled={loan.status === 'IN_PROGRESS'}
+                        tabIndex={loan.status === 'IN_PROGRESS' ? -1 : 0}>
+                        {loan.loanType.loanTypeName}
+                    </Link>
+                        {loan.status === 'IN_PROGRESS' && <button onClick={() => handleDelete(loan.loanId)}>Delete</button>}
+                    </>
+                    }
+                    </>
                 )
             })}
             <Link to={`/user/${user.userId}/loan/new`} className="btn btn-light mt-5 mb-3 text-left">Add Loan</Link>

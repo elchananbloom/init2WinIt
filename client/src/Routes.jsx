@@ -45,7 +45,7 @@ const AppRoutes = () => {
     const shouldShowSidebar = user && !isEditUserPage;
     return (
         <>
-            {shouldShowSidebar && <SideBar loans={loans} />}
+            {shouldShowSidebar && <SideBar loans={loans} fetchLoans={fetchLoans}/>}
             <Routes>
                 <Route path='/' element={<></>} />
                 <Route path='/login' element={<></>} />

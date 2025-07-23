@@ -2,13 +2,14 @@ import { useContext } from 'react';
 import { Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom';
 import UserContext from './contexts/UserContext';
 import SideBar from './components/SideBar';
-import Account from './components/Account';
 import StatisticsPage from './pages/StatisticsPage';
 import LoansPage from './pages/LoansPage';
 import CategoriesPage from './pages/CategoriesPage';
 import AdminAccountsPage from './pages/AdminAccountsPage';
 import SignUp from './components/SignUp';
 import UserPage from './pages/UserPage';
+import AccountPage from './pages/AccountPage';
+import LoanPage from './pages/LoanPage';
 
 const AppRoutes = () => {
     const user = useContext(UserContext);
@@ -27,9 +28,9 @@ const AppRoutes = () => {
                 <Route path='/user/:id/edit' element={<SignUp />} />
                 <Route path='/user/:id' element={<UserPage />} />
                 <Route path='account/new' element={<></>} />
-                <Route path='/account/:id' element={<Account />} />
+                <Route path='/account/:id' element={<AccountPage />} />
                 <Route path='/loan/new' element={<></>} />
-                <Route path='/loan/:id' element={<></>} />
+                <Route path='/loan/:id' element={<LoanPage/>} />
                 {user && user.role === 'ADMIN' &&
                     <>
                         <Route path='/admin/statistics' element={<StatisticsPage />} />

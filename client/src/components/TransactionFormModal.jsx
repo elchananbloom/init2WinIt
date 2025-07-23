@@ -1,37 +1,36 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-  const DEFAULT_TRANSACTION = {
+const DEFAULT_TRANSACTION = {
   transactionId: 0,
   amount: 0.0,
   description: ""
 };
 
-function TransactionFormModal({id, handleShowModal, transactionType, fetchTransactions, fetchAccount}) {
+function TransactionFormModal({ loanTrueAccountFalse, id, handleShowModal, transactionType, handleFetch }) {
   const [transaction, setTransaction] = useState(DEFAULT_TRANSACTION);
   const [errors, setErrors] = useState([]);
-  const [account, setAccount] = useState();
   const [transactionCategories, setTransactionCategories] = useState([]);
 
   const urlTransaction = "http://localhost:8080/api/transaction";
-  const urlAccount = "http://localhost:8080/api/account/";
+  // const urlAccount = "http://localhost:8080/api/account/";
   const urlCategories = "http://localhost:8080/api/transaction/category";
 
-  useEffect(() => {
-    fetch(urlAccount + id)
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          return Promise.reject(`Unexpected Status Code: ${response.status}`);
-        }
-      })
-      .then((data) => {setAccount(data)
-      console.log(data);
-      
-      })
-      .catch(console.log);
-  }, []);
+  // useEffect(() => {
+  //   fetch(urlAccount + id)
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         return response.json();
+  //       } else {
+  //         return Promise.reject(`Unexpected Status Code: ${response.status}`);
+  //       }
+  //     })
+  //     .then((data) => {setAccount(data)
+  //     console.log(data);
+
+  //     })
+  //     .catch(console.log);
+  // }, []);
   useEffect(() => {
     fetch(urlCategories)
       .then((response) => {
@@ -42,36 +41,32 @@ function TransactionFormModal({id, handleShowModal, transactionType, fetchTransa
         }
       })
       .then((data) => {
-        const newTransaction = {...DEFAULT_TRANSACTION};
+        const newTransaction = { ...DEFAULT_TRANSACTION };
         newTransaction.transactionCategory = data[1];
         setTransaction(newTransaction);
-        setTransactionCategories(data)})
+        setTransactionCategories(data)
+      })
       .catch(console.log);
   }, []);
 
-  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     handleAdd();
   };
 
-
-  const handleAccountTransaction = () => {
-    if(transactionType != null && transactionType == "DEPOSIT"){
-        account.balance += Number(transaction.amount);
-      } else {
-        account.balance -= Number(transaction.amount);
-      }
-};
-
   const handleAdd = () => {
-      if(transactionType != null && transactionType == "DEPOSIT"){
-        transaction.type = "DEPOSIT";
-      } else {
-        transaction.type = "WITHDRAWAL";
-      }
+    if (transactionType != null && transactionType == "DEPOSIT") {
+      transaction.type = "DEPOSIT";
+    } else {
+      transaction.type = "WITHDRAWAL";
+    }
+    if (loanTrueAccountFalse) {
+      transaction.loanId = id;
+
+    } else {
       transaction.accountId = id;
+    }
     const init = {
       method: "POST",
       headers: {
@@ -89,10 +84,7 @@ function TransactionFormModal({id, handleShowModal, transactionType, fetchTransa
       })
       .then((data) => {
         if (data.transactionId) {
-          fetchTransactions();
-          console.log(account);
-          handleAccountTransaction();
-          fetchAccount();
+          handleFetch();
           handleShowModal(false);
         } else {
           setErrors(data);
@@ -100,12 +92,12 @@ function TransactionFormModal({id, handleShowModal, transactionType, fetchTransa
         }
       })
       .catch(console.log);
-      
+
   };
 
   const handleChange = (event) => {
-    const newTransaction = {...transaction};
-    if (event.target.name === "category"){
+    const newTransaction = { ...transaction };
+    if (event.target.name === "category") {
       const tc = transactionCategories.find(tc => tc.transactionCategoryName === event.target.value);
       newTransaction.transactionCategory = tc;
       console.log(tc);
@@ -113,22 +105,22 @@ function TransactionFormModal({id, handleShowModal, transactionType, fetchTransa
       newTransaction[event.target.name] = event.target.value;
     }
     console.log(newTransaction);
-  
+
     setTransaction(newTransaction);
   };
 
   return (
     <>
       {errors.length > 0 && (
-          <div className="alert alert-danger">
-            <p>The following errors were found:</p>
-            <ul>
-             {errors.map((error) => (
-                <li key={error}>{error}</li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <div className="alert alert-danger">
+          <p>The following errors were found:</p>
+          <ul>
+            {errors.map((error) => (
+              <li key={error}>{error}</li>
+            ))}
+          </ul>
+        </div>
+      )}
       <form id="form" className="form-col" onSubmit={handleSubmit}>
         <fieldset className="form-group">
           <label htmlFor="amount" >Amount</label>
@@ -143,26 +135,26 @@ function TransactionFormModal({id, handleShowModal, transactionType, fetchTransa
             required
           />
         </fieldset>
-        {transaction.transactionCategory && 
-        <fieldset className="form-group">
-          <label htmlFor="amount">Category</label>
-          <select
-            id="category"
-            name="category"
-            className="form-control"
-            value={transaction.transactionCategory.transactionCategoryName}
-            onChange={handleChange}
-          >
-           {transactionCategories.map((transactionc) => (
+        {transaction.transactionCategory &&
+          <fieldset className="form-group">
+            <label htmlFor="amount">Category</label>
+            <select
+              id="category"
+              name="category"
+              className="form-control"
+              value={transaction.transactionCategory.transactionCategoryName}
+              onChange={handleChange}
+            >
+              {transactionCategories.map((transactionc) => (
 
-            <option>{transactionc.transactionCategoryName}</option>
+                <option>{transactionc.transactionCategoryName}</option>
 
-           ))}
-          </select>
-        </fieldset>}
-           <fieldset>
-            <label htmlFor="description">Description</label>
-            <textarea onChange={handleChange} className="form-control" type="text" name="description"/>
+              ))}
+            </select>
+          </fieldset>}
+        <fieldset>
+          <label htmlFor="description">Description</label>
+          <textarea onChange={handleChange} className="form-control" type="text" name="description" />
         </fieldset>
 
         <button className=" m-1 btn btn-primary" id="submit-form" type="submit">

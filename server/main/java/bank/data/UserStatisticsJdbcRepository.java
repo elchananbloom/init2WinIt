@@ -65,4 +65,22 @@ public class UserStatisticsJdbcRepository implements UserStatisticsRepository{
         return jdbcTemplate.queryForObject(sql , BigDecimal.class, userId);
 
     }
+
+    @Override
+    public Map<String, BigDecimal> getLoanBalanceOverTime(int loanId) {
+        String sql = "select loan_balance `value`, date_format(transaction_date, '%Y-%m-%d') label " +
+                "from user_transactions " +
+                "where loan_id = ? " +
+                "order by transaction_date asc;";
+
+
+        List<Map<String, BigDecimal>> res = jdbcTemplate.query(sql, new UserStatisticsMapper(), loanId);
+
+        Map<String, BigDecimal> concatResult = new HashMap<>();
+
+        res.stream().forEach(concatResult::putAll);
+
+        return concatResult;
+
+    }
 }

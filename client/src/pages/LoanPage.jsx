@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Transactions from "../components/Transactions";
 import TransactionFormModal from "../components/TransactionFormModal";
 import Modal from "../components/Modal";
+import LoanBalanceOverTime from "../components/statistics/LoanBalanceOverTime";
 
 const url = "http://localhost:8080/api";
 
@@ -68,9 +69,10 @@ const LoanPage = () => {
                         {loan.dateDue}
                     </p>
                     <p>
-
                         ${loan.balance}
                     </p>
+                    <LoanBalanceOverTime loanId={id} loanBalance={loan.balance}/>
+
                 </div>
                 <Transactions transactions={transactions} />
                 <div>

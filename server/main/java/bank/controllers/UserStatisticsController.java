@@ -38,5 +38,10 @@ public class UserStatisticsController {
         return service.getAmountSpentByCategoryForAccount(accountId);
     }
 
+    @GetMapping("/loan/{loanId}")
+    public Map<String, BigDecimal> getLoanBalanceOverTime(@PathVariable int loanId){
+        return service.getLoanBalanceOverTime(loanId);
+    }
+
 
 }

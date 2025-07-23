@@ -13,24 +13,8 @@ function TransactionFormModal({ loanTrueAccountFalse, id, handleShowModal, trans
   const [transactionCategories, setTransactionCategories] = useState([]);
 
   const urlTransaction = "http://localhost:8080/api/transaction";
-  // const urlAccount = "http://localhost:8080/api/account/";
   const urlCategories = "http://localhost:8080/api/transaction/category";
 
-  // useEffect(() => {
-  //   fetch(urlAccount + id)
-  //     .then((response) => {
-  //       if (response.status === 200) {
-  //         return response.json();
-  //       } else {
-  //         return Promise.reject(`Unexpected Status Code: ${response.status}`);
-  //       }
-  //     })
-  //     .then((data) => {setAccount(data)
-  //     console.log(data);
-
-  //     })
-  //     .catch(console.log);
-  // }, []);
   useEffect(() => {
     fetch(urlCategories)
       .then((response) => {
@@ -137,7 +121,7 @@ function TransactionFormModal({ loanTrueAccountFalse, id, handleShowModal, trans
         </fieldset>
         {transaction.transactionCategory &&
           <fieldset className="form-group">
-            <label htmlFor="amount">Category</label>
+            <label htmlFor="category">Category</label>
             <select
               id="category"
               name="category"

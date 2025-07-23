@@ -23,7 +23,7 @@ function AccountPage() {
 
   useEffect(() => {
     fetchAccount();
-  }, []);
+  }, [id]);
 
   const fetchAccount = () => {
     fetch(urlAccount + id)
@@ -52,7 +52,7 @@ function AccountPage() {
   
   }
   useEffect(() => {fetchTransactions()
-    }, []);
+    }, [id]);
 
     const handleFetch = () => {
       fetchAccount();

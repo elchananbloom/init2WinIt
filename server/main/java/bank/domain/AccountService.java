@@ -10,6 +10,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 @Service
@@ -81,7 +82,8 @@ public class AccountService {
         return res;
     }
     public Account generateAccountNumber(Account account){
-        account.setAccountNumber(String.valueOf(account.getUserId()) + String.valueOf(account.getAccountId()) + String.valueOf(LocalDate.now().getYear()));
+        Random rand = new Random();
+        account.setAccountNumber(String.valueOf(account.getUserId()) + String.valueOf(LocalDate.now().getYear()) + String.valueOf(rand.nextInt(5000)));
         return account;
     }
 

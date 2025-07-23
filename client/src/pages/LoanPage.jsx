@@ -54,7 +54,7 @@ const LoanPage = () => {
 
     useEffect(() => {
         handleFetch();
-    }, [])
+    }, [id])
 
     const handleFetch = () => {
         fetchLoan();

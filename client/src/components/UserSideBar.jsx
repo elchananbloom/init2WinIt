@@ -6,15 +6,20 @@ import Modal from "./Modal";
 
 const url = 'http://localhost:8080/api/';
 
-const UserSideBar = ({loans}) => {
+const UserSideBar = ({ loans }) => {
     const [accounts, setAccounts] = useState([]);
     // const [loans, setLoans] = useState([]);
     const user = useContext(UserContext);
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
+    const [accountType, setAccountType] = useState('CHECKING');
 
+    const handleShowModal = (show) => {
+        console.log(show)
+        setShowModal(show);
+    };
 
-
-    useEffect(() => {
+    const fetchAccounts = () => {
         fetch(`${url}/account?userId=${user.userId}`)
             .then(res => {
                 if (res.status === 200) {
@@ -27,24 +32,51 @@ const UserSideBar = ({loans}) => {
             .then(data => {
                 setAccounts(data);
             });
-        
+
+    }
+
+
+    useEffect(() => {
+        fetchAccounts();
     }, []);
 
-    // const fetchLoans = () => {
-    //     fetch(`${url}/loan?userId=${user.userId}`)
-    //         .then(res => {
-    //             if (res.status === 200) {
-    //                 return res.json();
-    //             }
-    //             if (res.status === 403) {
-    //                 navigate('/login');
-    //             }
-    //         })
-    //         .then(data => {
-    //             setLoans(data);
-    //         });
-    // }
+    const handleChange = (event) => {
+        setAccountType(event.target.value);
+    }
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const account = {
+            accountType: accountType,
+            balance: 0,
+            userId: user.userId
+        };
+        const init = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(account),
+        };
+        fetch(`${url}account`, init)
+            .then((response) => {
+                if (response.status === 201 || response.status === 400) {
+                    return response.json();
+                } else {
+                    return Promise.reject(`Unexpected Status Code: ${response.status}`);
+                }
+            })
+            .then((data) => {
+                if (data.accountId) {
+                    setShowModal(false);
+                    fetchAccounts();
+                } else {
+
+                }
+            })
+            .catch(console.log);
+
+    }
 
 
     return (
@@ -64,9 +96,36 @@ const UserSideBar = ({loans}) => {
                 )
             })}
             <Link to={`/user/${user.userId}/loan/new`} className="btn btn-light mt-5 mb-3 text-left">Add Loan</Link>
-            
-            <Link to={`/account/new`} className="btn btn-light mb-3 text-left">Add Account</Link>
 
+            <button onClick={() => handleShowModal(true)} className="btn btn-light mb-3 text-left">Add Account</button>
+
+            {showModal && <form id="form" className="form-col" onSubmit={handleSubmit}>
+
+                <fieldset className="form-group">
+                    <label htmlFor="loanType">Type</label>
+                    <select
+                        id="loanType"
+                        name="loanType"
+                        className="form-control"
+                        value={accountType}
+                        onChange={handleChange}
+                    >
+                        <option>CHECKING</option>
+                        <option>SAVINGS</option>
+
+                    </select>
+                </fieldset>
+                <button className=" m-1 btn btn-primary" id="submit-form" type="submit">
+                    Create an Account
+                </button>
+                <button
+                    onClick={() => setShowModal(false)}
+                    className="m-1 btn btn-danger"
+                    type="button"
+                >
+                    Cancel
+                </button>
+            </form>}
         </>
     );
 }

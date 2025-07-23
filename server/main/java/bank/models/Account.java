@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @NotNull(message = "Account cannot be null")
 public class Account {
-    @NotNull(message="accountId cannot be null")
+
     private int accountId;
     private String accountNumber;
     @NotNull(message ="Account type cannot be null")

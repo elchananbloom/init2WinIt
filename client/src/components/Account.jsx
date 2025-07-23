@@ -6,18 +6,23 @@ import TransactionFormModal from "./TransactionFormModal";
 
 function Account() {
   const [transactions, setTransactions] = useState([]);
+  const [loans, setLoans] = useState([]);
   const [account, setAccount] = useState();
   const { id } = useParams();
-  const [showModal, setShowModal] = useState(false);
-  const [type, setType] = useState("");
+  const [showModal1, setShowModal1] = useState(false);
+  const [showModal2, setShowModal2] = useState(false);  const [type, setType] = useState("");
 
-  const handleShowModal = (show, type) => {
+  const handleShowModal1 = (show, type) => {
       setType(type);
-      setShowModal(show);
+      setShowModal1(show);
   };
 
+  const handleShowModal2  = (show) => {
+    setShowModal2(show);
+  }
   const urlAccount = "http://localhost:8080/api/account/";
   const urlTransactions = "http://localhost:8080/api/transaction?accountId=";
+  const urlLoans = "http://localhost:8080/api/loan?userId="
 
   useEffect(() => {
     fetchAccount();
@@ -51,6 +56,25 @@ function Account() {
   }
   useEffect(() => {fetchTransactions()
     }, []);
+  // function fetchLoans(){
+  //     fetch(urlLoans + account.userId)
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         return response.json();
+  //       } else {
+  //         return Promise.reject(`Unexpected Status Code: ${response.status}`);
+  //       }
+  //     })
+  //     .then((data) => {setLoans(data)
+  //       console.log(data);
+        
+  //     })
+  //     .catch(console.log);
+  
+  // }
+
+  // useEffect(() => {fetchLoans()
+  //   }, [account]);
 
   return (
     <Page>
@@ -87,17 +111,23 @@ function Account() {
         </table>
       </div>
       <div>
-        <button onClick={() => handleShowModal(true, "DEPOSIT")} className="btn btn-outline-dark mr-2">Deposit</button>
-        <button onClick={() => handleShowModal(true, "WITHDRAWAL")} className="btn btn-outline-dark mr-2">Withdrawal</button>
-        <button onClick={() => handleShowModal(true)} className="btn btn-outline-dark mr-2">Request a Loan</button>
+        <button onClick={() => handleShowModal1(true, "DEPOSIT")} className="btn btn-outline-dark mr-2">Deposit</button>
+        <button onClick={() => handleShowModal1(true, "WITHDRAWAL")} className="btn btn-outline-dark mr-2">Withdrawal</button>
+        <button onClick={() => handleShowModal2(true)} className="btn btn-outline-dark mr-2">Request a Loan</button>
         <Modal
-          show={showModal}
-          onClose={() => setShowModal(false)}
+          show={showModal1}
+          onClose={() => setShowModal1(false)}
           title={type}
         >
-          <TransactionFormModal id={id} handleShowModal={handleShowModal} transactionType={type} fetchTransactions={fetchTransactions} fetchAccount={fetchAccount}></TransactionFormModal>
+          <TransactionFormModal id={id} handleShowModal={handleShowModal1} transactionType={type} fetchTransactions={fetchTransactions} fetchAccount={fetchAccount}></TransactionFormModal>
         </Modal>
-        
+            <Modal
+              show={showModal2}
+              onClose={() => setShowModal2(false)}
+              title={type}
+            >
+
+            </Modal>
       </div>
       </>
       }

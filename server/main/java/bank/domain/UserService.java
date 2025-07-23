@@ -37,6 +37,30 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
+    public Result<User> updateUser(User user) {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+
+        Result<User> res = new Result<>();
+        if(violations.size() > 0){
+            violations.stream().forEach(violation -> {
+                res.addMessage(violation.getMessage(), ResultType.INVALID);
+            });
+            return res;
+        }
+        if (user.getUserId() <= 0) {
+            res.addMessage("userId cannot be set for `update` operation", ResultType.INVALID);
+            return res;
+        }
+
+        if (!repository.update(user)) {
+            String msg = String.format("userId: %s, not found", user.getUserId());
+            res.addMessage(msg, ResultType.NOT_FOUND);
+        }
+        return res;
+    }
+
     public Result<User> addUser(User user){
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();

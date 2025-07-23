@@ -7,4 +7,5 @@ public interface UserRepository {
     User findById(int userId);
     User findByEmail(String userEmail);
     User addUser(User user);
+    boolean update(User user);
 }

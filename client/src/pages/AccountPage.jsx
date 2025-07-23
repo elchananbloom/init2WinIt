@@ -1,28 +1,25 @@
-import Page from "./Page";
-import Modal from "./Modal";
+import Page from "../components/Page";
+import Modal from "../components/Modal";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import TransactionFormModal from "./TransactionFormModal";
+import TransactionFormModal from "../components/TransactionFormModal";
+import Transactions from "../components/Transactions";
 
-function Account() {
+function AccountPage() {
   const [transactions, setTransactions] = useState([]);
-  const [loans, setLoans] = useState([]);
+  const [type, setType] = useState([]);
   const [account, setAccount] = useState();
   const { id } = useParams();
   const [showModal1, setShowModal1] = useState(false);
-  const [showModal2, setShowModal2] = useState(false);  const [type, setType] = useState("");
 
   const handleShowModal1 = (show, type) => {
       setType(type);
       setShowModal1(show);
   };
 
-  const handleShowModal2  = (show) => {
-    setShowModal2(show);
-  }
+
   const urlAccount = "http://localhost:8080/api/account/";
   const urlTransactions = "http://localhost:8080/api/transaction?accountId=";
-  const urlLoans = "http://localhost:8080/api/loan?userId="
 
   useEffect(() => {
     fetchAccount();
@@ -56,25 +53,11 @@ function Account() {
   }
   useEffect(() => {fetchTransactions()
     }, []);
-  // function fetchLoans(){
-  //     fetch(urlLoans + account.userId)
-  //     .then((response) => {
-  //       if (response.status === 200) {
-  //         return response.json();
-  //       } else {
-  //         return Promise.reject(`Unexpected Status Code: ${response.status}`);
-  //       }
-  //     })
-  //     .then((data) => {setLoans(data)
-  //       console.log(data);
-        
-  //     })
-  //     .catch(console.log);
-  
-  // }
 
-  // useEffect(() => {fetchLoans()
-  //   }, [account]);
+    const handleFetch = () => {
+      fetchAccount();
+      fetchTransactions();
+    }
 
   return (
     <Page>
@@ -91,43 +74,19 @@ function Account() {
             {/* insert graph here if wanted */}
           </div>
         </div>
-        <table className="table table-dark table-striped table-hover">
-          <thead className="thead-light"> 
-            <tr>
-                <th> Category</th>
-                <th> Date</th>
-                <th> Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transactions.map((transaction) => (
-              <tr>
-                <td>{transaction.transactionCategory.transactionCategoryName}</td>
-                <td>{transaction.transactionDate}</td>
-                <td>{transaction.amount}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <Transactions transactions={transactions}/>
       </div>
       <div>
         <button onClick={() => handleShowModal1(true, "DEPOSIT")} className="btn btn-outline-dark mr-2">Deposit</button>
         <button onClick={() => handleShowModal1(true, "WITHDRAWAL")} className="btn btn-outline-dark mr-2">Withdrawal</button>
-        <button onClick={() => handleShowModal2(true)} className="btn btn-outline-dark mr-2">Request a Loan</button>
         <Modal
           show={showModal1}
           onClose={() => setShowModal1(false)}
           title={type}
         >
-          <TransactionFormModal id={id} handleShowModal={handleShowModal1} transactionType={type} fetchTransactions={fetchTransactions} fetchAccount={fetchAccount}></TransactionFormModal>
+          <TransactionFormModal loanTrueAccountFalse={false} id={id} handleShowModal={handleShowModal1} transactionType={type} handleFetch={handleFetch}></TransactionFormModal>
         </Modal>
-            <Modal
-              show={showModal2}
-              onClose={() => setShowModal2(false)}
-              title={type}
-            >
-
-            </Modal>
+            
       </div>
       </>
       }
@@ -135,4 +94,4 @@ function Account() {
   );
 }
 
-export default Account;
+export default AccountPage;

@@ -1,11 +1,20 @@
 import Page from "./Page";
+import Modal from "./Modal";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import TransactionFormModal from "./TransactionFormModal";
 
 function Account() {
   const [transactions, setTransactions] = useState([]);
   const [account, setAccount] = useState();
   const { id } = useParams();
+  const [showModal, setShowModal] = useState(false);
+  const [type, setType] = useState("");
+
+  const handleShowModal = (show, type) => {
+      setType(type);
+      setShowModal(show);
+  };
 
   const urlAccount = "http://localhost:8080/api/account/";
   const urlTransactions = "http://localhost:8080/api/transaction?accountId=";
@@ -23,7 +32,7 @@ function Account() {
       .catch(console.log);
   }, []);
 
-  useEffect(() => {
+  function fetchTransactions(){
     fetch(urlTransactions + id)
       .then((response) => {
         if (response.status === 200) {
@@ -34,7 +43,10 @@ function Account() {
       })
       .then((data) => setTransactions(data))
       .catch(console.log);
-  }, []);
+  
+  }
+  useEffect(() => {fetchTransactions()
+    }, []);
 
   return (
     <Page>
@@ -71,15 +83,17 @@ function Account() {
         </table>
       </div>
       <div>
-        <Link type="button" to={"/deposit"}>
-          Deposit
-        </Link>
-        <Link type="button" to={"/withdrawal"}>
-          Withdrawal
-        </Link>
-        <Link type="button" to={"/loan/new"}>
-          Request a Loan
-        </Link>
+        <button onClick={() => handleShowModal(true, "DEPOSIT")} className="btn btn-outline-dark mr-2">Deposit</button>
+        <button onClick={() => handleShowModal(true, "WITHDRAWAL")} className="btn btn-outline-dark mr-2">Withdrawal</button>
+        <button onClick={() => handleShowModal(true)} className="btn btn-outline-dark mr-2">Request a Loan</button>
+        <Modal
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          title={type}
+        >
+          <TransactionFormModal id={id} handleShowModal={handleShowModal} transactionType={type} fetchTransactions={fetchTransactions}></TransactionFormModal>
+        </Modal>
+        
       </div>
       </>
       }

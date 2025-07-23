@@ -24,4 +24,8 @@ public class UserStatisticsService {
     public BigDecimal getTotalAccountsBalance(int userId){
         return repository.getTotalAccountsBalance(userId);
     }
+
+    public Map<String, BigDecimal> getAmountSpentByCategoryForAccount(int accountId){
+        return repository.getAmountSpentByCategoryForAccount(accountId);
+    }
 }

@@ -51,11 +51,26 @@ class UserStatisticsServiceTest {
 
         when(repository.getTotalAccountsBalance(1)).thenReturn(expected);
 
-       BigDecimal actual = service.getTotalAccountsBalance(1);
+        BigDecimal actual = service.getTotalAccountsBalance(1);
 
 
 
         assertEquals(expected,actual);
 
+    }
+
+    @Test
+    void getAmountSpentByCategoryForAccount() {
+        Map<String, BigDecimal> row = new HashMap<>();
+        row.put("Car",new BigDecimal(200).setScale(2));
+
+
+
+        when(repository.getAmountSpentByCategoryForAccount(1)).thenReturn(row);
+
+        Map<String,BigDecimal> actual = service.getAmountSpentByCategoryForAccount(1);
+
+        assertEquals(1, actual.size());
+        assertEquals(row, actual);
     }
 }

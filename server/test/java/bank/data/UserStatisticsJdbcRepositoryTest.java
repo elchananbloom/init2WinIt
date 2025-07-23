@@ -43,7 +43,7 @@ class UserStatisticsJdbcRepositoryTest {
     @Test
     void getTotalAccountsBalance() {
 
-       BigDecimal expected = new BigDecimal(2000).setScale(2);
+        BigDecimal expected = new BigDecimal(2000).setScale(2);
 
         BigDecimal actual = repository.getTotalAccountsBalance(1);
 
@@ -51,4 +51,14 @@ class UserStatisticsJdbcRepositoryTest {
     }
 
 
+    @Test
+    void getAmountSpentByCategoryForAccount() {
+        Map<String, BigDecimal> row = new HashMap<>();
+        row.put("Car",new BigDecimal(200).setScale(2));
+
+        Map<String, BigDecimal> actual = repository.getAmountSpentByCategoryForAccount(1);
+
+        assertEquals(1, actual.size());
+        assertEquals(row,actual);
+    }
 }

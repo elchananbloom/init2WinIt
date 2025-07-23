@@ -26,7 +26,8 @@ class UserTest {
 
     @Test
     void emptyFirstNameShouldFailValidation() {
-        User user = new User(1, "", "lastName", "address", "9991234567", "email@gmail.com", "passwordHash", LocalDate.now()
+        User user = new User(1, "", "lastName", "address", "9991234567", "email@gmail.com",
+                LocalDate.parse("2000-02-02"),"passwordHash", LocalDate.now()
                 , Role.USER);
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
@@ -37,7 +38,8 @@ class UserTest {
 
     @Test
     void emptyLastNameShouldFailValidation() {
-        User user = new User(1, "firstName", "", "address", "9991234567", "email@gmail.com", "passwordHash", LocalDate.now()
+        User user = new User(1, "firstName", "", "address", "9991234567", "email@gmail.com",
+                LocalDate.parse("2000-02-02"), "passwordHash", LocalDate.now()
                 , Role.USER);
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
@@ -47,7 +49,8 @@ class UserTest {
 
     @Test
     void emptyAddressShouldFailValidation() {
-        User user = new User(1, "firstName", "", "address", "9991234567", "email@gmail.com", "passwordHash", LocalDate.now()
+        User user = new User(1, "firstName", "", "address", "9991234567", "email@gmail.com",
+                LocalDate.parse("2000-02-02"), "passwordHash", LocalDate.now()
                 , Role.USER);
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
@@ -57,7 +60,8 @@ class UserTest {
 
     @Test
     void emptyPhoneNumberShouldFailValidation() {
-        User user = new User(1, "firstName", "lastName", "address", "", "email@gmail.com", "passwordHash", LocalDate.now()
+        User user = new User(1, "firstName", "lastName", "address", "", "email@gmail.com",
+                LocalDate.parse("2000-02-02"), "passwordHash", LocalDate.now()
                 , Role.USER);
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
@@ -67,7 +71,8 @@ class UserTest {
 
     @Test
     void emptyEmailShouldFailValidation() {
-        User user = new User(1, "firstName", "lastName", "address", "9991234567", "", "passwordHash", LocalDate.now()
+        User user = new User(1, "firstName", "lastName", "address", "9991234567", "",
+                LocalDate.parse("2000-02-02"), "passwordHash", LocalDate.now()
                 , Role.USER);
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
@@ -77,7 +82,8 @@ class UserTest {
 
     @Test
     void emptyPassWordHashShouldFailValidation() {
-        User user = new User(1, "firstName", "lastName", "address", "9991234567", "email@gmail.com", "", LocalDate.now()
+        User user = new User(1, "firstName", "lastName", "address", "9991234567", "email@gmail.com",
+                LocalDate.parse("2000-02-02"), "", LocalDate.now()
                 , Role.USER);
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
@@ -86,8 +92,20 @@ class UserTest {
     }
 
     @Test
-    void emptyDateHashShouldFailValidation() {
-        User user = new User(1, "firstName", "lastName", "address", "9991234567", "email@gmail.com", "", LocalDate.now()
+    void emptyDateShouldFailValidation() {
+        User user = new User(1, "firstName", "lastName", "address", "9991234567", "email@gmail.com",
+                null, "1234", null
+                , Role.USER);
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        assertFalse(violations.isEmpty());
+    }
+
+    @Test
+    void youngerThan16ShouldFailValidation() {
+        User user = new User(1, "firstName", "lastName", "address", "9991234567", "email@gmail.com",
+                LocalDate.parse("2020-02-02"), "1234", null
                 , Role.USER);
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
@@ -97,7 +115,8 @@ class UserTest {
 
     @Test
     void nullRoleShouldFailValidation() {
-        User user = new User(1, "firstName", "lastName", "address", "9991234567", "email@gmail.com", "paswordHash", LocalDate.now()
+        User user = new User(1, "firstName", "lastName", "address", "9991234567", "email@gmail.com",
+                LocalDate.parse("2000-02-02"), "paswordHash", LocalDate.now()
                 , null);
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();

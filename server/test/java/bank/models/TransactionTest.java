@@ -37,6 +37,17 @@ class TransactionTest {
     }
 
     @Test
+    void NoAccountAndNoLoanTransactionShouldFailValidation() {
+
+        Transaction transaction = new Transaction(1, BigDecimal.valueOf(200.00), "WITHDRAWAL", LocalDate.parse("2025-01-02"), "emergency car fix", new TransactionCategory(3,"Car"),0,0);
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Transaction>> violations = validator.validate(transaction);
+        assertFalse(violations.isEmpty());
+    }
+
+    @Test
     void emptyTransactionTypeShouldFailValidation() {
 
         Transaction transaction = new Transaction(1, BigDecimal.valueOf(200.00), "", LocalDate.parse("2025-01-02"), "emergency car fix", new TransactionCategory(3,"Car"),1,0);

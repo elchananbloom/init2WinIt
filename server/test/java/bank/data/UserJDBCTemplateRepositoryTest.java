@@ -29,7 +29,7 @@ class UserJDBCTemplateRepositoryTest {
 
     @Test
     void findById() {
-        User expected = new User(1, "Guy", "One", "123 Street", "1234567890", "test1@example.com", "ABCDEF", LocalDate.parse("2025-01-01"), Role.ADMIN);
+        User expected = new User(1, "Guy", "One", "123 Street", "1234567890", "test1@example.com",LocalDate.parse("2000-01-01"), "ABCDEF", LocalDate.parse("2025-01-01"), Role.ADMIN);
         User actual = repository.findById(1);
 
         assertEquals(expected, actual);
@@ -37,7 +37,7 @@ class UserJDBCTemplateRepositoryTest {
 
     @Test
     void findByEmail() {
-        User expected = new User(2, "Person", "Two", "456 Ave", "0987654321", "test2@example.com", "ASFGR", LocalDate.parse("2025-02-02"), Role.USER);
+        User expected = new User(2, "Person", "Two", "456 Ave", "0987654321", "test2@example.com",LocalDate.parse("2000-02-02"), "ASFGR", LocalDate.parse("2025-02-02"), Role.USER);
         User actual = repository.findByEmail("test2@example.com");
 
 
@@ -54,6 +54,7 @@ class UserJDBCTemplateRepositoryTest {
             user.setEmail("newEntrytest@example.com");
             user.setAddress("456 Ave");
             user.setPhoneNumber("0987654321");
+            user.setDob(LocalDate.parse("2000-02-02"));
             user.setPasswordHash("ASFGR");
             user.setCreatedAt(LocalDate.now());
             user.setRole(Role.USER);

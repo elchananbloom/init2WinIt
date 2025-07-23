@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @NotNull(message= "Transaction must not be null")
+@TransactionRequiredLoanOrAccount()
 public class Transaction {
 
     private int transactionId;

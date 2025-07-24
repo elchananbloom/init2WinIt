@@ -26,7 +26,7 @@ public class BankStatisticsJdbcTemplateRepository implements BankStatisticsRepos
                 " where transaction_year = year(now()) and (transaction_type = 'DEPOSIT' or transaction_type = 'WITHDRAWAL') " +
                 " group by transaction_type " +
                 "        union " +
-                "        select avg(initial_amount) `value`, 'LOAN' label " +
+                "        select sum(initial_amount) `value`, 'LOAN' label " +
                 " from loan " +
                 " where year(created_at) = year(now()) and `status` = 'APPROVED';";
 

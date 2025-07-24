@@ -3,7 +3,7 @@ import { PieChart } from '@mui/x-charts/PieChart';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function AmountSpentByCategoryForAccount({ accountId }) {
+function AmountSpentByCategoryForAccount({ accountId, transactionCount }) {
     const navigate = useNavigate();
 
     const url = `http://localhost:8080/api/statistics/user/account/${accountId}`;
@@ -40,7 +40,7 @@ function AmountSpentByCategoryForAccount({ accountId }) {
 
         })
             .catch(console.log);
-    }, []);
+    }, [accountId, transactionCount]);
 
 
 

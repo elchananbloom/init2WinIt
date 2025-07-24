@@ -18,7 +18,7 @@ const LoanPage = () => {
     const [showModal, setShowModal] = useState(false);
     const { token } = useContext(TokenContext);
     const navigate = useNavigate();
-    const {appUser} = useContext(UserContext);
+    const { appUser } = useContext(UserContext);
 
     const handleShowModal = (show) => {
         console.log('here')
@@ -86,32 +86,47 @@ const LoanPage = () => {
     }
     return (
         <Page>
-            {loan && <>
-                <div>
-                    <p>
-                        {loan.dateDue}
-                    </p>
-                    <p>
-                        ${loan.balance}
-                    </p>
-                    <LoanBalanceOverTime loanId={id} loanBalance={loan.balance} />
+            {loan && (
+                <>
+                    <div className="container">
+                        <div className="row align-items-center mb-4">
+                            <div className="col-md-6">
+                                <h1>{loan.loanType.loanTypeName}</h1>
+                                <div>
+                                    <p className="mb-1"><strong>Due Date:</strong> {new Date(loan.dateDue).toLocaleDateString()}</p>
+                                    <p className="mb-1"><strong>Balance:</strong> ${parseFloat(loan.balance).toFixed(2)}</p>
+                                </div>
+                            </div>
+                            <div className="col-md-6 text-md-right mt-3 mt-md-0">
+                                <LoanBalanceOverTime loanId={id} loanBalance={loan.balance} transactionsCount={transactions.length}/>
+                            </div>
+                        </div>
 
-                </div>
-                <Transactions transactions={transactions} />
-                <div>
-                    <button onClick={() => handleShowModal(true)} className="btn btn-outline-dark mr-2">Deposit</button>
+                        <Transactions transactions={transactions} />
+
+                        <div className="floating-button shadow d-flex">
+                            <button onClick={() => handleShowModal(true)} className="btn btn-outline-dark">
+                                Deposit
+                            </button>
+                        </div>
+                    </div>
+
                     <Modal
                         show={showModal}
                         onClose={() => setShowModal(false)}
-                        title={'DEPOSIT'}
+                        title="DEPOSIT"
                     >
-                        <p></p>
-                        <TransactionFormModal loanTrueAccountFalse={true} id={loan.loanId} handleShowModal={handleShowModal} transactionType={'DEPOSIT'} handleFetch={handleFetch}></TransactionFormModal>
+                        <TransactionFormModal
+                            loanTrueAccountFalse={true}
+                            id={loan.loanId}
+                            handleShowModal={handleShowModal}
+                            transactionType="DEPOSIT"
+                            handleFetch={handleFetch}
+                        />
                     </Modal>
+                </>
+            )}
 
-
-                </div>
-            </>}
         </Page>
     );
 }

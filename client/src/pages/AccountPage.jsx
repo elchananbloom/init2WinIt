@@ -92,23 +92,31 @@ function AccountPage() {
     <Page>
       {account && <>
         <div className="container">
-          <h1>Account {account.accountNumber}</h1>
-          <div id="top-half">
-            <div className="balance">
-              <h2>Current Balance</h2>
-              <h3>{account.balance}</h3>
-              <AmountSpentByCategoryForAccount accountId={id} transactionCount={transactions.length}/>
+          <div className="row align-items-center mb-4">
+            <div className="col-md-6">
+              <h1>Account {account.accountNumber}</h1>
+              <div className="balance">
+                <h2 className="h5">Current Balance</h2>
+                <h3>${parseFloat(account.balance).toFixed(2)}</h3>
+              </div>
             </div>
-
-            <div id="graph" name="graph">
-              {/* insert graph here if wanted */}
+            <div className="col-md-6 text-md-right mt-3 mt-md-0">
+              <AmountSpentByCategoryForAccount
+                accountId={id}
+                transactionCount={transactions.length}
+              />
             </div>
           </div>
+
           <Transactions transactions={transactions} />
         </div>
+
         <div>
-          <button onClick={() => handleShowModal1(true, "DEPOSIT")} className="btn btn-outline-dark mr-2">Deposit</button>
-          <button onClick={() => handleShowModal1(true, "WITHDRAWAL")} className="btn btn-outline-dark mr-2">Withdrawal</button>
+          <div className="floating-button ">
+
+            <button onClick={() => handleShowModal1(true, "DEPOSIT")} className="btn btn-outline-dark mr-2 shadow">Deposit</button>
+            <button onClick={() => handleShowModal1(true, "WITHDRAWAL")} className="btn btn-outline-dark shadow">Withdrawal</button>
+          </div>
           <Modal
             show={showModal1}
             onClose={() => setShowModal1(false)}

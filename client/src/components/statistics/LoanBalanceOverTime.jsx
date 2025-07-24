@@ -5,7 +5,7 @@ import { useEffect, useState, useContext } from 'react';
 import UserContext from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 
-function LoanBalanceOverTime({ loanId, loanBalance }) {
+function LoanBalanceOverTime({ loanId, loanBalance, transactionsCount }) {
     const today = new Date();
     const formattedDate = today.toISOString().substring(0, 10);
     const defaultLabels = [
@@ -20,11 +20,12 @@ function LoanBalanceOverTime({ loanId, loanBalance }) {
 
     const [data, setData] = useState({});
     const user = useContext(UserContext);
-    const url = `http://localhost:8080/api/statistics/user/loan/${loanId}`;
+    const url = `http://localhost:8080/api/statistics/user/loan/`;
 
 
     useEffect(() => {
-        fetch(url).then(response => {
+        console.log(loanId)
+        fetch(`${url}${loanId}`).then(response => {
             if (response.status === 200) {
                 return response.json();
             } else if (response.status === 403) {
@@ -33,7 +34,9 @@ function LoanBalanceOverTime({ loanId, loanBalance }) {
                 return Promise.reject(`Encountered unexpected status: ${response.status}`);
             }
         }).then(data => {
+            console.log(data)
             if (Object.keys(data).length > 0) {
+                console.log('here')
                 setXLabels(Object.keys(data));
                 setUData(Object.values(data));
             }
@@ -41,31 +44,37 @@ function LoanBalanceOverTime({ loanId, loanBalance }) {
 
         })
             .catch(console.log);
-    }, []);
+    }, [loanId, transactionsCount]);
 
-    return <>
-        <Typography>Remaining Balance</Typography>
-        <LineChart
+     return (
+    <div className="container mt-4">
+      <div className="row mb-2 justify-content-center">
+        <div className="col-md-8 d-flex justify-content-center">
+          <LineChart
             height={300}
             series={[
-                { 
+              {
                 data: uData,
-                label: 'Loan Balance', 
+                label: 'Loan Balance',
                 yAxisId: 'rightAxisId',
-                valueFormatter: (data) => { return `$${data} (USD)`; }
-
-             },
+                valueFormatter: (data) => `$${data} (USD)`,
+              },
             ]}
-            xAxis={[{ scaleType: 'point',
-                 data: xLabels,
-                 
-                 }]}
+            xAxis={[
+              {
+                scaleType: 'point',
+                data: xLabels,
+              },
+            ]}
             yAxis={[
-                { id: 'leftAxisId', width: 50 },
-                { id: 'rightAxisId', position: 'right' },
-                
+              { id: 'leftAxisId', width: 50 },
+              { id: 'rightAxisId', position: 'right' },
             ]}
-        />
-        </>
+          />
+        </div>
+      </div>
+      
+    </div>
+  );
 }
 export default LoanBalanceOverTime;

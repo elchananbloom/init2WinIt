@@ -1,4 +1,11 @@
 const Transactions = ({ transactions }) => {
+    if (!transactions || transactions.length === 0) {
+    return (
+      <div className="alert alert-secondary text-center mt-3">
+        No transactions found.
+      </div>
+    );
+  }
   return (
     <ul className="list-group mb-3">
       {transactions.map((transaction) => {

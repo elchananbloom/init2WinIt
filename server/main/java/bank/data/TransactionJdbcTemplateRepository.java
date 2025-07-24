@@ -38,7 +38,7 @@ public class TransactionJdbcTemplateRepository implements TransactionRepository{
                 "from `transaction` t inner join transaction_category tc " +
                 "on t.transaction_category_id = tc.transaction_category_id " +
                 "where account_id = ? " +
-                "order by transaction_id desc;";
+                "order by transaction_date desc;";
 
         return jdbcTemplate.query(sql, new TransactionMapper(), accountId);
     }
@@ -57,7 +57,8 @@ public class TransactionJdbcTemplateRepository implements TransactionRepository{
                 "tc.`name` as `name` "+
                 "from `transaction` t inner join transaction_category tc " +
                 "on t.transaction_category_id = tc.transaction_category_id " +
-                "where loan_id = ?;";
+                "where loan_id = ? " +
+                "order by transaction_date desc;";
         return jdbcTemplate.query(sql, new TransactionMapper(), loanId);
     }
 

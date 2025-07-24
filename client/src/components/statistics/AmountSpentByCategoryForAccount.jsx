@@ -54,18 +54,32 @@ function AmountSpentByCategoryForAccount({ accountId, transactionCount }) {
     };
 
     return <>
-        <Typography>Account Transactions Breakdown:</Typography>
-        <PieChart
-            series={[{ 
-                innerRadius: 50,
-                outerRadius: 100, 
-                data, 
-                arcLabel: (item) => `$${item.value}`,
-                arcLabelMinAngle: 30,
-                valueFormatter: (v) => { return `$${v.value} (USD)`;}
-             }]}
-            {...settings}
-        />
+        <div className="container mt-4">
+            <div className="row mb-2 justify-content-center">
+                <div className="col-md-8 d-flex justify-content-center">
+                    <PieChart
+                        series={[
+                            {
+                                innerRadius: 50,
+                                outerRadius: 100,
+                                data,
+                                arcLabel: (item) => `$${item.value}`,
+                                arcLabelMinAngle: 30,
+                                valueFormatter: (v) => `$${v.value} (USD)`,
+                            },
+                        ]}
+                        {...settings}
+                    />
+                </div>
+            </div>
+            <div className="row justify-content-center mb-3">
+        <div className="col text-center">
+          <Typography variant="h6" gutterBottom>
+            Account Transactions Breakdown
+          </Typography>
+        </div>
+      </div>
+        </div>
     </>
 }
 export default AmountSpentByCategoryForAccount;

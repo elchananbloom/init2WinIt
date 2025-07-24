@@ -13,7 +13,7 @@ const SideBar = ({loans, fetchLoans}) => {
             <div className="d-flex flex-column p-3 h-100">
                 <Link to={'/login'} className="btn btn-light mb-3 text-left">login</Link>
                 {user && user.role === 'ADMIN' && <AdminSideBar/>}
-                {user && user.role === 'USER' && <UserSideBar loans={loans}/>}
+                {user && user.role === 'USER' && <UserSideBar loans={loans} fetchLoans={fetchLoans}/>}
                 
                 
             </div>

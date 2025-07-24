@@ -14,8 +14,11 @@ const SignUp = () => {
   const [user, setUser] = useState(DEFAULT_USER);
   const [errors, setErrors] = useState([]);
   const { id } = useParams();
+  const [accountType, setAccountType] = useState('CHECKING');
+
 
   const url = "http://localhost:8080/api/user";
+  const baseUrl = "http://localhost:8080/api/";
 
   useEffect(() => {
     if (id) {
@@ -57,14 +60,14 @@ const SignUp = () => {
 
   const updateUser = () => {
     console.log(user);
-          const options = {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        };
-        fetch(`${url}/${user.userId}`, options)
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    };
+    fetch(`${url}/${user.userId}`, options)
       .then((response) => {
         console.log(response.status)
         if (response.status === 204) {
@@ -86,6 +89,37 @@ const SignUp = () => {
       .catch(console.log);
   }
 
+  const addAccount = (userId) => {
+    const account = {
+            accountType: accountType,
+            balance: 0,
+            userId: userId
+        };
+        const init = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(account),
+        };
+        fetch(`${baseUrl}account`, init)
+            .then((response) => {
+                if (response.status === 201 || response.status === 400) {
+                    return response.json();
+                } else {
+                    return Promise.reject(`Unexpected Status Code: ${response.status}`);
+                }
+            })
+            .then((data) => {
+                if (data.accountId) {
+                  navigate('/');
+                } else {
+
+                }
+            })
+            .catch(console.log);
+  }
+
   const addUser = () => {
     user.role = 'USER';
     const init = {
@@ -105,8 +139,7 @@ const SignUp = () => {
       })
       .then((data) => {
         if (data.userId) {
-          console.log(data);
-          navigate("/");
+          addAccount(data.userId);
         } else {
           console.log(data);
           setErrors(data);
@@ -114,6 +147,10 @@ const SignUp = () => {
       })
       .catch(console.log);
   };
+
+  const handleAccountTypeChange = (event) => {
+        setAccountType(event.target.value);
+    }
 
   const validateInput = (value) => { };
   //implement toasts
@@ -154,16 +191,27 @@ const SignUp = () => {
               onChange={handleChange}
             />
           </fieldset>
-        {!id && <fieldset className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            className="form-control"
-            onChange={handleChange}
-          />
-        </fieldset>}
+          <fieldset className="form-group">
+                        <label htmlFor="dob" >Date of Birth</label>
+                        <input
+                            onChange={handleChange}
+                            className="form-control"
+                            type="date"
+                            name="dob"
+                            id="dob"
+                            required
+                        />
+                    </fieldset>
+          {!id && <fieldset className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              className="form-control"
+              onChange={handleChange}
+            />
+          </fieldset>}
           <fieldset className="form-group">
             <label htmlFor="phoneNumber">Phone</label>
             <input
@@ -209,9 +257,23 @@ const SignUp = () => {
                   onblur="validate()"
                 />
               </fieldset>               */}
+          <fieldset className="form-group">
+            <label htmlFor="loanType">New Account Type</label>
+            <select
+              id="loanType"
+              name="loanType"
+              className="form-control"
+              value={accountType}
+              onChange={handleAccountTypeChange}
+            >
+              <option>CHECKING</option>
+              <option>SAVINGS</option>
+
+            </select>
+          </fieldset>
           <div className="mt-4">
             <button type="submit" className="btn btn-outline-success mr-4 mt-4">
-              {id? 'Edit': 'Sign Up'}
+              {id ? 'Edit' : 'Sign Up'}
             </button>
             <Link
               type="button"

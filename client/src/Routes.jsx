@@ -20,37 +20,38 @@ const AppRoutes = () => {
     const [loans, setLoans] = useState([]);
     const navigate = useNavigate();
     const fetchLoans = () => {
-        fetch(`${url}/loan?userId=${user.userId}`)
-            .then(res => {
-                if (res.status === 200) {
-                    return res.json();
-                }
-                if (res.status === 403) {
-                    navigate('/login');
-                }
-            })
-            .then(data => {
-                setLoans(data);
-            });
+        if (user) {
+            fetch(`${url}/loan?userId=${user.userId}`)
+                .then(res => {
+                    if (res.status === 200) {
+                        return res.json();
+                    }
+                    if (res.status === 403) {
+                        navigate('/login');
+                    }
+                })
+                .then(data => {
+                    setLoans(data);
+                });
+        }
     }
 
     useEffect(() => {
         fetchLoans();
-    },[])
+    }, [])
 
     const isEditUserPage = /^\/user\/[^/]+\/edit$/.test(location.pathname);
 
     const shouldShowSidebar = user && !isEditUserPage;
     return (
         <>
-            {shouldShowSidebar && <SideBar loans={loans}/>}
+            {shouldShowSidebar && <SideBar loans={loans} />}
             <Routes>
                 <Route path='/' element={<></>} />
                 <Route path='/login' element={<></>} />
                 <Route path='/signup' element={<SignUp />} />
                 <Route path='/user/:id/edit' element={<SignUp />} />
                 <Route path='/user/:id' element={<UserPage />} />
-                <Route path='/account/new' element={<></>} />
                 <Route path='/account/:id' element={<AccountPage />} />
                 <Route path='/user/:id/loan/new' element={<AddLoan fetchLoans={fetchLoans} />} />
                 <Route path='/loan/:id' element={<LoanPage />} />

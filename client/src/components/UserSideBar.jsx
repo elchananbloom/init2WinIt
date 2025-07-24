@@ -129,13 +129,13 @@ const UserSideBar = ({ loans, fetchLoans }) => {
                 </svg>
             </Link>
 
-            {accounts.length > 0 && <div className="mt-5 d-flex flex-column">Accounts
+            {accounts && accounts.length > 0 && <div className="mt-5 d-flex flex-column">Accounts
                 {accounts.map(acc => {
                     return (
                         <Link to={`/account/${acc.accountId}`} className="btn btn-light mb-3 text-left">{acc.accountType}: {acc.accountNumber}</Link>
                     )
                 })}</div>}
-            {loans.length > 0 && <div className="mt-3 d-flex flex-column">Loans
+            {loans && loans.length > 0 && <div className="mt-3 d-flex flex-column">Loans
                 {loans.map(loan => {
                     console.log(loan)
                     return (

@@ -61,6 +61,7 @@ function AmountSpentByCategoryForAccount({ accountId, transactionCount }) {
                 outerRadius: 100, 
                 data, 
                 arcLabel: (item) => `$${item.value}`,
+                arcLabelMinAngle: 30,
                 valueFormatter: (v) => { return `$${v.value} (USD)`;}
              }]}
             {...settings}

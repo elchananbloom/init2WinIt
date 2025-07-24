@@ -41,4 +41,37 @@ class BankStatisticsServiceTest {
         assertEquals(3, actual.size());
         assertEquals(expected,actual);
     }
+
+    @Test
+    void getTotalWithdrawsPerQuarter() {
+        Map<String, BigDecimal> expected = new HashMap<>();
+        expected.put("Q1",new BigDecimal(200).setScale(2));
+
+        when(repository.getTotalWithdrawsPerQuarter()).thenReturn(expected);
+
+        Map<String, BigDecimal> actual = service.getTotalWithdrawsPerQuarter();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void getTotalDepositsPerQuarter() {
+        Map<String, BigDecimal> expected = new HashMap<>();
+        expected.put("Q1",new BigDecimal(50).setScale(2));
+
+        when(repository.getTotalDepositsPerQuarter()).thenReturn(expected);
+
+        Map<String, BigDecimal> actual = service.getTotalDepositsPerQuarter();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void getTotalLoansPerQuarter() {
+        Map<String, BigDecimal> expected = new HashMap<>();
+        expected.put("Q1",new BigDecimal(1020).setScale(2));
+
+        when(repository.getTotalLoansPerQuarter()).thenReturn(expected);
+
+        Map<String, BigDecimal> actual = service.getTotalLoansPerQuarter();
+        assertEquals(expected, actual);
+    }
 }

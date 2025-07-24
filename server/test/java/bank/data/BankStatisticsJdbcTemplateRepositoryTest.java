@@ -41,4 +41,28 @@ class BankStatisticsJdbcTemplateRepositoryTest {
 
         assertEquals(3, actual.size());
     }
+
+    @Test
+    void getTotalWithdrawsPerQuarter() {
+        Map<String, BigDecimal> expected = new HashMap<>();
+        expected.put("Q1",new BigDecimal(200).setScale(2));
+        Map<String, BigDecimal> actual = repository.getTotalWithdrawsPerQuarter();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void getTotalDepositsPerQuarter() {
+        Map<String, BigDecimal> expected = new HashMap<>();
+        expected.put("Q1",new BigDecimal(50).setScale(2));
+        Map<String, BigDecimal> actual = repository.getTotalDepositsPerQuarter();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void getTotalLoansPerQuarter() {
+        Map<String, BigDecimal> expected = new HashMap<>();
+        expected.put("Q1",new BigDecimal(1020).setScale(2));
+        Map<String, BigDecimal> actual = repository.getTotalLoansPerQuarter();
+        assertEquals(expected, actual);
+    }
 }

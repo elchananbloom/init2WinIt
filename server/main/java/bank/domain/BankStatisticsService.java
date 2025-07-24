@@ -21,4 +21,19 @@ public class BankStatisticsService {
     public Map<String, BigDecimal> getTotalTransactionsPerTransactionType(){
         return repository.getTotalTransactionsPerTransactionType();
     }
+
+    public Map<String, BigDecimal> getTotalWithdrawsPerQuarter(){
+        return repository.getTotalWithdrawsPerQuarter();
+    }
+
+    public Map<String, BigDecimal> getTotalDepositsPerQuarter(){
+        return repository.getTotalDepositsPerQuarter();
+    }
+
+    public Map<String, BigDecimal> getTotalLoansPerQuarter(){
+        return repository.getTotalLoansPerQuarter();
+    }
+
+
+
 }

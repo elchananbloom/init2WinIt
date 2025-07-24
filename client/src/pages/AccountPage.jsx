@@ -97,7 +97,7 @@ function AccountPage() {
             <div className="balance">
               <h2>Current Balance</h2>
               <h3>{account.balance}</h3>
-              <AmountSpentByCategoryForAccount accountId={id}/>
+              <AmountSpentByCategoryForAccount accountId={id} transactionCount={transactions.length}/>
             </div>
 
             <div id="graph" name="graph">

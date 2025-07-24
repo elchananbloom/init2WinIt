@@ -37,27 +37,11 @@ function LoanBalanceOverTime({ loanId, loanBalance }) {
                 setXLabels(Object.keys(data));
                 setUData(Object.values(data));
             }
-
-
-            console.log(data);
-            const res = [];
-            for (const [key, value] of Object.entries(data)) {
-                res.push({ label: key, value: value });
-                console.log(`${key}: ${value}`);
-            }
-            res.map((k, v) => console.log(`${k}:${v}`));
-            setData(res);
+           
 
         })
             .catch(console.log);
     }, []);
-
-    const settings = {
-        margin: { right: 5 },
-        width: 200,
-        height: 200,
-        hideLegend: true,
-    };
 
     return <>
         <Typography>Remaining Balance</Typography>
@@ -66,7 +50,7 @@ function LoanBalanceOverTime({ loanId, loanBalance }) {
             series={[
                 { 
                 data: uData,
-                label: 'uv', 
+                label: 'Loan Balance', 
                 yAxisId: 'rightAxisId',
                 valueFormatter: (data) => { return `$${data} (USD)`; }
 
@@ -79,8 +63,9 @@ function LoanBalanceOverTime({ loanId, loanBalance }) {
             yAxis={[
                 { id: 'leftAxisId', width: 50 },
                 { id: 'rightAxisId', position: 'right' },
+                
             ]}
         />
-    </>
+        </>
 }
 export default LoanBalanceOverTime;

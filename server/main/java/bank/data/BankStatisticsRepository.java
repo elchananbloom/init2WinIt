@@ -8,5 +8,10 @@ public interface BankStatisticsRepository {
 
     Map<String, BigDecimal> getTotalTransactionsPerTransactionType();
 
+    Map<String, BigDecimal> getTotalWithdrawsPerQuarter();
+    Map<String, BigDecimal> getTotalDepositsPerQuarter();
+    Map<String, BigDecimal> getTotalLoansPerQuarter();
+
+
 
 }

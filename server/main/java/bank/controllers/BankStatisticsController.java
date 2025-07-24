@@ -30,4 +30,19 @@ public class BankStatisticsController {
         return service.getTotalTransactionsPerTransactionType();
     }
 
+    @GetMapping("/withdrawals")
+    public  Map<String, BigDecimal> getTotalWithdrawsPerQuarter(){
+        return service.getTotalWithdrawsPerQuarter();
+    }
+
+    @GetMapping("/deposits")
+    public Map<String, BigDecimal> getTotalDepositsPerQuarter(){
+        return service.getTotalDepositsPerQuarter();
+    }
+
+    @GetMapping("/loans")
+    public Map<String, BigDecimal> getTotalLoansPerQuarter(){
+        return service.getTotalLoansPerQuarter();
+    }
+
 }

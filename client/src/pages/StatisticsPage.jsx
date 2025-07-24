@@ -8,6 +8,9 @@ import UserTransactionCategories from "../components/statistics/UserTransactionC
 import Page from "../components/Page";
 import TotalBalanceAcrossAccounts from "../components/statistics/TotalBalanceAcrossAccounts";
 import AmountSpentByCategoryForAccount from "../components/statistics/AmountSpentByCategoryForAccount";
+import BankLoansPerQuarter from "../components/statistics/BankLoansPerQuarter";
+import TotalDepositsPerQuarter from "../components/statistics/TotalDepositsPerQuarter";
+import TotalWithdrawsPerQuarter from "../components/statistics/TotalWithdrawsPerQuarter";
 
 
 
@@ -18,9 +21,13 @@ const StatisticsPage = () => {
     return (<Page>
         
         <CategoryTransactions/>
-        <UserTransactionCategories/>
-        <TotalBalanceAcrossAccounts/>
-        <AmountSpentByCategoryForAccount accountId={1}/>
+        {/* <UserTransactionCategories/> */}
+        {/* <TotalBalanceAcrossAccounts/> */}
+        {/* <AmountSpentByCategoryForAccount accountId={1}/> */}
+        <BankLoansPerQuarter/>
+        <TotalDepositsPerQuarter/>
+        <TotalWithdrawsPerQuarter/>
+
 
     
 

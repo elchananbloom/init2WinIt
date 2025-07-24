@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 @ImportAutoConfiguration(exclude = { SecurityAutoConfiguration.class })
 class TransactionControllerTest {
 

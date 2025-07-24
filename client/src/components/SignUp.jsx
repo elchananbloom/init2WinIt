@@ -155,7 +155,7 @@ const SignUp = () => {
 
 
   const addUser = async () => {
-    user.role = 'ADMIN';
+    user.role = 'USER';
     const init = {
       method: 'POST',
       headers: {

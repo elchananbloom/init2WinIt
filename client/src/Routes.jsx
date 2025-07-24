@@ -15,6 +15,7 @@ import LoginPage from './pages/LoginPage';
 import TokenContext from './contexts/TokenContext';
 import HomePage from './pages/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
+import ClosePage from './pages/ClosePage';
 
 const url = 'http://localhost:8080/api/';
 
@@ -66,6 +67,7 @@ const AppRoutes = () => {
                 <Route path='/account/:id' element={<AccountPage />} />
                 <Route path='/user/:id/loan/new' element={<AddLoan fetchLoans={fetchLoans} />} />
                 <Route path='/loan/:id' element={<LoanPage />} />
+                <Route path='/close' element={<ClosePage/>} />
                 {appUser && appUser.role === 'ADMIN' &&
                     <>
                         <Route path='/admin/statistics' element={<StatisticsPage />} />

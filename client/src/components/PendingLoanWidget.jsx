@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TokenContext from "../contexts/TokenContext";
+import TotalBalanceAcrossAccounts from "./statistics/TotalBalanceAcrossAccounts";
 
 const url = 'http://localhost:8080/api/';
 
@@ -34,17 +35,19 @@ const PendingLoanWidget = ({ loan, handleAccept, handleReject }) => {
 
     return (
         <>
-            {user && <div className="card p-2">
-                <p>User: {user.firstName} {user.lastName}</p>
-                <p>Due Date: {loan.dateDue}</p>
-                <p>Interest: {loan.interest}%</p>
-                <p>Asked Date: {loan.createdAt}</p>
-                <p>Amount: {loan.initialAmount}</p>
-                <p>User Balance: Not Implemented</p>
-                <p>Amount + Interest: {loan.balance}</p>
-                <button onClick={() => handleAccept(loan.loanId)} className="btn btn-primary mb-1">Approve</button>
-                <button onClick={() => handleReject(loan.loanId)} className="btn btn-secondary">Reject</button>
-            </div>}
+
+        {user && <div className="card p-2">
+            <p>User: {user.firstName} {user.lastName}</p>
+            <p>Due Date: {loan.dateDue}</p>
+            <p>Interest: {loan.interest}%</p>
+            <p>Asked Date: {loan.createdAt}</p>
+            <p>Amount: {loan.initialAmount}</p>
+            <p>User Balance: </p><TotalBalanceAcrossAccounts userId={loan.userId}/>
+            <p>Amount + Interest: {loan.balance}</p>
+            <button onClick={() => handleAccept(loan.loanId)} className="btn btn-primary mb-1">Approve</button>
+            <button onClick={() => handleReject(loan.loanId)} className="btn btn-secondary">Reject</button>
+        </div>}
+
         </>
     );
 }

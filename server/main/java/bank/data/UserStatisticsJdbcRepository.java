@@ -38,6 +38,24 @@ public class UserStatisticsJdbcRepository implements UserStatisticsRepository{
     }
 
     @Override
+    public Map<String, BigDecimal> getAmountSpentByCategoryForAccount(int accountId) {
+        String sql = "select sum(transaction_amount) `value`, transaction_category label " +
+                "from user_transactions " +
+                "where account_id = ? and transaction_year = year(now()) " +
+                "group by transaction_category;";
+
+
+        List<Map<String, BigDecimal>> res = jdbcTemplate.query(sql,new UserStatisticsMapper(), accountId);
+
+        Map<String, BigDecimal> concatResult = new HashMap<>();
+
+        res.stream().forEach(concatResult::putAll);
+
+
+        return concatResult;
+    }
+
+    @Override
     public BigDecimal getTotalAccountsBalance(int userId) {
 
         String sql = "select sum(acc.balance) `value` " +
@@ -45,6 +63,24 @@ public class UserStatisticsJdbcRepository implements UserStatisticsRepository{
                 "where acc.user_id = ?;";
 
         return jdbcTemplate.queryForObject(sql , BigDecimal.class, userId);
+
+    }
+
+    @Override
+    public Map<String, BigDecimal> getLoanBalanceOverTime(int loanId) {
+        String sql = "select loan_balance `value`, date_format(transaction_date, '%Y-%m-%d') label " +
+                "from user_transactions " +
+                "where loan_id = ? " +
+                "order by transaction_date asc;";
+
+
+        List<Map<String, BigDecimal>> res = jdbcTemplate.query(sql, new UserStatisticsMapper(), loanId);
+
+        Map<String, BigDecimal> concatResult = new HashMap<>();
+
+        res.stream().forEach(concatResult::putAll);
+
+        return concatResult;
 
     }
 }

@@ -3,9 +3,9 @@ import UserContext from "../../contexts/UserContext";
 import TokenContext from '../../contexts/TokenContext';
 
 
-function TotalBalanceAcrossAccounts() {
-    const { appUser } = useContext(UserContext);
-    const url = `http://localhost:8080/api/statistics/user/account_total/${appUser.userId}`;
+
+function TotalBalanceAcrossAccounts({userId}){
+    const url = `http://localhost:8080/api/statistics/user/account_total/${userId}`;
     const [totalBalanceAcrossAccounts, setTotalBalanceAcrossAccounts] = useState(0.00);
     const { token } = useContext(TokenContext);
 

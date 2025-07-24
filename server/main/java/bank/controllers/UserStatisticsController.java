@@ -33,5 +33,15 @@ public class UserStatisticsController {
         return service.getTotalAccountsBalance(userId);
     }
 
+    @GetMapping("/account/{accountId}")
+    public Map<String, BigDecimal> getAmountSpentByCategoryForAccount(@PathVariable int accountId){
+        return service.getAmountSpentByCategoryForAccount(accountId);
+    }
+
+    @GetMapping("/loan/{loanId}")
+    public Map<String, BigDecimal> getLoanBalanceOverTime(@PathVariable int loanId){
+        return service.getLoanBalanceOverTime(loanId);
+    }
+
 
 }

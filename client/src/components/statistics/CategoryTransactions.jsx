@@ -3,10 +3,12 @@ import { BarChart } from '@mui/x-charts/BarChart';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { useContext, useEffect, useState } from 'react';
 import TokenContext from "../../contexts/TokenContext";
+import { useNavigate } from "react-router-dom";
 
 function CategoryTransactions() {
 
     const { token } = useContext(TokenContext);
+    const navigate = useNavigate();
 
     const url = "http://localhost:8080/api/statistics/bank";
 
@@ -31,6 +33,8 @@ function CategoryTransactions() {
         fetch(url, options).then(response => {
             if (response.status === 200) {
                 return response.json();
+            } else if (response.status === 403) {
+                navigate('/login');
             } else {
                 return Promise.reject(`Encountered unexpected status: ${response.status}`);
             }

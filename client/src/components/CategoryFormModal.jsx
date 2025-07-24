@@ -41,7 +41,7 @@ const CategoryFormModal = ({ category = DEFAULT_CATEGORY, handleShowModal, fetch
                 } else if (response.status === 400) {
                     return response.json();
                 } else if (response.status === 403) {
-                    navigate('/');
+                    navigate('/login');
                 } else {
                     return Promise.reject(`Unexpected Error, Status Code: ${response.status}`);
                 }
@@ -71,7 +71,7 @@ const CategoryFormModal = ({ category = DEFAULT_CATEGORY, handleShowModal, fetch
                 if (response.status === 201 || response.status === 400) {
                     return response.json();
                 } else if (response.status === 403) {
-                    navigate('/');
+                    navigate('/login');
                 } else {
                     return Promise.reject(`Unexpected Error, Status Code: ${response.status}`);
                 }

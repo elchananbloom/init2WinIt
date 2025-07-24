@@ -1,7 +1,7 @@
 import Page from "../components/Page";
 import Modal from "../components/Modal";
 import { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import TransactionFormModal from "../components/TransactionFormModal";
 import Transactions from "../components/Transactions";
 import TokenContext from "../contexts/TokenContext";
@@ -13,6 +13,7 @@ function AccountPage() {
   const { id } = useParams();
   const [showModal1, setShowModal1] = useState(false);
   const { token } = useContext(TokenContext);
+  const navigate = useNavigate();
 
   const handleShowModal1 = (show, type) => {
     setType(type);
@@ -38,6 +39,8 @@ function AccountPage() {
       .then((response) => {
         if (response.status === 200) {
           return response.json();
+        } else if (response.status === 403) {
+          navigate('/login')
         } else {
           return Promise.reject(`Unexpected Status Code: ${response.status}`);
         }
@@ -57,6 +60,8 @@ function AccountPage() {
       .then((response) => {
         if (response.status === 200) {
           return response.json();
+        } else if (response.status === 403) {
+          navigate('/login');
         } else {
           return Promise.reject(`Unexpected Status Code: ${response.status}`);
         }

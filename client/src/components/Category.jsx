@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import Modal from "./Modal";
 import CategoryFormModal from "./CategoryFormModal";
 import TokenContext from "../contexts/TokenContext";
+import { useNavigate } from "react-router-dom";
 
 const url = 'http://localhost:8080/api/';
 
@@ -9,6 +10,7 @@ const url = 'http://localhost:8080/api/';
 const Category = ({ category, fetchCategories }) => {
     const [showModal, setShowModal] = useState(false);
     const { token } = useContext(TokenContext);
+    const navigate = useNavigate();
 
     const handleShowModal = (show) => {
         setShowModal(show);
@@ -26,6 +28,8 @@ const Category = ({ category, fetchCategories }) => {
             .then(response => {
                 if (response.status === 204) {
                     fetchCategories();
+                } else if (response.status === 403) {
+                    navigate('/login');
                 } else {
                     return Promise.reject(`Unexpected Error, Status Code: ${response.status}`);
                 }

@@ -13,6 +13,7 @@ function TransactionFormModal({ loanTrueAccountFalse, id, handleShowModal, trans
   const [errors, setErrors] = useState([]);
   const [transactionCategories, setTransactionCategories] = useState([]);
   const { token } = useContext(TokenContext);
+  const navigate = useNavigate();
 
   const urlTransaction = "http://localhost:8080/api/transaction";
   const urlCategories = "http://localhost:8080/api/transaction/category";
@@ -28,6 +29,8 @@ function TransactionFormModal({ loanTrueAccountFalse, id, handleShowModal, trans
       .then((response) => {
         if (response.status === 200) {
           return response.json();
+        } else if (response.status === 403) {
+          navigate('/login');
         } else {
           return Promise.reject(`Unexpected Status Code: ${response.status}`);
         }
@@ -73,6 +76,8 @@ function TransactionFormModal({ loanTrueAccountFalse, id, handleShowModal, trans
       .then((response) => {
         if (response.status === 201 || response.status === 400) {
           return response.json();
+        } else if (response.status === 403) {
+          navigate('/login');
         } else {
           return Promise.reject(`Unexpected Status Code: ${response.status}`);
         }

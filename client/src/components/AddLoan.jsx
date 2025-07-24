@@ -24,6 +24,8 @@ const AddLoan = ({ fetchLoans }) => {
             .then((response) => {
                 if (response.status === 200) {
                     return response.json();
+                } else if (response.status === 403) {
+                    navigate('/login');
                 } else {
                     return Promise.reject(`Unexpected Status Code: ${response.status}`);
                 }
@@ -69,6 +71,8 @@ const AddLoan = ({ fetchLoans }) => {
             .then((response) => {
                 if (response.status === 201 || response.status === 400) {
                     return response.json();
+                } else if (response.status === 403) {
+                    navigate('/login');
                 } else {
                     return Promise.reject(`Unexpected Status Code: ${response.status}`);
                 }

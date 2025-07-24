@@ -210,9 +210,9 @@ const SignUp = () => {
           <div className="alert alert-danger">
             <p>The following errors were found:</p>
             <ul>
-              {/* {errors.map((error) => (
+              {errors.map((error) => (
                 <li key={error}>{error}</li>
-              ))} */}
+              ))}
             </ul>
           </div>
         )}

@@ -1,6 +1,7 @@
 package bank.controllers;
 
 import bank.domain.Result;
+import bank.domain.ResultType;
 import bank.domain.UserService;
 import bank.models.User;
 import bank.security.JwtConverter;
@@ -14,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -53,7 +55,11 @@ public class UserController {
     public ResponseEntity<Object> addUser(@RequestBody @Valid User user, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
-            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
+            Result<User> result = new Result<>();
+            for(ObjectError err: bindingResult.getAllErrors()) {
+                result.addMessage(err.getDefaultMessage(), ResultType.INVALID);
+            }
+            return ErrorResponse.build(result);
         }
         Result<User> result = service.addUser(user);
         if(result.isSuccess()){

@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @NotNull(message = "User cannot be null")
-@NoYoungerThan16()
+@NoYoungerThan16(message = "User younger than 16 are not allowed")
 public class User {
 
     private int userId;

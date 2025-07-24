@@ -50,7 +50,7 @@ const AppRoutes = () => {
 
     useEffect(() => {
         fetchLoans();
-    }, [])
+    }, [token])
 
     const isEditUserPage = /^\/user\/[^/]+\/edit$/.test(location.pathname);
 
@@ -72,7 +72,7 @@ const AppRoutes = () => {
                 {appUser && appUser.role === 'ADMIN' &&
                     <>
                         <Route path='/admin/statistics' element={<StatisticsPage />} />
-                        <Route path='/admin/loans' element={<LoansPage />} />
+                        <Route path='/admin/loans' element={<LoansPage fetchLoans={fetchLoans}/>} />
                         <Route path='/admin/categories' element={<CategoriesPage />} />
                         <Route path='/admin/accounts' element={<AdminAccountsPage />} />
                     </>

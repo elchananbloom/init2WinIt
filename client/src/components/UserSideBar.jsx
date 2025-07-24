@@ -50,6 +50,7 @@ const UserSideBar = ({ loans, fetchLoans }) => {
         if (token) {
             setTimeout(() => {
                 fetchAccounts();
+                fetchLoans();
             }, 1000);
         }
     }, [token]);

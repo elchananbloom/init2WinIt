@@ -1,8 +1,11 @@
 import Page from "./Page";
 import Modal from "./Modal";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate} from "react-router-dom";
 import TransactionFormModal from "./TransactionFormModal";
+import { loadStripe } from '@stripe/stripe-js';
+
+
 
 function Account() {
   const [transactions, setTransactions] = useState([]);
@@ -20,9 +23,20 @@ function Account() {
   const handleShowModal2  = (show) => {
     setShowModal2(show);
   }
+
   const urlAccount = "http://localhost:8080/api/account/";
   const urlTransactions = "http://localhost:8080/api/transaction?accountId=";
   const urlLoans = "http://localhost:8080/api/loan?userId="
+  const navigate = useNavigate();
+
+  const clickDeposit = async () =>{
+    handleShowModal1(true, "DEPOSIT");
+  }
+
+  const clickWithdrawal = async() =>{
+    handleShowModal1(true, "WITHDRAWAL")
+  }
+
 
   useEffect(() => {
     fetchAccount();
@@ -111,8 +125,12 @@ function Account() {
         </table>
       </div>
       <div>
-        <button onClick={() => handleShowModal1(true, "DEPOSIT")} className="btn btn-outline-dark mr-2">Deposit</button>
-        <button onClick={() => handleShowModal1(true, "WITHDRAWAL")} className="btn btn-outline-dark mr-2">Withdrawal</button>
+        {/* <button onClick={() => handleShowModal1(true, "DEPOSIT")} className="btn btn-outline-dark mr-2">Deposit</button> */}
+    
+     <div>
+      <button onClick={clickDeposit}> Deposit </button>
+    </div>
+        <button onClick={clickWithdrawal} className="btn btn-outline-dark mr-2">Withdrawal</button>
         <button onClick={() => handleShowModal2(true)} className="btn btn-outline-dark mr-2">Request a Loan</button>
         <Modal
           show={showModal1}

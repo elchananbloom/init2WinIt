@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loadStripe } from '@stripe/stripe-js';
+const stripePromise = loadStripe("pk_test_51Rn32xR8xEV2XZugXO7DCa5bqDMB5UboeGVWYoJy2wLc1tyY9e4su2daoRsmNu42b2dp0CrMTnl3xfUlJcWfPwGM00i7C50Ini");
 
   const DEFAULT_TRANSACTION = {
   transactionId: 0,
@@ -12,10 +14,47 @@ function TransactionFormModal({id, handleShowModal, transactionType, fetchTransa
   const [errors, setErrors] = useState([]);
   const [account, setAccount] = useState();
   const [transactionCategories, setTransactionCategories] = useState([]);
+   const [selectedPrice, setSelectedPrice] = useState();
 
   const urlTransaction = "http://localhost:8080/api/transaction";
   const urlAccount = "http://localhost:8080/api/account/";
   const urlCategories = "http://localhost:8080/api/transaction/category";
+
+
+    const handleCheckout = async () => {
+        const priceData = {
+    price: selectedPrice}
+  // Fetch the checkout session from your backend API
+  try {
+    const response = await fetch('http://localhost:8080/create-checkout-session', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify(priceData),
+    });
+
+    // Check for successful response (200 OK)
+    if (response.status === 200) {
+      const data = await response.json();
+      // Initialize Stripe with the public key and redirect to the checkout session
+      const stripe = await stripePromise;
+      const { error } = await stripe.redirectToCheckout({sessionId: data.sessionId });
+
+      if (error) {
+        console.error('Error redirecting to checkout:', error);
+        alert(`Error: ${error.message}`);
+      } else {
+      }
+    } else {
+      const errorData = await response.json();
+      console.error('Error during checkout session creation:', errorData);
+      alert('Something went wrong. Please try again.');
+    }
+  } catch (error) {
+    console.error('Error during checkout process:', error);
+    alert('An unexpected error occurred. Please try again later.');
+  }
+};
 
   useEffect(() => {
     fetch(urlAccount + id)
@@ -53,12 +92,14 @@ function TransactionFormModal({id, handleShowModal, transactionType, fetchTransa
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    handleCheckout();
     handleAdd();
-  };
+    handleAccountTransaction();
+  }
 
 
   const handleAccountTransaction = () => {
-    if(transactionType != null && transactionType == "DEPOSIT"){
+    if(transactionType != null && transactionType === "DEPOSIT"){
         account.balance += Number(transaction.amount);
       } else {
         account.balance -= Number(transaction.amount);
@@ -117,6 +158,13 @@ function TransactionFormModal({id, handleShowModal, transactionType, fetchTransa
     setTransaction(newTransaction);
   };
 
+  const handlePriceChange = (event) => {
+    const newTransaction = {...transaction};
+    setSelectedPrice(event.target.value);
+    newTransaction[event.target.name] = event.target.value; // Update the selected price
+    setTransaction(newTransaction);
+  };
+
   return (
     <>
       {errors.length > 0 && (
@@ -133,11 +181,10 @@ function TransactionFormModal({id, handleShowModal, transactionType, fetchTransa
         <fieldset className="form-group">
           <label htmlFor="amount" >Amount</label>
           <input
-            onChange={handleChange}
+            onChange={handlePriceChange}
+            value={selectedPrice}
             className="form-control"
             type="number"
-            min="1"
-            step="any"
             name="amount"
             id="amount"
             required

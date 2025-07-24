@@ -47,8 +47,10 @@ const UserSideBar = ({ loans, fetchLoans }) => {
 
 
     useEffect(() => {
-        fetchAccounts();
-    }, []);
+        setTimeout(() => {
+            fetchAccounts();
+        }, 1000);
+    }, [token]);
 
     const handleChange = (event) => {
         setAccountType(event.target.value);
@@ -127,32 +129,35 @@ const UserSideBar = ({ loans, fetchLoans }) => {
                 </svg>
             </Link>
 
-            Accounts
-            {accounts && accounts.map(acc => {
-                return (
-                    <Link to={`/account/${acc.accountId}`} className="btn btn-light mb-3 text-left">{acc.accountType}: {acc.accountNumber}</Link>
-                )
-            })}
-            Loans
-            {loans && loans.map(loan => {
-                console.log(loan)
-                return (
-                    <>{loan.status !== 'REJECTED' && <><Link to={`/loan/${loan.loanId}`}
-                        className={`btn btn-light mb-3 text-left ${loan.status === 'IN_PROGRESS' ? 'disabled' : ''}`}
-                        aria-disabled={loan.status === 'IN_PROGRESS'}
-                        tabIndex={loan.status === 'IN_PROGRESS' ? -1 : 0}>
-                        {loan.loanType.loanTypeName}
-                    </Link>
-                        {loan.status === 'IN_PROGRESS' && <button onClick={() => handleDelete(loan.loanId)}>Delete</button>}
-                    </>
-                    }
-                    </>
-                )
-            })}
-            <Link to={`/user/${appUser.userId}/loan/new`} className="btn btn-light mt-5 mb-3 text-left">Add Loan</Link>
+            {accounts.length > 0 && <div className="mt-5 d-flex flex-column">Accounts
+                {accounts.map(acc => {
+                    return (
+                        <Link to={`/account/${acc.accountId}`} className="btn btn-light mb-3 text-left">{acc.accountType}: {acc.accountNumber}</Link>
+                    )
+                })}</div>}
+            {loans.length > 0 && <div className="mt-3 d-flex flex-column">Loans
+                {loans.map(loan => {
+                    console.log(loan)
+                    return (
+                        <div className="">{loan.status !== 'REJECTED' && <><Link to={`/loan/${loan.loanId}`}
+                            className={`btn btn-light mb-3 text-left ${loan.status === 'IN_PROGRESS' ? 'disabled' : ''}`}
+                            aria-disabled={loan.status === 'IN_PROGRESS'}
+                            tabIndex={loan.status === 'IN_PROGRESS' ? -1 : 0}>
+                            {loan.loanType.loanTypeName}
+                        </Link>
+                            {loan.status === 'IN_PROGRESS' && <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red" onClick={() => handleDelete(loan.loanId)} class="bi bi-trash3 cursor" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+</svg>}
+                        </>
+                        }
+                        </div>
+                    )
+                })}</div>}
+            <div className="d-flex flex-column mt-auto">
+                <Link to={`/user/${appUser.userId}/loan/new`} className="btn btn-light mt-5 mb-3 text-left">Add Loan</Link>
 
-            <button onClick={() => handleShowModal(true)} className="btn btn-light mb-3 text-left">Add Account</button>
-
+                <button onClick={() => handleShowModal(true)} className="btn btn-light mb-3 text-left">Add Account</button>
+            </div>
             {showModal && <form id="form" className="form-col" onSubmit={handleSubmit}>
 
                 <fieldset className="form-group">

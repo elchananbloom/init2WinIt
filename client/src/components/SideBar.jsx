@@ -19,12 +19,12 @@ const SideBar = ({ loans, fetchLoans }) => {
         navigate('/login');
     }
     return (
-        <div className="container border-right shadow rounded-lg position-fixed h-100 bg-secondary text-white sidebar nav-content-area">
+        <div className="container border-right shadow rounded-lg position-fixed h-100 bg-teal text-white sidebar nav-content-area">
 
             <div className="d-flex flex-column p-3 h-100">
-                <button onClick={handleLogOut} className="btn btn-light mb-3 text-left">Log Out</button>
                 {appUser && appUser.role === 'ADMIN' && <AdminSideBar />}
                 {appUser && appUser.role === 'USER' && <UserSideBar loans={loans} fetchLoans={fetchLoans} />}
+                <button onClick={handleLogOut} className="btn btn-light align-self-end mt-auto mb-3 text-left">Log Out</button>
 
 
             </div>

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
 import TokenContext from "../contexts/TokenContext";
@@ -18,6 +18,11 @@ const LoginPage = () => {
 
         setUser(newUser);
     };
+
+    useEffect(() => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('appUser');
+    }, [])
 
     const getUser = (newToken) => {
         const options = {
@@ -114,13 +119,13 @@ const LoginPage = () => {
                 </>}
 
                 <div className="mt-4 d-flex flex-column align-items-center">
-                    <button type="submit" className="btn btn-primary shadow-sm mt-4">
+                    <button type="submit" className="btn teal shadow-sm mt-4">
                         Login
                     </button>
                     <Link
                         type="button"
                         to={"/signup"}
-                        className="btn btn-light btn-outline-dark shadow-sm mt-4"
+                        className="btn teal-outlined shadow-sm mt-4"
                     >
                         Don't have an account yet? Sign Up
                     </Link>

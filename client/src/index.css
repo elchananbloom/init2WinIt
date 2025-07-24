@@ -37,6 +37,39 @@ code {
   /* z-index: 1000; */
 }
 
+.bg-teal {
+  background-color: #228A84;
+  color: white;
+}
+
+.beige {
+  background-color: beige;
+}
+
+.tan {
+  background-color: #CFBBA4;
+  color: #228A84;
+}
+
 .teal {
   background-color: #228A84;
+  color: white;
+}
+
+.teal:hover {
+  background-color: white;
+  color: #228A84;
+  border: 1px solid #228A84;
+
+}
+
+.teal-outlined {
+  background-color: white;
+  color: #228A84;
+  border: 1px solid #228A84;
+}
+
+.teal-outlined:hover {
+  background-color: #228A84;
+  color: white;
 }

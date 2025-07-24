@@ -200,7 +200,7 @@ const SignUp = () => {
   //implement toasts
   return (
     <>
-      <div className="container flex">
+      <div className="container col-6 mt-5 flex">
         <h2 className="mb-4">Sign Up</h2>
         {errors.length > 0 && (
           <div className="alert alert-danger">
@@ -213,118 +213,114 @@ const SignUp = () => {
           </div>
         )}
         <form onSubmit={handleSubmit}>
-          <fieldset className="form-group">
-            <label htmlFor="firstName">First Name</label>
-            <input
-              id="firstName"
-              name="firstName"
-              type="text"
-              value={user.firstName}
-              className="form-control"
-              onChange={handleChange}
-            />
-          </fieldset>
-          <fieldset className="form-group">
-            <label htmlFor="lastName">Last Name</label>
-            <input
-              id="lastName"
-              name="lastName"
-              type="text"
-              value={user.lastName}
-              className="form-control"
-              onChange={handleChange}
-            />
-          </fieldset>
-          <fieldset className="form-group">
-            <label htmlFor="dob" >Date of Birth</label>
-            <input
-              onChange={handleChange}
-              className="form-control"
-              type="date"
-              name="dob"
-              id="dob"
-              required
-            />
-          </fieldset>
-          {!id && <fieldset className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              className="form-control"
-              onChange={handleChange}
-            />
-          </fieldset>}
-          <fieldset className="form-group">
-            <label htmlFor="phoneNumber">Phone</label>
-            <input
-              id="phoneNumber"
-              name="phoneNumber"
-              type="tel"
-              value={user.phoneNumber}
-              className="form-control"
-              onChange={handleChange}
-            />
-          </fieldset>
-          <fieldset className="form-group">
-            <label htmlFor="address">Address</label>
-            <input
-              id="address"
-              name="address"
-              type="text"
-              value={user.address}
-              className="form-control"
-              onChange={handleChange}
-            />
-          </fieldset>
-          {!id && <fieldset className="form-group">
-            <label htmlFor="passwordHash">Password</label>
-            <input
-              id="passwordHash"
-              name="passwordHash"
-              type="password"
-              className="form-control"
-              /*onblur="validate()"*/
-              onChange={handleChange}
-            />
-          </fieldset>}
-          {/* <fieldset className="form-group">
-                <label htmlFor="password">Retype Password</label>
-                <input
-                  id="retype_password"
-                  name="retypepassword"
-                  type="password"
-                  className="form-control"
-                  value={user.password}
-                  onChange={handleChange}
-                  onblur="validate()"
-                />
-              </fieldset>               */}
-          <fieldset className="form-group">
-            <label htmlFor="loanType">New Account Type</label>
-            <select
-              id="loanType"
-              name="loanType"
-              className="form-control"
-              value={accountType}
-              onChange={handleAccountTypeChange}
-            >
-              <option>CHECKING</option>
-              <option>SAVINGS</option>
+          <div className="form-row">
+            <fieldset className="form-group col-md-4">
+              <label htmlFor="firstName">First Name</label>
+              <input
+                id="firstName"
+                name="firstName"
+                type="text"
+                value={user.firstName}
+                className="form-control shadow-sm"
+                onChange={handleChange}
+              />
+            </fieldset>
+            <fieldset className="form-group col-md-4">
+              <label htmlFor="lastName">Last Name</label>
+              <input
+                id="lastName"
+                name="lastName"
+                type="text"
+                value={user.lastName}
+                className="form-control shadow-sm"
+                onChange={handleChange}
+              />
+            </fieldset>
+            <fieldset className="form-group col-md-4">
+              <label htmlFor="dob" >Date of Birth</label>
+              <input
+                onChange={handleChange}
+                className="form-control shadow-sm"
+                type="date"
+                name="dob"
+                id="dob"
+                required
+              />
+            </fieldset>
+          </div>
+          <div className="row">
+            <fieldset className="form-group col-md-6">
+              <label htmlFor="phoneNumber">Phone</label>
+              <input
+                id="phoneNumber"
+                name="phoneNumber"
+                type="tel"
+                value={user.phoneNumber}
+                className="form-control shadow-sm"
+                onChange={handleChange}
+              />
+            </fieldset>
+            <fieldset className="form-group col-md-6">
+              <label htmlFor="address">Address</label>
+              <input
+                id="address"
+                name="address"
+                type="text"
+                value={user.address}
+                className="form-control shadow-sm"
+                onChange={handleChange}
+              />
+            </fieldset>
+          </div>
+          {!id && <> <div className="row">
+            <fieldset className="form-group col-md-6">
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                className="form-control shadow-sm"
+                onChange={handleChange}
+              />
+            </fieldset>
+            <fieldset className="form-group col-md-6">
+              <label htmlFor="passwordHash">Password</label>
+              <input
+                id="passwordHash"
+                name="passwordHash"
+                type="password"
+                className="form-control shadow-sm"
+                /*onblur="validate()"*/
+                onChange={handleChange}
+              />
+            </fieldset>
+          </div>
 
-            </select>
-          </fieldset>
+            <fieldset className="form-group">
+              <label htmlFor="loanType">New Account Type</label>
+              <select
+                id="loanType"
+                name="loanType"
+                className="form-control shadow-sm"
+                value={accountType}
+                onChange={handleAccountTypeChange}
+              >
+                <option>CHECKING</option>
+                <option>SAVINGS</option>
+
+              </select>
+            </fieldset>
+          </>}
           <div className="mt-4">
-            <button type="submit" className="btn btn-outline-success mr-4 mt-4">
+            <button type="submit" className="btn btn-primary shadow-sm mr-4 mt-4">
               {id ? 'Edit' : 'Sign Up'}
             </button>
             <Link
               type="button"
               to={"/"}
-              className="btn btn-outline-danger mt-4"
+              className="btn btn-light btn-outline-dark shadow-sm mt-4"
             >
-              Cancel
+              Already Have an Account? Login
             </Link>
           </div>
         </form>

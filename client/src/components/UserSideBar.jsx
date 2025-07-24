@@ -123,13 +123,13 @@ const UserSideBar = ({ loans, fetchLoans }) => {
             <Link to={`/user/${appUser.userId}`} className="btn btn-light mb-3 text-left">Account</Link>
 
             Accounts
-            {accounts.map(acc => {
+            {accounts && accounts.map(acc => {
                 return (
                     <Link to={`/account/${acc.accountId}`} className="btn btn-light mb-3 text-left">{acc.accountType}: {acc.accountNumber}</Link>
                 )
             })}
             Loans
-            {loans.map(loan => {
+            {loans && loans.map(loan => {
                 console.log(loan)
                 return (
                     <>{loan.status !== 'REJECTED' && <><Link to={`/loan/${loan.loanId}`}

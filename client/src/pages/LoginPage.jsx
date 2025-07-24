@@ -85,7 +85,7 @@ const LoginPage = () => {
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
+            <form className="col-2 mt-5 mx-auto" onSubmit={handleSubmit}>
 
                 {<><fieldset className="form-group">
                     <label htmlFor="email">Email</label>
@@ -93,7 +93,7 @@ const LoginPage = () => {
                         id="email"
                         name="email"
                         type="email"
-                        className="form-control"
+                        className="form-control shadow-sm"
                         onChange={handleChange}
                     />
                 </fieldset>
@@ -104,21 +104,21 @@ const LoginPage = () => {
                             id="password"
                             name="password"
                             type="password"
-                            className="form-control"
+                            className="form-control shadow-sm"
                             /*onblur="validate()"*/
                             onChange={handleChange}
                         />
                     </fieldset>
                 </>}
 
-                <div className="mt-4">
-                    <button type="submit" className="btn btn-outline-success mr-4 mt-4">
+                <div className="mt-4 d-flex flex-column align-items-center">
+                    <button type="submit" className="btn btn-primary shadow-sm mt-4">
                         Login
                     </button>
                     <Link
                         type="button"
                         to={"/signup"}
-                        className="btn btn-outline-danger mt-4"
+                        className="btn btn-light btn-outline-dark shadow-sm mt-4"
                     >
                         Don't have an account yet? Sign Up
                     </Link>

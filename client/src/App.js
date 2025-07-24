@@ -6,12 +6,17 @@ import TokenContext from './contexts/TokenContext';
 
 
 function App() {
-  const [token, setToken] = useState(null);
-  const [appUser, setAppUser] = useState(null);
+  const [token, setToken] = useState(() => {
+    return localStorage.getItem('token');
+  });
+  const [appUser, setAppUser] = useState(() => {
+    const storedUser = localStorage.getItem('appUser');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
   return (
-    <TokenContext.Provider value={{token, setToken}}>
-      <UserContext.Provider value={{appUser, setAppUser}}>
+    <TokenContext.Provider value={{ token, setToken }}>
+      <UserContext.Provider value={{ appUser, setAppUser }}>
         <Router>
 
           <AppRoutes />

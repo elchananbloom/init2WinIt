@@ -47,62 +47,54 @@ function TransactionFormModal({ loanTrueAccountFalse, id, handleShowModal, trans
       .catch(console.log);
   }, []);
 
-      const handleCheckout = async () => {
-        const priceData = {
-    price: selectedPrice}
-  // Fetch the checkout session from your backend API
-  try {
-    const response = await fetch('http://localhost:8080/create-checkout-session', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      }, body: JSON.stringify(priceData),
-    });
-
-    // Check for successful response (200 OK)
-    if (response.status === 200) {
-      const data = await response.json();
-      console.log(data);
-      // Initialize Stripe with the public key and redirect to the checkout session
-      window.open(data.url, "_blank");
-      // const stripe = await stripePromise;
-      // const { error } = await stripe.redirectToCheckout({sessionId: data.sessionId });
-
-      // if (error) {
-      //   console.error('Error redirecting to checkout:', error);
-      //   alert(`Error: ${error.message}`);
-      // } else {
-      // }
-    } else {
-      const errorData = await response.json();
-      console.error('Error during checkout session creation:', errorData);
-      alert('Something went wrong. Please try again.');
+  const handleCheckout = async () => {
+    const priceData = {
+      price: selectedPrice
     }
-  } catch (error) {
-    console.error('Error during checkout process:', error);
-    alert('An unexpected error occurred. Please try again later.');
-  }
-};
+    // Fetch the checkout session from your backend API
+    try {
+      const response = await fetch('http://localhost:8080/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        }, body: JSON.stringify(priceData),
+      });
 
-function openTabAndFetch() {
-  const newTab = window.open("about:blank", "_blank"); // Open a blank tab
-  newTab.onload = () => {
-    // Once the blank tab loads, execute a script within it
-    newTab.document.body.innerHTML = "Loading..."; // Provide a loading message
-    newTab.eval(`
-      fetch("http://localhost:8080/create-checkout-session")
-        .then(response => response.json())
-        .then(data => {
-          newTab.document.body.innerHTML = JSON.stringify(data, null, 2); // Display fetched data
-        });
-    `);
+      // Check for successful response (200 OK)
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log(data);
+        // Initialize Stripe with the public key and redirect to the checkout session
+        window.open(data.url, "_blank");
+        // const stripe = await stripePromise;
+        // const { error } = await stripe.redirectToCheckout({sessionId: data.sessionId });
+
+        // if (error) {
+        //   console.error('Error redirecting to checkout:', error);
+        //   alert(`Error: ${error.message}`);
+        // } else {
+        // }
+      } else {
+        const errorData = await response.json();
+        console.error('Error during checkout session creation:', errorData);
+        alert('Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error during checkout process:', error);
+      alert('An unexpected error occurred. Please try again later.');
+    }
   };
-}
+
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    handleCheckout();
-    handleAdd();
+    if (transactionType != null && transactionType == "DEPOSIT") {
+      handleCheckout();
+    }
+    setTimeout(() => {
+      handleAdd();
+    }, 2000);
   };
 
   const handleAdd = () => {
@@ -164,8 +156,8 @@ function openTabAndFetch() {
     setTransaction(newTransaction);
   };
 
-    const handlePriceChange = (event) => {
-    const newTransaction = {...transaction};
+  const handlePriceChange = (event) => {
+    const newTransaction = { ...transaction };
     setSelectedPrice(event.target.value);
     newTransaction[event.target.name] = event.target.value; // Update the selected price
     setTransaction(newTransaction);

@@ -40,6 +40,7 @@ const LoginPage = () => {
             .then((data) => {
                 if (data.userId) {
                     setAppUser(data);
+                    localStorage.setItem('appUser', JSON.stringify(data));
                     navigate('/');
                 } else {
 
@@ -75,6 +76,7 @@ const LoginPage = () => {
             .then((data) => {
                 if (data.jwt_token) {
                     setToken(data.jwt_token);
+                    localStorage.setItem('token', data.jwt_token);
                     getUser(data.jwt_token);
                 } else {
 

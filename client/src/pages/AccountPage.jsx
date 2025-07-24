@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import TransactionFormModal from "../components/TransactionFormModal";
 import Transactions from "../components/Transactions";
 import TokenContext from "../contexts/TokenContext";
+import UserContext from "../contexts/UserContext";
 
 function AccountPage() {
   const [transactions, setTransactions] = useState([]);
@@ -14,6 +15,7 @@ function AccountPage() {
   const [showModal1, setShowModal1] = useState(false);
   const { token } = useContext(TokenContext);
   const navigate = useNavigate();
+  const { appUser } = useContext(UserContext);
 
   const handleShowModal1 = (show, type) => {
     setType(type);
@@ -45,7 +47,13 @@ function AccountPage() {
           return Promise.reject(`Unexpected Status Code: ${response.status}`);
         }
       })
-      .then((data) => setAccount(data))
+      .then((data) => {
+        if (data.accountId && data.userId === appUser.userId) {
+          setAccount(data)
+        } else {
+          navigate('/notfound')
+        }
+      })
       .catch(console.log);
   }
 

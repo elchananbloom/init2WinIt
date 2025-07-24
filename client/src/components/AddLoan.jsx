@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Page from "./Page";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import TokenContext from "../contexts/TokenContext";
+import UserContext from "../contexts/UserContext";
 
 const url = "http://localhost:8080/api";
 
@@ -12,8 +13,12 @@ const AddLoan = ({ fetchLoans }) => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { token } = useContext(TokenContext);
+    const {appUser} = useContext(UserContext);
 
     useEffect(() => {
+        if(id != appUser.userId) {
+            navigate('/notfound');
+        }
         const options = {
             method: 'GET',
             headers: {

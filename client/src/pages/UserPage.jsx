@@ -2,6 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Page from "../components/Page"
 import { useContext, useEffect, useState } from "react";
 import TokenContext from "../contexts/TokenContext";
+import UserContext from "../contexts/UserContext";
 
 const url = 'http://localhost:8080/api/';
 
@@ -11,6 +12,7 @@ const UserPage = () => {
     const [user, setUser] = useState();
     const navigate = useNavigate();
     const { token } = useContext(TokenContext);
+    const {appUser} = useContext(UserContext);
 
     useEffect(() => {
         const options = {
@@ -29,8 +31,10 @@ const UserPage = () => {
                 }
             })
             .then(data => {
-                if (data.userId) {
+                if (data.userId && data.userId === appUser.userId) {
                     setUser(data);
+                } else {
+                    navigate('/notfound');
                 }
             });
     }, [])

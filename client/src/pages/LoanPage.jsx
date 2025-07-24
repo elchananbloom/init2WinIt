@@ -6,6 +6,7 @@ import TransactionFormModal from "../components/TransactionFormModal";
 import Modal from "../components/Modal";
 import TokenContext from "../contexts/TokenContext";
 import LoanBalanceOverTime from "../components/statistics/LoanBalanceOverTime";
+import UserContext from "../contexts/UserContext";
 
 const url = "http://localhost:8080/api";
 
@@ -17,6 +18,7 @@ const LoanPage = () => {
     const [showModal, setShowModal] = useState(false);
     const { token } = useContext(TokenContext);
     const navigate = useNavigate();
+    const {appUser} = useContext(UserContext);
 
     const handleShowModal = (show) => {
         console.log('here')
@@ -41,8 +43,10 @@ const LoanPage = () => {
                 }
             })
             .then((data) => {
-                if (data.loanId) {
+                if (data.loanId && data.userId === appUser.userId) {
                     setLoan(data)
+                } else {
+                    navigate('/notfound');
                 }
             })
             .catch(console.log);

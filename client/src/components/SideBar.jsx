@@ -14,6 +14,8 @@ const SideBar = ({ loans, fetchLoans }) => {
     const handleLogOut = () => {
         setAppUser(null);
         setToken(null);
+        localStorage.removeItem('token');
+        localStorage.removeItem('appUser');
         navigate('/login');
     }
     return (

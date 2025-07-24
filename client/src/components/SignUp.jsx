@@ -17,7 +17,7 @@ const SignUp = () => {
   const [errors, setErrors] = useState([]);
   const { id } = useParams();
   const [accountType, setAccountType] = useState('CHECKING');
-  const { setAppUser } = useContext(UserContext);
+  const {appUser, setAppUser } = useContext(UserContext);
   const { token, setToken } = useContext(TokenContext);
 
   const url = "http://localhost:8080/api/user";
@@ -41,8 +41,10 @@ const SignUp = () => {
           }
         })
         .then(data => {
-          if (data.userId) {
+          if (data.userId && data.userId === appUser.userId) {
             setUser(data);
+          } else {
+            navigate('/notfound');
           }
         });
     }
@@ -150,6 +152,7 @@ const SignUp = () => {
       const data = await response.json();
       if (data.jwt_token) {
         setToken(data.jwt_token);
+        localStorage.setItem('token', data.jwt_token);
         return await addAccount(user1.userId, data.jwt_token);
       }
     } else if (response.status === 403) {
@@ -176,6 +179,7 @@ const SignUp = () => {
         const data = await response.json();
         if (data.userId) {
           setAppUser(data);
+          localStorage.setItem('appUser', JSON.stringify(data));
           if (await authenticate(data)) {
             console.log(token);
             navigate('/');
@@ -312,7 +316,7 @@ const SignUp = () => {
             </fieldset>
           </>}
           <div className="mt-4">
-            <button type="submit" className="btn btn-primary shadow-sm mr-4 mt-4">
+            <button type="submit" className="btn teal shadow-sm mr-4 mt-4">
               {id ? 'Edit' : 'Sign Up'}
             </button>
             <Link

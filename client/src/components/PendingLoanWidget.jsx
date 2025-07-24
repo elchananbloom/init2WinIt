@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import TotalBalanceAcrossAccounts from "./statistics/TotalBalanceAcrossAccounts";
 
 const url = 'http://localhost:8080/api/';
 
@@ -32,7 +33,7 @@ const PendingLoanWidget = ({loan, handleAccept, handleReject}) => {
             <p>Interest: {loan.interest}%</p>
             <p>Asked Date: {loan.createdAt}</p>
             <p>Amount: {loan.initialAmount}</p>
-            <p>User Balance: Not Implemented</p>
+            <p>User Balance: </p><TotalBalanceAcrossAccounts userId={loan.userId}/>
             <p>Amount + Interest: {loan.balance}</p>
             <button onClick={() => handleAccept(loan.loanId)} className="btn btn-primary mb-1">Approve</button>
             <button onClick={() => handleReject(loan.loanId)} className="btn btn-secondary">Reject</button>

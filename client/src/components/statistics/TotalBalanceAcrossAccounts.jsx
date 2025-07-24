@@ -2,9 +2,9 @@ import {useEffect, useState, useContext} from 'react';
 import UserContext from "../../contexts/UserContext";
 
 
-function TotalBalanceAcrossAccounts(){
+function TotalBalanceAcrossAccounts({userId}){
     const user = useContext(UserContext);
-    const url = `http://localhost:8080/api/statistics/user/account_total/${user.userId}`;
+    const url = `http://localhost:8080/api/statistics/user/account_total/${userId}`;
     const [totalBalanceAcrossAccounts, setTotalBalanceAcrossAccounts] = useState(0.00);
 
     useEffect(() => {

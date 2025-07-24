@@ -1,6 +1,5 @@
 package bank.controllers;
 
-import bank.models.PaymentRequest;
 import com.stripe.exception.StripeException;
 import com.stripe.param.checkout.SessionCreateParams;
 import com.stripe.model.checkout.Session;
@@ -37,8 +36,8 @@ public class CheckoutController {
 
         try {
             SessionCreateParams params = SessionCreateParams.builder()
-                    .setSuccessUrl("http://localhost:3000/") // Set success URL
-                    .setCancelUrl("http://localhost:3000/")   // Set cancel URL
+                    .setSuccessUrl("http://localhost:3000/close")
+                    .setCancelUrl("http://localhost:3000/close")
                     .addLineItem(
                             SessionCreateParams.LineItem.builder()
                                     .setPriceData(
@@ -61,8 +60,9 @@ public class CheckoutController {
             Session session = Session.create(params);
 
             Map<String, String> response = new HashMap<>();
-            response.put("sessionId", session.getId());
-            //String jsonResponse = gson.toJson(response);
+            response.put("url", session.getUrl());
+            String jsonResponse = gson.toJson(response);
+            System.out.println(response.toString());
             return ResponseEntity.ok(response);
 
         } catch (StripeException e) {

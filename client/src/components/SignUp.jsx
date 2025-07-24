@@ -83,6 +83,8 @@ const SignUp = () => {
           return user
         } else if (response.status === 400) {
           return response.json();
+        } else if (response.status === 403) {
+          navigate('/login');
         } else {
           return Promise.reject(`Unexpected Status Code: ${response.status}`);
         }
@@ -120,6 +122,8 @@ const SignUp = () => {
       if (data.accountId) {
         return true;
       }
+    } else if (response.status === 403) {
+      navigate('/login');
     }
     return false;
   }
@@ -148,6 +152,8 @@ const SignUp = () => {
         setToken(data.jwt_token);
         return await addAccount(user1.userId, data.jwt_token);
       }
+    } else if (response.status === 403) {
+      navigate('/login');
     }
     return false;
   }
@@ -168,23 +174,18 @@ const SignUp = () => {
       const response = await fetch(url, init);
       if (response.status === 201 || response.status === 400) {
         const data = await response.json();
-
-
-
         if (data.userId) {
           setAppUser(data);
-
           if (await authenticate(data)) {
             console.log(token);
             navigate('/');
           }
-
         } else {
           console.log(data);
           setErrors(data);
         }
-
-
+      } else if (response.status === 403) {
+        navigate('/login');
       }
     } catch (error) {
       console.log(error);

@@ -4,6 +4,7 @@ import { PieChart } from '@mui/x-charts/PieChart';
 import { useEffect, useState, useContext } from 'react';
 import UserContext from "../../contexts/UserContext";
 import TokenContext from "../../contexts/TokenContext";
+import { useNavigate } from "react-router-dom";
 
 function UserTransactionCategories() {
 
@@ -17,6 +18,7 @@ function UserTransactionCategories() {
     const [data, setData] = useState(defaultData);
     const { appUser } = useContext(UserContext);
     const { token } = useContext(TokenContext);
+    const navigate = useNavigate();
     const url = `http://localhost:8080/api/statistics/user/category_average/${appUser.userId}`;
 
 
@@ -30,6 +32,8 @@ function UserTransactionCategories() {
         fetch(url, options).then(response => {
             if (response.status === 200) {
                 return response.json();
+            } else if (response.status === 403) {
+                navigate('/login');
             } else {
                 return Promise.reject(`Encountered unexpected status: ${response.status}`);
             }

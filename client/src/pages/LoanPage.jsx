@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Page from "../components/Page"
 import { useContext, useEffect, useState } from "react";
 import Transactions from "../components/Transactions";
@@ -16,6 +16,7 @@ const LoanPage = () => {
     const [loan, setLoan] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const { token } = useContext(TokenContext);
+    const navigate = useNavigate();
 
     const handleShowModal = (show) => {
         console.log('here')
@@ -33,6 +34,8 @@ const LoanPage = () => {
             .then((response) => {
                 if (response.status === 200) {
                     return response.json();
+                } else if (response.status === 403) {
+                    navigate('/login');
                 } else {
                     return Promise.reject(`Unexpected Status Code: ${response.status}`);
                 }
@@ -56,6 +59,8 @@ const LoanPage = () => {
             .then((response) => {
                 if (response.status === 200) {
                     return response.json();
+                } else if (response.status === 403) {
+                    navigate('/login');
                 } else {
                     return Promise.reject(`Unexpected Status Code: ${response.status}`);
                 }
@@ -85,7 +90,7 @@ const LoanPage = () => {
                     <p>
                         ${loan.balance}
                     </p>
-                    <LoanBalanceOverTime loanId={id} loanBalance={loan.balance}/>
+                    <LoanBalanceOverTime loanId={id} loanBalance={loan.balance} />
 
                 </div>
                 <Transactions transactions={transactions} />

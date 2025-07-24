@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Route, BrowserRouter as Router, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, Route, BrowserRouter as Router, Routes, useLocation, useNavigate } from 'react-router-dom';
 import UserContext from './contexts/UserContext';
 import SideBar from './components/SideBar';
 import StatisticsPage from './pages/StatisticsPage';
@@ -38,7 +38,7 @@ const AppRoutes = () => {
                     if (res.status === 200) {
                         return res.json();
                     }
-                    if (res.status === 403) {
+                    else if (res.status === 403) {
                         navigate('/login');
                     }
                 })
@@ -59,7 +59,8 @@ const AppRoutes = () => {
         <>
             {shouldShowSidebar && <SideBar loans={loans} fetchLoans={fetchLoans} />}
             <Routes>
-                <Route path='/' element={<HomePage />} />
+                {appUser && <Route path='/' element={<HomePage />} />}
+                {!appUser && <Route path='/' element={<Navigate to={'/login'}/>} />}
                 <Route path='/login' element={<LoginPage />} />
                 <Route path='/signup' element={<SignUp />} />
                 <Route path='/user/:id/edit' element={<SignUp />} />

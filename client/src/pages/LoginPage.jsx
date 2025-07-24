@@ -31,6 +31,8 @@ const LoginPage = () => {
                 console.log(response.status)
                 if (response.status === 200 || response.status === 400) {
                     return response.json();
+                } else if (response.status === 403) {
+                    navigate('/login');
                 } else {
                     return Promise.reject(`Unexpected Status Code: ${response.status}`);
                 }
@@ -64,6 +66,8 @@ const LoginPage = () => {
                 console.log(response.status)
                 if (response.status === 200 || response.status === 400) {
                     return response.json();
+                } else if (response.status === 403) {
+                    navigate('/login');
                 } else {
                     return Promise.reject(`Unexpected Status Code: ${response.status}`);
                 }

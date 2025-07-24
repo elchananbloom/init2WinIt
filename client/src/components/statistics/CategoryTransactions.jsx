@@ -63,21 +63,31 @@ function CategoryTransactions() {
     };
 
     return <>
-        <Typography>Total Transaction Breakdown (Fiscal year):</Typography>
-        <PieChart
-            series={[
-                { 
-                    innerRadius: 50,
-                    outerRadius: 100, 
-                    data: data.map(((d) => ({ label: d.label, value: d.value }))),
-                    arcLabel: (item) => `$${item.value}`,
-                    arcLabelMinAngle: 30,
-                    dataKey: 'money',
-                    valueFormatter: (v) => { return `$${v.value} (USD)`;}
-                }
-            ]}
-            {...settings}
-        />
+        <div className="container mt-4">
+            <div className="row mb-2 justify-content-center">
+                <div className="col-md-8 d-flex justify-content-center">
+                    <PieChart
+                        series={[
+                            {
+                                innerRadius: 50,
+                                outerRadius: 100,
+                                data: data.map(((d) => ({ label: d.label, value: d.value }))),
+                                arcLabel: (item) => `$${item.value}`,
+                                arcLabelMinAngle: 30,
+                                dataKey: 'money',
+                                valueFormatter: (v) => { return `$${v.value} (USD)`; }
+                            }
+                        ]}
+                        {...settings}
+                    />
+                </div>
+            </div>
+            <div className="row justify-content-center mb-3">
+                <div className="col text-center">
+                    <Typography variant="h6" gutterBottom>Total Transaction Breakdown (Fiscal year)</Typography>
+                </div>
+            </div>
+        </div>
     </>
 }
 export default CategoryTransactions;

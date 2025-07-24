@@ -59,7 +59,8 @@ const AppRoutes = () => {
         <>
             {shouldShowSidebar && <SideBar loans={loans} fetchLoans={fetchLoans} />}
             <Routes>
-                {appUser && <Route path='/' element={<HomePage />} />}
+                {appUser && appUser.role !== 'ADMIN' && <Route path='/' element={<HomePage />} />}
+                {appUser &&  appUser.role === 'ADMIN' && <Route path='/' element={<Navigate to={'/admin/statistics'}/>} />}
                 {!appUser && <Route path='/' element={<Navigate to={'/login'}/>} />}
                 <Route path='/login' element={<LoginPage />} />
                 <Route path='/signup' element={<SignUp />} />

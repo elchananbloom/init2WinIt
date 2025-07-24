@@ -5,6 +5,8 @@ import bank.domain.Result;
 import bank.domain.TransactionService;
 import bank.models.Transaction;
 import bank.models.User;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000"})
 @RequestMapping("/api/transaction")
+@ImportAutoConfiguration(exclude = { SecurityAutoConfiguration.class })
 public class TransactionController {
 
     private TransactionService service;

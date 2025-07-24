@@ -22,19 +22,23 @@ import java.util.Set;
 public class UserService implements UserDetailsService {
 
     private UserRepository repository;
-//    private final PasswordEncoder encoder;
+    private final PasswordEncoder encoder;
 
     public UserService(UserRepository repo
-//            , PasswordEncoder encoder
+            , PasswordEncoder encoder
     ){
         this.repository = repo;
-//        this.encoder = encoder;
+        this.encoder = encoder;
     }
 
     public User findUserById(int id){
         User user = repository.findById(id);
 
         return user;
+    }
+
+    public User findUserByEmail(String email) {
+        return repository.findByEmail(email);
     }
 
     public Result<User> updateUser(User user) {
@@ -78,7 +82,7 @@ public class UserService implements UserDetailsService {
                 res.addMessage("userId cannot be set for `add` operation", ResultType.INVALID);
                 return res;
             }
-//            user.setPasswordHash(encoder.encode(user.getPasswordHash()));
+            user.setPasswordHash(encoder.encode(user.getPasswordHash()));
             User userAdded = repository.addUser(user);
             res.setPayload(userAdded);
             return res;

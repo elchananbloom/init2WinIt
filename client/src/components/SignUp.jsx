@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import UserContext from "../contexts/UserContext";
+import TokenContext from "../contexts/TokenContext";
 
 const DEFAULT_USER = {
   userId: 0,
@@ -15,15 +17,21 @@ const SignUp = () => {
   const [errors, setErrors] = useState([]);
   const { id } = useParams();
   const [accountType, setAccountType] = useState('CHECKING');
-
+  const { setAppUser } = useContext(UserContext);
+  const { token, setToken } = useContext(TokenContext);
 
   const url = "http://localhost:8080/api/user";
   const baseUrl = "http://localhost:8080/api/";
 
   useEffect(() => {
     if (id) {
-
-      fetch(`${url}/${id}`)
+      const options = {
+        method: 'GET',
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      }
+      fetch(`${url}/${id}`, options)
         .then(res => {
           if (res.status === 200) {
             return res.json();
@@ -63,7 +71,8 @@ const SignUp = () => {
     const options = {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify(user)
     };
@@ -89,68 +98,102 @@ const SignUp = () => {
       .catch(console.log);
   }
 
-  const addAccount = (userId) => {
+  const addAccount = async (userId, newToken) => {
     const account = {
-            accountType: accountType,
-            balance: 0,
-            userId: userId
-        };
-        const init = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(account),
-        };
-        fetch(`${baseUrl}account`, init)
-            .then((response) => {
-                if (response.status === 201 || response.status === 400) {
-                    return response.json();
-                } else {
-                    return Promise.reject(`Unexpected Status Code: ${response.status}`);
-                }
-            })
-            .then((data) => {
-                if (data.accountId) {
-                  navigate('/');
-                } else {
+      accountType: accountType,
+      balance: 0,
+      userId: userId
+    };
+    const init = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${newToken}`
 
-                }
-            })
-            .catch(console.log);
+      },
+      body: JSON.stringify(account),
+    };
+    const response = await fetch(`${baseUrl}account`, init);
+
+    if (response.status === 201 || response.status === 400) {
+      const data = await response.json();
+      if (data.accountId) {
+        return true;
+      }
+    }
+    return false;
   }
 
-  const addUser = () => {
-    user.role = 'USER';
+
+
+
+  const authenticate = async (user1) => {
+    const userToAuthenticate = {
+      email: user.email,
+      password: user.passwordHash
+    };
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userToAuthenticate)
+    }
+    const response = await fetch(`${baseUrl}user/authenticate`, options);
+
+    if (response.status === 200 || response.status === 400) {
+      const data = await response.json();
+      if (data.jwt_token) {
+        setToken(data.jwt_token);
+        return await addAccount(user1.userId, data.jwt_token);
+      }
+    }
+    return false;
+  }
+
+
+
+  const addUser = async () => {
+    user.role = 'ADMIN';
     const init = {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify(user),
     };
-    fetch(url, init)
-      .then((response) => {
-        if (response.status === 201 || response.status === 400) {
-          return response.json();
-        } else {
-          return Promise.reject(`Unexpected Status Code: ${response.status}`);
-        }
-      })
-      .then((data) => {
+    try {
+      const response = await fetch(url, init);
+      if (response.status === 201 || response.status === 400) {
+        const data = await response.json();
+
+
+
         if (data.userId) {
-          addAccount(data.userId);
+          setAppUser(data);
+
+          if (await authenticate(data)) {
+            console.log(token);
+            navigate('/');
+          }
+
         } else {
           console.log(data);
           setErrors(data);
         }
-      })
-      .catch(console.log);
-  };
+
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const handleAccountTypeChange = (event) => {
-        setAccountType(event.target.value);
-    }
+    setAccountType(event.target.value);
+  }
 
   const validateInput = (value) => { };
   //implement toasts
@@ -192,16 +235,16 @@ const SignUp = () => {
             />
           </fieldset>
           <fieldset className="form-group">
-                        <label htmlFor="dob" >Date of Birth</label>
-                        <input
-                            onChange={handleChange}
-                            className="form-control"
-                            type="date"
-                            name="dob"
-                            id="dob"
-                            required
-                        />
-                    </fieldset>
+            <label htmlFor="dob" >Date of Birth</label>
+            <input
+              onChange={handleChange}
+              className="form-control"
+              type="date"
+              name="dob"
+              id="dob"
+              required
+            />
+          </fieldset>
           {!id && <fieldset className="form-group">
             <label htmlFor="email">Email</label>
             <input

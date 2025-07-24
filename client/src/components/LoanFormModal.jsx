@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import TokenContext from "../contexts/TokenContext";
 
 const DEFAULT_LOAN = {
   initialAmount: 0,
@@ -11,12 +12,19 @@ function LoanFormModal({ id, handleShowModal, fetchLoans }) {
   const [loans, setLoans] = useState();
   const [loanTypes, setLoanTypes] = useState();
   const [errors, setErrors] = useState([]);
+  const { token } = useContext(TokenContext);
 
   const urlTypes = "http://localhost:8080/api/loan/type";
   const urlLoan = "http://localhost:8080/api/loan";
 
   useEffect(() => {
-    fetch(urlTypes)
+    const options = {
+      method: 'GET',
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    }
+    fetch(urlTypes, options)
       .then((response) => {
         if (response.status === 200) {
           return response.json();
@@ -46,6 +54,7 @@ function LoanFormModal({ id, handleShowModal, fetchLoans }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify(loan),
     };

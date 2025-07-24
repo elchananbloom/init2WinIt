@@ -11,17 +11,28 @@ import UserPage from './pages/UserPage';
 import AccountPage from './pages/AccountPage';
 import LoanPage from './pages/LoanPage';
 import AddLoan from './components/AddLoan';
+import LoginPage from './pages/LoginPage';
+import TokenContext from './contexts/TokenContext';
+import HomePage from './pages/HomePage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const url = 'http://localhost:8080/api/';
 
 const AppRoutes = () => {
-    const user = useContext(UserContext);
+    const { appUser } = useContext(UserContext);
+    const { token } = useContext(TokenContext);
     const location = useLocation();
     const [loans, setLoans] = useState([]);
     const navigate = useNavigate();
     const fetchLoans = () => {
-        if (user) {
-            fetch(`${url}/loan?userId=${user.userId}`)
+        if (appUser) {
+            const options = {
+                method: 'GET',
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+            fetch(`${url}loan?userId=${appUser.userId}`, options)
                 .then(res => {
                     if (res.status === 200) {
                         return res.json();
@@ -42,20 +53,20 @@ const AppRoutes = () => {
 
     const isEditUserPage = /^\/user\/[^/]+\/edit$/.test(location.pathname);
 
-    const shouldShowSidebar = user && !isEditUserPage;
+    const shouldShowSidebar = appUser && !isEditUserPage;
     return (
         <>
-            {shouldShowSidebar && <SideBar loans={loans} fetchLoans={fetchLoans}/>}
+            {shouldShowSidebar && <SideBar loans={loans} fetchLoans={fetchLoans} />}
             <Routes>
-                <Route path='/' element={<></>} />
-                <Route path='/login' element={<></>} />
+                <Route path='/' element={<HomePage />} />
+                <Route path='/login' element={<LoginPage />} />
                 <Route path='/signup' element={<SignUp />} />
                 <Route path='/user/:id/edit' element={<SignUp />} />
                 <Route path='/user/:id' element={<UserPage />} />
                 <Route path='/account/:id' element={<AccountPage />} />
                 <Route path='/user/:id/loan/new' element={<AddLoan fetchLoans={fetchLoans} />} />
                 <Route path='/loan/:id' element={<LoanPage />} />
-                {user && user.role === 'ADMIN' &&
+                {appUser && appUser.role === 'ADMIN' &&
                     <>
                         <Route path='/admin/statistics' element={<StatisticsPage />} />
                         <Route path='/admin/loans' element={<LoansPage />} />
@@ -63,6 +74,7 @@ const AppRoutes = () => {
                         <Route path='/admin/accounts' element={<AdminAccountsPage />} />
                     </>
                 }
+                <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </>
     );

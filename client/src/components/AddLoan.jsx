@@ -1,18 +1,26 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Page from "./Page";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import TokenContext from "../contexts/TokenContext";
 
 const url = "http://localhost:8080/api";
 
 
-const AddLoan = ({fetchLoans}) => {
+const AddLoan = ({ fetchLoans }) => {
     const [loanTypes, setLoanTypes] = useState([]);
     const [loan, setLoan] = useState();
     const { id } = useParams();
     const navigate = useNavigate();
+    const { token } = useContext(TokenContext);
 
     useEffect(() => {
-        fetch(`${url}/loan/type`)
+        const options = {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        fetch(`${url}/loan/type`, options)
             .then((response) => {
                 if (response.status === 200) {
                     return response.json();
@@ -46,13 +54,14 @@ const AddLoan = ({fetchLoans}) => {
         event.preventDefault();
         loan.status = 'IN_PROGRESS';
         loan.flatInterest = 7.5;
-        loan.balance = loan.initialAmount * (1 + (7.5/100));
+        loan.balance = loan.initialAmount * (1 + (7.5 / 100));
         loan.userId = id;
 
         const init = {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(loan),
         };
@@ -69,7 +78,7 @@ const AddLoan = ({fetchLoans}) => {
                     fetchLoans();
                     navigate('/')
                 } else {
-                    
+
                 }
             })
             .catch(console.log);

@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import TokenContext from "../contexts/TokenContext";
 
 const DEFAULT_CATEGORY = {
     transactionCategoryId: 0,
@@ -11,6 +12,7 @@ const url = 'http://localhost:8080/api/';
 const CategoryFormModal = ({ category = DEFAULT_CATEGORY, handleShowModal, fetchCategories }) => {
     const [name, setName] = useState(category.transactionCategoryName);
     const navigate = useNavigate();
+    const {token } = useContext(TokenContext);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -26,7 +28,8 @@ const CategoryFormModal = ({ category = DEFAULT_CATEGORY, handleShowModal, fetch
         const options = {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(category)
         };
@@ -57,7 +60,8 @@ const CategoryFormModal = ({ category = DEFAULT_CATEGORY, handleShowModal, fetch
         const options = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(category)
         };

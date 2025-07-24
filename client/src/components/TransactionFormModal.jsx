@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import TokenContext from "../contexts/TokenContext";
 
 const DEFAULT_TRANSACTION = {
   transactionId: 0,
@@ -11,12 +12,19 @@ function TransactionFormModal({ loanTrueAccountFalse, id, handleShowModal, trans
   const [transaction, setTransaction] = useState(DEFAULT_TRANSACTION);
   const [errors, setErrors] = useState([]);
   const [transactionCategories, setTransactionCategories] = useState([]);
+  const { token } = useContext(TokenContext);
 
   const urlTransaction = "http://localhost:8080/api/transaction";
   const urlCategories = "http://localhost:8080/api/transaction/category";
 
   useEffect(() => {
-    fetch(urlCategories)
+    const options = {
+      method: 'GET',
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    }
+    fetch(urlCategories, options)
       .then((response) => {
         if (response.status === 200) {
           return response.json();
@@ -51,10 +59,13 @@ function TransactionFormModal({ loanTrueAccountFalse, id, handleShowModal, trans
     } else {
       transaction.accountId = id;
     }
+    console.log('token trans');
+    console.log(token);
     const init = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify(transaction),
     };

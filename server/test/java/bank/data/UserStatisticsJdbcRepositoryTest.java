@@ -14,7 +14,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 class UserStatisticsJdbcRepositoryTest {
 
     @Autowired
@@ -43,9 +43,9 @@ class UserStatisticsJdbcRepositoryTest {
     @Test
     void getTotalAccountsBalance() {
 
-        BigDecimal expected = new BigDecimal(2000).setScale(2);
+        BigDecimal expected = new BigDecimal(300).setScale(2);
 
-        BigDecimal actual = repository.getTotalAccountsBalance(1);
+        BigDecimal actual = repository.getTotalAccountsBalance(3);
 
         assertEquals(expected,actual);
     }

@@ -64,9 +64,18 @@ function LoanBalanceOverTime({ loanId, loanBalance }) {
         <LineChart
             height={300}
             series={[
-                { data: uData, label: 'uv', yAxisId: 'rightAxisId' },
+                { 
+                data: uData,
+                label: 'uv', 
+                yAxisId: 'rightAxisId',
+                valueFormatter: (data) => { return `$${data} (USD)`; }
+
+             },
             ]}
-            xAxis={[{ scaleType: 'point', data: xLabels }]}
+            xAxis={[{ scaleType: 'point',
+                 data: xLabels,
+                 
+                 }]}
             yAxis={[
                 { id: 'leftAxisId', width: 50 },
                 { id: 'rightAxisId', position: 'right' },

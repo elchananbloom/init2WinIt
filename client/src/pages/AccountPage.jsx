@@ -6,6 +6,7 @@ import TransactionFormModal from "../components/TransactionFormModal";
 import Transactions from "../components/Transactions";
 import TokenContext from "../contexts/TokenContext";
 import UserContext from "../contexts/UserContext";
+import AmountSpentByCategoryForAccount from "../components/statistics/AmountSpentByCategoryForAccount";
 
 function AccountPage() {
   const [transactions, setTransactions] = useState([]);
@@ -96,6 +97,7 @@ function AccountPage() {
             <div className="balance">
               <h2>Current Balance</h2>
               <h3>{account.balance}</h3>
+              <AmountSpentByCategoryForAccount accountId={id}/>
             </div>
 
             <div id="graph" name="graph">

@@ -21,9 +21,6 @@ const StatisticsPage = () => {
     return (<Page>
         
         <CategoryTransactions/>
-        {/* <UserTransactionCategories/> */}
-        {/* <TotalBalanceAcrossAccounts/> */}
-        {/* <AmountSpentByCategoryForAccount accountId={1}/> */}
         <BankLoansPerQuarter/>
         <TotalDepositsPerQuarter/>
         <TotalWithdrawsPerQuarter/>

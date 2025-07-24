@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -49,12 +50,19 @@ function AmountSpentByCategoryForAccount({ accountId }) {
         margin: { right: 5 },
         width: 200,
         height: 200,
-        hideLegend: true,
+        hideLegend: false,
     };
 
     return <>
+        <Typography>Account Transactions Breakdown:</Typography>
         <PieChart
-            series={[{ innerRadius: 50, outerRadius: 100, data, arcLabel: 'value' }]}
+            series={[{ 
+                innerRadius: 50,
+                outerRadius: 100, 
+                data, 
+                arcLabel: (item) => `$${item.value}`,
+                valueFormatter: (v) => { return `$${v.value} (USD)`;}
+             }]}
             {...settings}
         />
     </>

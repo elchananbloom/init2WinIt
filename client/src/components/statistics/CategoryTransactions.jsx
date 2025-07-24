@@ -1,9 +1,8 @@
-import { colors } from "@mui/material";
-import { BarChart } from '@mui/x-charts/BarChart';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { useContext, useEffect, useState } from 'react';
 import TokenContext from "../../contexts/TokenContext";
 import { useNavigate } from "react-router-dom";
+import { Typography } from '@mui/material';
 
 function CategoryTransactions() {
 
@@ -60,12 +59,23 @@ function CategoryTransactions() {
         margin: { right: 5 },
         width: 200,
         height: 200,
-        hideLegend: true,
+        hideLegend: false,
     };
 
     return <>
+        <Typography>Total Transaction Breakdown (Fiscal year):</Typography>
         <PieChart
-            series={[{ innerRadius: 50, outerRadius: 100, data, arcLabel: 'value' }]}
+            series={[
+                { 
+                    innerRadius: 50,
+                    outerRadius: 100, 
+                    data: data.map(((d) => ({ label: d.label, value: d.value }))),
+                    arcLabel: (item) => `$${item.value}`,
+                    arcLabelMinAngle: 30,
+                    dataKey: 'money',
+                    valueFormatter: (v) => { return `$${v.value} (USD)`;}
+                }
+            ]}
             {...settings}
         />
     </>

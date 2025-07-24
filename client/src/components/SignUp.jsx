@@ -205,7 +205,7 @@ const SignUp = () => {
   return (
     <>
       <div className="container col-6 mt-5 flex">
-        <h2 className="mb-4">Sign Up</h2>
+        <h2 className="mb-4">{id? 'Edit' :'Sign Up'}</h2>
         {errors.length > 0 && (
           <div className="alert alert-danger">
             <p>The following errors were found:</p>
@@ -247,6 +247,7 @@ const SignUp = () => {
                 className="form-control shadow-sm"
                 type="date"
                 name="dob"
+                value={user.dob}
                 id="dob"
                 required
               />
@@ -319,13 +320,20 @@ const SignUp = () => {
             <button type="submit" className="btn teal shadow-sm mr-4 mt-4">
               {id ? 'Edit' : 'Sign Up'}
             </button>
-            <Link
+            {!id && <Link
               type="button"
               to={"/"}
               className="btn teal-outlined shadow-sm mt-4"
             >
               Already Have an Account? Login
-            </Link>
+            </Link>}
+            {id && <Link
+              type="button"
+              to={`/user/${id}`}
+              className="btn teal-outlined shadow-sm mt-4"
+            >
+              Cancel
+            </Link>}
           </div>
         </form>
       </div>

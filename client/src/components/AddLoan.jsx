@@ -96,63 +96,79 @@ const AddLoan = ({ fetchLoans }) => {
     return (
         <>
             <Page>
-                <form id="form" className="form-col" onSubmit={handleSubmit}>
-                    {loan && loan.loanType &&
-                        <fieldset className="form-group">
-                            <label htmlFor="loanType">Type</label>
-                            <select
-                                id="loanType"
-                                name="loanType"
-                                className="form-control"
-                                value={loan.loanType.loanTypeName}
-                                onChange={handleChange}
-                            >
-                                {loanTypes.map((loanType) => (
+                <form id="form" className="col-md-6 mx-auto mt-4" onSubmit={handleSubmit}>
+    <div className="card shadow-sm">
+      <div className="card-body">
+        <h4 className="card-title mb-4">Request a Loan</h4>
 
-                                    <option>{loanType.loanTypeName}</option>
+        {loan && loan.loanType && (
+          <div className="form-group">
+            <label htmlFor="loanType">Loan Type</label>
+            <select
+              id="loanType"
+              name="loanType"
+              className="form-control"
+              value={loan.loanType.loanTypeName}
+              onChange={handleChange}
+              required
+            >
+              {loanTypes.map((loanType) => (
+                <option key={loanType.loanTypeId} value={loanType.loanTypeName}>
+                  {loanType.loanTypeName}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
 
-                                ))}
-                            </select>
-                        </fieldset>}
-                    <fieldset className="form-group">
-                        <label htmlFor="initialAmount" >Amount</label>
-                        <input
-                            onChange={handleChange}
-                            className="form-control"
-                            type="number"
-                            min="1"
-                            step="any"
-                            name="initialAmount"
-                            id="initialAmount"
-                            required
-                        />
-                    </fieldset>
-                    <fieldset className="form-group">
-                        <label htmlFor="dateDue" >Due Date</label>
-                        <input
-                            onChange={handleChange}
-                            className="form-control"
-                            type="date"
-                            name="dateDue"
-                            id="dateDue"
-                            required
-                        />
-                    </fieldset>
-                    <fieldset>
-                        <label htmlFor="description">Description</label>
-                        <textarea onChange={handleChange} className="form-control" type="text" name="description" />
-                    </fieldset>
-                    <button className=" m-1 btn btn-primary" id="submit-form" type="submit">
-                        Request a Loan
-                    </button>
-                    <Link
-                        to={`/`}
-                        className="m-1 btn btn-danger"
-                        type="button"
-                    >
-                        Cancel
-                    </Link>
-                </form>
+        <div className="form-group">
+          <label htmlFor="initialAmount">Amount</label>
+          <input
+            type="number"
+            className="form-control"
+            id="initialAmount"
+            name="initialAmount"
+            min="1"
+            step="any"
+            required
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="dateDue">Due Date</label>
+          <input
+            type="date"
+            className="form-control"
+            id="dateDue"
+            name="dateDue"
+            required
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="description">Description</label>
+          <textarea
+            className="form-control"
+            id="description"
+            name="description"
+            rows="3"
+            onChange={handleChange}
+          ></textarea>
+        </div>
+
+        <div className="d-flex justify-content-between">
+          <button type="submit" className="btn btn-primary">
+            Request Loan
+          </button>
+          <Link to="/" className="btn btn-danger">
+            Cancel
+          </Link>
+        </div>
+      </div>
+    </div>
+  </form>
             </Page>
         </>
     );

@@ -34,16 +34,17 @@ const AdminAccountsPage = () => {
 
     return (
         <Page>
-            {accounts.map(acc => {
-                return (
-                    <div className="card p-2 m-2">
-                        <p>Account Number: {acc.accountNumber}</p>
-                        <p>Type: {acc.accountType}</p>
-                        <p>Balance: ${acc.balance}</p>
-                        <p>Created: {acc.createdAt}</p>
-                    </div>
-                )
-            })}
+           {accounts.map((acc) => (
+  <div className="card p-3 m-2 shadow-sm" key={acc.accountId}>
+    <div className="card-body p-2">
+      <h5 className="card-title mb-2">{acc.accountType} Account</h5>
+      <p className="mb-1"><strong>Account Number:</strong> {acc.accountNumber}</p>
+      <p className="mb-1"><strong>Balance:</strong> ${parseFloat(acc.balance).toFixed(2)}</p>
+      <p className="mb-0"><strong>Created:</strong> {new Date(acc.createdAt).toLocaleDateString()}</p>
+    </div>
+  </div>
+))}
+
 
         </Page>
     );

@@ -142,16 +142,20 @@ const UserSideBar = ({ loans, fetchLoans }) => {
                 {loans.map(loan => {
                     console.log(loan)
                     return (
-                        <div className="">{loan.status !== 'REJECTED' && <><Link to={`/loan/${loan.loanId}`}
-                            className={`btn btn-light mb-3 text-left ${loan.status === 'IN_PROGRESS' ? 'disabled' : ''}`}
-                            aria-disabled={loan.status === 'IN_PROGRESS'}
-                            tabIndex={loan.status === 'IN_PROGRESS' ? -1 : 0}>
-                            {loan.loanType.loanTypeName}
-                        </Link>
-                            {loan.status === 'IN_PROGRESS' && <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red" onClick={() => handleDelete(loan.loanId)} class="bi bi-trash3 cursor" viewBox="0 0 16 16">
-                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
-                            </svg>}
-                        </>
+                        <div className="">{loan.status !== 'REJECTED' && <div className="d-flex align-items-center mb-3">
+                            <Link to={`/loan/${loan.loanId}`}
+                                className={`btn btn-light mb-1 text-left flex-grow-1 d-flex align-items-center ${loan.status === 'IN_PROGRESS' ? 'disabled' : ''}`}
+                                aria-disabled={loan.status === 'IN_PROGRESS'}
+                                tabIndex={loan.status === 'IN_PROGRESS' ? -1 : 0}>
+                                {loan.loanType.loanTypeName}
+                            </Link>
+                            {loan.status === 'IN_PROGRESS' &&
+                                <div className="d-flex align-items-center mb-1 ml-2 justify-content-center" >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red" onClick={() => handleDelete(loan.loanId)} class="bi bi-trash3 cursor-pointer" viewBox="0 0 16 16">
+                                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+                                    </svg>
+                                </div>}
+                        </div>
                         }
                         </div>
                     )
@@ -161,33 +165,45 @@ const UserSideBar = ({ loans, fetchLoans }) => {
 
                 <button onClick={() => handleShowModal(true)} className="btn btn-light mb-3 text-left">Add Account</button>
             </div>
-            {showModal && <form id="form" className="form-col" onSubmit={handleSubmit}>
+            {showModal && (
+                <div className="card p-3 mb-3 bg-light border shadow-sm">
+                    <h5 className="card-title text-dark">Create New Account</h5>
+                    <form id="form" onSubmit={handleSubmit}>
+                        <div className="form-group text-dark">
+                            <label htmlFor="loanType">Account Type</label>
+                            <select
+                                id="loanType"
+                                name="loanType"
+                                className="form-control"
+                                value={accountType}
+                                onChange={handleChange}
+                                required
+                            >
+                                <option value="CHECKING">CHECKING</option>
+                                <option value="SAVINGS">SAVINGS</option>
+                            </select>
+                        </div>
 
-                <fieldset className="form-group">
-                    <label htmlFor="loanType">Type</label>
-                    <select
-                        id="loanType"
-                        name="loanType"
-                        className="form-control"
-                        value={accountType}
-                        onChange={handleChange}
-                    >
-                        <option>CHECKING</option>
-                        <option>SAVINGS</option>
+                        <div className="d-flex justify-content-between mt-3">
+                            <button
+                                className="btn btn-primary"
+                                id="submit-form"
+                                type="submit"
+                            >
+                                Create Account
+                            </button>
+                            <button
+                                onClick={() => setShowModal(false)}
+                                className="btn btn-secondary"
+                                type="button"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            )}
 
-                    </select>
-                </fieldset>
-                <button className=" m-1 btn btn-primary" id="submit-form" type="submit">
-                    Create an Account
-                </button>
-                <button
-                    onClick={() => setShowModal(false)}
-                    className="m-1 btn btn-danger"
-                    type="button"
-                >
-                    Cancel
-                </button>
-            </form>}
         </>
     );
 }

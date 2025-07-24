@@ -12,7 +12,7 @@ const UserPage = () => {
     const [user, setUser] = useState();
     const navigate = useNavigate();
     const { token } = useContext(TokenContext);
-    const {appUser} = useContext(UserContext);
+    const { appUser } = useContext(UserContext);
 
     useEffect(() => {
         const options = {
@@ -42,13 +42,34 @@ const UserPage = () => {
     return (
         <Page>
             {user &&
-                <div><p>{user.firstName}</p>
-                    <p>{user.lastName}</p>
-                    <p>{user.address}</p>
-                    <p>{user.phoneNumber}</p>
-                    <p>{user.email}</p>
-                    <p>{user.dob}</p>
-                    <Link to={`/user/${user.userId}/edit`}>Edit</Link>
+                <div className="container mt-4">
+                    <div className="card shadow-sm">
+                        <div className="card-body">
+                            <h5 className="card-title mb-3">
+                                {user.firstName} {user.lastName}
+                            </h5>
+                            <ul className="list-group list-group-flush mb-3">
+                                <li className="list-group-item">
+                                    <strong>Address:</strong> {user.address}
+                                </li>
+                                <li className="list-group-item">
+                                    <strong>Phone:</strong> {user.phoneNumber}
+                                </li>
+                                <li className="list-group-item">
+                                    <strong>Email:</strong> {user.email}
+                                </li>
+                                <li className="list-group-item">
+                                    <strong>Date of Birth:</strong> {user.dob}
+                                </li>
+                            </ul>
+                            <Link
+                                to={`/user/${user.userId}/edit`}
+                                className="btn btn-primary btn-sm"
+                            >
+                                Edit
+                            </Link>
+                        </div>
+                    </div>
                 </div>}
         </Page>
     );

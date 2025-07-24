@@ -22,6 +22,8 @@ const LoginPage = () => {
     useEffect(() => {
         localStorage.removeItem('token');
         localStorage.removeItem('appUser');
+        setToken(null);
+        setAppUser(null);
     }, [])
 
     const getUser = (newToken) => {

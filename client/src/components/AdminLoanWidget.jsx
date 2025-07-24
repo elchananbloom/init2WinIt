@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TokenContext from "../contexts/TokenContext";
+import TotalBalanceAcrossAccounts from "./statistics/TotalBalanceAcrossAccounts";
 
 const url = 'http://localhost:8080/api/';
 
@@ -32,15 +33,45 @@ const AdminLoanWidget = ({ loan }) => {
     }, [])
     return (
         <>
-            {user && <div className="card p-2">
-                <p>User: {user.firstName} {user.lastName}</p>
-                <p>Due Date: {loan.dateDue}</p>
-                <p>Interest: {loan.interest}%</p>
-                <p>Asked Date: {loan.createdAt}</p>
-                <p>Loan Balance: {loan.balance}</p>
-                <p>User Balance: Not Implemented</p>
-                <p>Status: {loan.status}</p>
-            </div>}
+            {user && loan && (
+  <div
+    className={`card p-3 shadow-sm mb-3 ${
+      loan.status === 'APPROVED'
+        ? 'bg-success text-white'
+        : loan.status === 'REJECTED'
+        ? 'bg-danger text-white'
+        : ''
+    }`}
+  >
+    <div className="card-body">
+      <h5 className="card-title mb-3">Loan Details</h5>
+
+      <div className="row">
+        <div className="col-md-6 mb-2">
+          <strong>User:</strong> {user.firstName} {user.lastName}
+        </div>
+        <div className="col-md-6 mb-2">
+          <strong>Due Date:</strong> {new Date(loan.dateDue).toLocaleDateString()}
+        </div>
+
+        <div className="col-md-6 mb-2">
+          <strong>Interest:</strong> {loan.flatInterest}%
+        </div>
+        <div className="col-md-6 mb-2">
+          <strong>Asked Date:</strong> {new Date(loan.createdAt).toLocaleDateString()}
+        </div>
+
+        <div className="col-md-6 mb-2">
+          <strong>Loan Balance:</strong> ${parseFloat(loan.balance).toFixed(2)}
+        </div>
+        <div className="col-md-6 mb-2">
+          <strong>User Balance:</strong> <TotalBalanceAcrossAccounts userId={loan.userId} />
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
         </>
     )
 }

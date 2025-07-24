@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { use, useState } from 'react';
 import AppRoutes from './Routes';
 import UserContext from './contexts/UserContext';
 import { BrowserRouter as Router } from 'react-router-dom';
+import TokenContext from './contexts/TokenContext';
 
 
 function App() {
+  const [token, setToken] = useState(null);
+  const [appUser, setAppUser] = useState(null);
 
   return (
-    <UserContext.Provider value={{ role: 'USER', userId: 1 }}>
-      <Router>
+    <TokenContext.Provider value={{token, setToken}}>
+      <UserContext.Provider value={{appUser, setAppUser}}>
+        <Router>
 
-        <AppRoutes />
-      </Router>
-    </UserContext.Provider>
+          <AppRoutes />
+        </Router>
+      </UserContext.Provider>
+    </TokenContext.Provider>
   )
 }
 

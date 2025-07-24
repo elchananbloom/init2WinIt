@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Page from "../components/Page"
 import { useNavigate } from "react-router-dom";
 import PendingLoanWidget from "../components/PendingLoanWidget";
 import AdminLoanWidget from "../components/AdminLoanWidget";
+import TokenContext from "../contexts/TokenContext";
 
 const url = 'http://localhost:8080/api/';
 
@@ -10,6 +11,7 @@ const url = 'http://localhost:8080/api/';
 const LoansPage = () => {
     const [loans, setLoans] = useState([]);
     const navigate = useNavigate();
+    const { token } = useContext(TokenContext);
 
     const handleAccept = (loanId) => {
         const loan = loans.find(l => l.loanId === loanId);
@@ -17,7 +19,8 @@ const LoansPage = () => {
         const options = {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(loan)
         };
@@ -46,7 +49,8 @@ const LoansPage = () => {
         const options = {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(loan)
         };
@@ -70,7 +74,13 @@ const LoansPage = () => {
     }
 
     useEffect(() => {
-        fetch(`${url}/loan`)
+        const options = {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        fetch(`${url}loan`, options)
             .then(res => {
                 if (res.status === 200) {
                     return res.json();

@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom";
 import Page from "../components/Page"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Transactions from "../components/Transactions";
 import TransactionFormModal from "../components/TransactionFormModal";
 import Modal from "../components/Modal";
+import TokenContext from "../contexts/TokenContext";
 
 const url = "http://localhost:8080/api";
 
@@ -13,6 +14,7 @@ const LoanPage = () => {
     const [transactions, setTransactions] = useState([]);
     const [loan, setLoan] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const { token } = useContext(TokenContext);
 
     const handleShowModal = (show) => {
         console.log('here')
@@ -20,7 +22,13 @@ const LoanPage = () => {
     };
 
     const fetchLoan = () => {
-        fetch(`${url}/loan/${id}`)
+        const options = {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        fetch(`${url}/loan/${id}`, options)
             .then((response) => {
                 if (response.status === 200) {
                     return response.json();
@@ -37,7 +45,13 @@ const LoanPage = () => {
     }
 
     function fetchTransactions() {
-        fetch(`${url}/transaction?loanId=${id}`)
+        const options = {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        fetch(`${url}/transaction?loanId=${id}`, options)
             .then((response) => {
                 if (response.status === 200) {
                     return response.json();

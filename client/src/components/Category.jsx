@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Modal from "./Modal";
 import CategoryFormModal from "./CategoryFormModal";
+import TokenContext from "../contexts/TokenContext";
 
 const url = 'http://localhost:8080/api/';
 
 
-const Category = ({ category, fetchCategories}) => {
+const Category = ({ category, fetchCategories }) => {
     const [showModal, setShowModal] = useState(false);
+    const { token } = useContext(TokenContext);
 
     const handleShowModal = (show) => {
         setShowModal(show);
@@ -14,7 +16,11 @@ const Category = ({ category, fetchCategories}) => {
 
     const deleteCategory = (id) => {
         const options = {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+
         };
         fetch(`${url}transaction/category/${category.transactionCategoryId}`, options)
             .then(response => {
@@ -47,7 +53,7 @@ const Category = ({ category, fetchCategories}) => {
                 onClose={() => setShowModal(false)}
                 title={'Edit Category'}
             >
-                <CategoryFormModal category={category} handleShowModal={handleShowModal} fetchCategories={fetchCategories}/>
+                <CategoryFormModal category={category} handleShowModal={handleShowModal} fetchCategories={fetchCategories} />
             </Modal>
         </div>
     );

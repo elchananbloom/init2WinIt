@@ -3,24 +3,34 @@ import UserContext from "../contexts/UserContext";
 import { Link, useNavigate, useNavigation } from "react-router-dom";
 import AddLoan from "./AddLoan";
 import Modal from "./Modal";
+import TokenContext from "../contexts/TokenContext";
 
 const url = 'http://localhost:8080/api/';
 
 const UserSideBar = ({ loans, fetchLoans }) => {
     const [accounts, setAccounts] = useState([]);
     // const [loans, setLoans] = useState([]);
-    const user = useContext(UserContext);
+    const { appUser, setAppUser } = useContext(UserContext);
+    const { token } = useContext(TokenContext);
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
     const [accountType, setAccountType] = useState('CHECKING');
 
     const handleShowModal = (show) => {
-        console.log(show)
         setShowModal(show);
     };
 
     const fetchAccounts = () => {
-        fetch(`${url}/account?userId=${user.userId}`)
+        const options = {
+            method: 'GET',
+            headers: {
+                'Access-Control': 'Allow-Origin',
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        console.log(token)
+        console.log('token')
+        fetch(`${url}account?userId=${appUser.userId}`, options)
             .then(res => {
                 if (res.status === 200) {
                     return res.json();
@@ -38,7 +48,7 @@ const UserSideBar = ({ loans, fetchLoans }) => {
 
     useEffect(() => {
         fetchAccounts();
-    }, []);
+    }, [token]);
 
     const handleChange = (event) => {
         setAccountType(event.target.value);
@@ -49,12 +59,13 @@ const UserSideBar = ({ loans, fetchLoans }) => {
         const account = {
             accountType: accountType,
             balance: 0,
-            userId: user.userId
+            userId: appUser.userId
         };
         const init = {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(account),
         };
@@ -80,7 +91,10 @@ const UserSideBar = ({ loans, fetchLoans }) => {
 
     const deleteLoan = (loanId) => {
         const options = {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
         };
         fetch(`${url}loan/${loanId}`, options)
             .then(response => {
@@ -102,7 +116,7 @@ const UserSideBar = ({ loans, fetchLoans }) => {
 
     return (
         <>
-            <Link to={`/user/${user.userId}`} className="btn btn-light mb-3 text-left">Account</Link>
+            <Link to={`/user/${appUser.userId}`} className="btn btn-light mb-3 text-left">Account</Link>
 
             Accounts
             {accounts.map(acc => {
@@ -126,7 +140,7 @@ const UserSideBar = ({ loans, fetchLoans }) => {
                     </>
                 )
             })}
-            <Link to={`/user/${user.userId}/loan/new`} className="btn btn-light mt-5 mb-3 text-left">Add Loan</Link>
+            <Link to={`/user/${appUser.userId}/loan/new`} className="btn btn-light mt-5 mb-3 text-left">Add Loan</Link>
 
             <button onClick={() => handleShowModal(true)} className="btn btn-light mb-3 text-left">Add Account</button>
 

@@ -1,25 +1,33 @@
-import {useEffect, useState, useContext} from 'react';
+import { useEffect, useState, useContext } from 'react';
 import UserContext from "../../contexts/UserContext";
+import TokenContext from '../../contexts/TokenContext';
 
 
-function TotalBalanceAcrossAccounts(){
-    const user = useContext(UserContext);
-    const url = `http://localhost:8080/api/statistics/user/account_total/${user.userId}`;
+function TotalBalanceAcrossAccounts() {
+    const { appUser } = useContext(UserContext);
+    const url = `http://localhost:8080/api/statistics/user/account_total/${appUser.userId}`;
     const [totalBalanceAcrossAccounts, setTotalBalanceAcrossAccounts] = useState(0.00);
+    const { token } = useContext(TokenContext);
 
     useEffect(() => {
-        fetch(url).then(response => {
-            if(response.status === 200){
+        const options = {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        fetch(url, options).then(response => {
+            if (response.status === 200) {
                 return response.json();
-            } else{
+            } else {
                 return Promise.reject(`Encountered unexpected status: ${response.status}`);
             }
         }).then(data => {
             console.log(data);
             setTotalBalanceAcrossAccounts(data);
         })
-        .catch(console.log);
-    },[]);
+            .catch(console.log);
+    }, []);
 
 
     return (
@@ -30,5 +38,5 @@ function TotalBalanceAcrossAccounts(){
         </>
     );
 
-} 
+}
 export default TotalBalanceAcrossAccounts;

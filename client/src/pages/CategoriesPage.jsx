@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Page from "../components/Page"
 import { useNavigate } from "react-router-dom";
 import Category from "../components/Category";
 import Modal from "../components/Modal";
 import CategoryFormModal from "../components/CategoryFormModal";
+import TokenContext from "../contexts/TokenContext";
 
 const url = 'http://localhost:8080/api/';
 
@@ -12,9 +13,16 @@ const CategoriesPage = () => {
     const [categories, setCategories] = useState([]);
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
+    const { token } = useContext(TokenContext);
 
     const fetchCategories = () => {
-        fetch(`${url}/transaction/category`)
+        const options = {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        fetch(`${url}transaction/category`, options)
             .then(res => {
                 if (res.status === 200) {
                     return res.json();
@@ -40,14 +48,14 @@ const CategoriesPage = () => {
     return (
         <Page>
             {categories.map(cat => {
-                return <Category category={cat}  handleShowModal={handleShowModal} fetchCategories={fetchCategories}/>
+                return <Category category={cat} handleShowModal={handleShowModal} fetchCategories={fetchCategories} />
             })}
             <Modal
                 show={showModal}
                 onClose={() => setShowModal(false)}
                 title={'Add Category'}
             >
-                <CategoryFormModal handleShowModal={handleShowModal} fetchCategories={fetchCategories}/>
+                <CategoryFormModal handleShowModal={handleShowModal} fetchCategories={fetchCategories} />
             </Modal>
             <div className="floating-button shadow">
                 <button onClick={() => handleShowModal(true)} className="btn btn-primary">Add Category</button>

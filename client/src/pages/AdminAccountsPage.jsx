@@ -1,15 +1,23 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Page from "../components/Page"
 import { useNavigate } from "react-router-dom";
+import TokenContext from "../contexts/TokenContext";
 
 const url = 'http://localhost:8080/api/';
 
 const AdminAccountsPage = () => {
     const [accounts, setAccounts] = useState([]);
     const navigate = useNavigate();
+    const { token } = useContext(TokenContext);
 
     useEffect(() => {
-        fetch(`${url}account`)
+        const options = {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        fetch(`${url}account`, options)
             .then(res => {
                 if (res.status === 200) {
                     return res.json();

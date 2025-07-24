@@ -322,7 +322,7 @@ const SignUp = () => {
             <Link
               type="button"
               to={"/"}
-              className="btn btn-light btn-outline-dark shadow-sm mt-4"
+              className="btn teal-outlined shadow-sm mt-4"
             >
               Already Have an Account? Login
             </Link>

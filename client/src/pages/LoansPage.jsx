@@ -8,7 +8,7 @@ import TokenContext from "../contexts/TokenContext";
 const url = 'http://localhost:8080/api/';
 
 
-const LoansPage = () => {
+const LoansPage = ({fetchLoans}) => {
     const [loans, setLoans] = useState([]);
     const navigate = useNavigate();
     const { token } = useContext(TokenContext);
@@ -38,6 +38,7 @@ const LoansPage = () => {
             })
             .then(data => {
                 if (data.loanId) {
+                    fetchLoans();
                     navigate('/admin/loans');
                 }
             })
@@ -68,6 +69,7 @@ const LoansPage = () => {
             })
             .then(data => {
                 if (data.loanId) {
+                    fetchLoans();
                     navigate('/admin/loans');
                 }
             })

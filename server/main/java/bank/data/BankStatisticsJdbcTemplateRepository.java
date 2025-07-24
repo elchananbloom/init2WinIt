@@ -20,7 +20,7 @@ public class BankStatisticsJdbcTemplateRepository implements BankStatisticsRepos
     @Override
     public Map<String,BigDecimal> getTotalTransactionsPerTransactionType() {
 
-        String sql = "select avg(transaction_amount) `value`, " +
+        String sql = "select sum(transaction_amount) `value`, " +
                 " transaction_type label " +
                 "from user_transactions " +
                 " where transaction_year = year(now()) and (transaction_type = 'DEPOSIT' or transaction_type = 'WITHDRAWAL') " +

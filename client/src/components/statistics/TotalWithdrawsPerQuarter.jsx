@@ -50,10 +50,18 @@ function TotalWithdrawsPerQuarter() {
         <BarChart
             height={300}
             series={[
-                { data: uData, label: 'Total Amount Withdrawn', id: 'uvId' },
+                { 
+                    data: uData,
+                    label: 'Total Amount Withdrawn (Quartaly)',
+                    id: 'uvId',
+                    valueFormatter: (data) => { return `$${data} (USD)`; }
+                 },
             ]}
             xAxis={[{ data: xLabels }]}
-            yAxis={[{ width: 50 }]}
+            yAxis={[{ 
+                width: 150,
+                valueFormatter: (data) => { return `$${data} (USD)`; }
+             }]}
         />
     </>
     );

@@ -61,4 +61,16 @@ class UserStatisticsJdbcRepositoryTest {
         assertEquals(1, actual.size());
         assertEquals(row,actual);
     }
+
+    @Test
+    void getLoanBalanceOverTime() {
+        Map<String, BigDecimal> row = new HashMap<>();
+        row.put("2025-01-23",new BigDecimal(900.00).setScale(2));
+
+        Map<String, BigDecimal> actual = repository.getLoanBalanceOverTime(1);
+
+        assertEquals(1, actual.size());
+        assertEquals(row,actual);
+
+    }
 }

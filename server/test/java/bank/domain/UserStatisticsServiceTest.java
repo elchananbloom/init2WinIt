@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-class UserStatisticsServiceTest {
+public class UserStatisticsServiceTest {
 
 
     @Autowired
@@ -72,5 +72,20 @@ class UserStatisticsServiceTest {
 
         assertEquals(1, actual.size());
         assertEquals(row, actual);
+    }
+
+    @Test
+    void getLoanBalanceOverTime() {
+            Map<String, BigDecimal> row = new HashMap<>();
+            row.put("2025-01-23",new BigDecimal(900.00).setScale(2));
+
+
+
+            when(repository.getLoanBalanceOverTime(1)).thenReturn(row);
+
+            Map<String,BigDecimal> actual = service.getLoanBalanceOverTime(1);
+
+            assertEquals(1, actual.size());
+            assertEquals(row, actual);
     }
 }

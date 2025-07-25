@@ -97,9 +97,9 @@ const LoanPage = () => {
                                     <p className="mb-1"><strong>Balance:</strong> ${parseFloat(loan.balance).toFixed(2)}</p>
                                 </div>
                             </div>
-                            <div className="col-md-6 text-md-right mt-3 mt-md-0">
+                            {/* <div className="col-md-6 text-md-right mt-3 mt-md-0">
                                 <LoanBalanceOverTime loanId={id} loanBalance={loan.balance} transactionsCount={transactions.length}/>
-                            </div>
+                            </div> */}
                         </div>
 
                         <Transactions transactions={transactions} />

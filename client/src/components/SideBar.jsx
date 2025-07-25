@@ -24,7 +24,7 @@ const SideBar = ({ loans, fetchLoans }) => {
             <div className="d-flex flex-column h-100">
                 {appUser && appUser.role === 'ADMIN' && <AdminSideBar />}
                 {appUser && appUser.role === 'USER' && <UserSideBar loans={loans} fetchLoans={fetchLoans} />}
-                <Link onClick={handleLogOut} className="align-self-end mt-auto mb-3 text-left btn btn-light">Log Out</Link>
+                <button onClick={handleLogOut} className="align-self-end mt-auto mb-3 text-left btn btn-light">Log Out</button>
 
 
             </div>

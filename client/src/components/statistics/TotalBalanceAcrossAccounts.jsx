@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function TotalBalanceAcrossAccounts({ userId }) {
+function    TotalBalanceAcrossAccounts({ userId }) {
     const url = `http://localhost:8080/api/statistics/user/account_total/${userId}`;
     const [totalBalanceAcrossAccounts, setTotalBalanceAcrossAccounts] = useState(0.00);
     const { token } = useContext(TokenContext);
@@ -37,7 +37,7 @@ function TotalBalanceAcrossAccounts({ userId }) {
     return (
         <>
             <h1>
-                {totalBalanceAcrossAccounts}
+                {`$${totalBalanceAcrossAccounts}`}
             </h1>
         </>
     );

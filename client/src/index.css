@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -10,4 +10,124 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.sidebar {
+  width: 25%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.content-area-wrapper {
+  margin-left: 25%;
+  height: 100vh;
+  position: relative;
+}
+
+.content-area {
+  height: 100%;
+  overflow-y: scroll;
+  padding: 1.5rem;
+}
+
+.floating-button {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  /* z-index: 1000; */
+}
+
+.floating-avatar{
+  position: absolute;
+  bottom: 90%;
+  right: 85%;
+}
+
+.bg-teal {
+  background-color: #6552D0;
+  color: white;
+}
+
+.beige {
+  background-color: beige;
+}
+
+.tan {
+  background-color: #CFBBA4;
+  color: #6552D0
+}
+
+.teal {
+  background-color: #6552D0;
+  color: white;
+}
+
+.teal:hover {
+  background-color: white;
+  color: #6552D0;
+  border: 1px solid #6552D0;
+
+}
+
+.teal-outlined {
+  background-color: white;
+  color: #6552D0;
+  border: 1px solid #6552D0;
+}
+
+.teal-outlined:hover {
+  background-color: #6552D0;
+  color: white;
+}
+
+.sidebar-button{
+  background-color: #6552D0;
+  border-radius: 10px;
+}
+.sidebar-button:hover{
+  background-color: #4f3faa;
+  transition-duration: .5s;
+  text-decoration: none;
+}
+
+.sidebar-text{
+  margin:auto 5%;
+  color:white;
+  font-family: 'Roboto';
+  font-weight: bold;
+  text-align: start;
+}
+
+.card.sidebar-button{
+  background-color: #2b2068;
+  border-radius: 10px;
+  color:white;
+}
+
+
+.loans-link:hover{
+  text-decoration: none;
+}
+
+.demo-wrap {
+  position: relative;
+}
+
+.demo-wrap:before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+  background-image: url('../public/background.png');
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
+}
+
+.demo-content {
+  position: relative;
 }

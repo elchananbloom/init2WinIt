@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -38,7 +38,7 @@ code {
 }
 
 .bg-teal {
-  background-color: #228A84;
+  background-color: #6552D0;
   color: white;
 }
 
@@ -72,4 +72,33 @@ code {
 .teal-outlined:hover {
   background-color: #228A84;
   color: white;
+}
+
+.sidebar-button{
+  background-color: #6552D0;
+  border-radius: 10px;
+}
+.sidebar-button:hover{
+  background-color: #4f3faa;
+  transition-duration: .5s;
+  text-decoration: none;
+}
+
+.sidebar-text{
+  margin:auto 5%;
+  color:white;
+  font-family: 'Roboto';
+  font-weight: bold;
+  text-align: start;
+}
+
+.card.sidebar-button{
+  background-color: #2b2068;
+  border-radius: 10px;
+  color:white;
+}
+
+
+.loans-link:hover{
+  text-decoration: none;
 }

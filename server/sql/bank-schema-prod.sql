@@ -128,14 +128,14 @@ from `transaction` t;
 
 insert into user(user_id, first_name, last_name, address, phone_number, email, dob, password_hash, created_at, role)
 values 
-(1, 'Guy', 'One', '123 Street', '1234567890', 'test1@example.com','2000-01-01', 'ABCDEF', '2025-01-01', 'ADMIN'),
+(1, 'Guy', 'One', '123 Street', '1234567890', 'test1@example.com','2000-01-01', 'ABCDEF', '2024-01-01', 'ADMIN'),
 (2, 'Person', 'Two', '456 Ave', '0987654321', 'test2@example.com','2000-02-02', 'ASFGR', '2025-02-02', 'USER'),
 (3, 'Girl', 'Three', '123 Street', '1234567890', 'test3@example.com','2000-03-03', 'BFSBF', '2025-03-03', 'USER');
 
 insert into `account`(`type`, balance, account_number, created_at, user_id)
 values
-('Savings', 2000.00, '123456', '2025-01-01', 1),
-('Checking', 4000.00, '134123', '2025-02-23', 2),
+('Savings', 2000.00, '123456', '2024-01-01', 1),
+('Checking', 4000.00, '134123', '2024-02-23', 2),
 ('Checking',  300.00, '246810', '2024-03-04', 3);
 
 insert into transaction_category values
@@ -162,6 +162,15 @@ insert into loan values
 insert into `transaction` values
 (1, 200.00, 'WITHDRAWAL', '2025-01-02', 'emergency car fix', 3, 1, null),
 (2, 120.00, 'LOAN', '2025-01-23', null, 1, 2, 1),
-(3, 50.00, 'DEPOSIT', '2025-03-23', 'got paid', 2, 3, null);
+(3, 50.00, 'DEPOSIT', '2025-03-24', 'got paid', 2, 3, null),
+(4, 50.00, 'DEPOSIT', '2024-09-24', null, 1, 1, null),
+(5, 80.00, 'DEPOSIT', '2024-10-24', null, 2, 2, null),
+(6, 90.00, 'DEPOSIT', '2024-09-23', null, 3, 3, null),
+(7, 40.00, 'DEPOSIT', '2024-09-23', null, 4, 1, null),
+(8, 100.00, 'WITHDRAWAL', '2024-10-08', 'test', 1, 1, null),
+(9, 120.00, 'WITHDRAWAL', '2024-11-02', 'test', 2, 2, null),
+(10, 140.00, 'WITHDRAWAL', '2025-02-02', 'test', 3, 3, null),
+(11, 200.00, 'WITHDRAWAL', '2025-03-02', 'test', 4, 1, null),
+(12, 50.00, 'DEPOSIT', '2024-09-26', null, 2, 3, null);
 	
 

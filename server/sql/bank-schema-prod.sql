@@ -144,15 +144,6 @@ insert into transaction_category values
 (3, 'Car'),
 (4, 'Loan');
 
-insert into loan_type (`name`)
-values
-('Personal'),
-('Home Improvement'),
-('Small Business'),
-('Debt Consolidation'),
-('Auto'),
-('Auto Refinance');
-
 insert into loan values
 (1, '2025-01-02', 20.00, 1020.00, '2025-02-02', 'APPROVED', '2025-01-01', 900.00, 1, 2),
 (2, '2025-02-02', 20.00, 2020.00, '2025-02-02', 'REJECTED', '2025-01-01', 2020.00, 2, 4),
@@ -173,5 +164,3 @@ insert into `transaction` values
 (11, 200.00, 'WITHDRAWAL', '2025-03-02', 'test', 4, 1, null),
 (12, 50.00, 'DEPOSIT', '2024-09-26', null, 2, 3, null);
 	
-
-select * from `user`;

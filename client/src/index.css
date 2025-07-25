@@ -37,6 +37,12 @@ code {
   /* z-index: 1000; */
 }
 
+.floating-avatar{
+  position: absolute;
+  bottom: 90%;
+  right: 85%;
+}
+
 .bg-teal {
   background-color: #6552D0;
   color: white;

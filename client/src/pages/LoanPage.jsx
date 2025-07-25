@@ -93,8 +93,10 @@ const LoanPage = () => {
                             <div className="col-md-6">
                                 <h1>{loan.loanType.loanTypeName}</h1>
                                 <div>
-                                    <p className="mb-1"><strong>Due Date:</strong> {new Date(loan.dateDue).toLocaleDateString()}</p>
-                                    <p className="mb-1"><strong>Balance:</strong> ${parseFloat(loan.balance).toFixed(2)}</p>
+                                    <p className="mb-1 h5"><strong>Due Date:</strong> {new Date(loan.dateDue).toLocaleDateString()}</p>
+                                    <div className="balance">
+                                    <p className="mb-1 h5"><strong>Balance:</strong> <h3>${parseFloat(loan.balance).toFixed(2)}</h3></p>
+                                    </div>
                                 </div>
                             </div>
                             {/* <div className="col-md-6 text-md-right mt-3 mt-md-0">

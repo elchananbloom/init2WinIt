@@ -117,7 +117,7 @@ const UserSideBar = ({ loans, fetchLoans }) => {
     }
 
     const handleDelete = (loanId) => {
-        if (window.confirm(`Are you sure you want to delete Loan: ${loanId}?`)) {
+        if (window.confirm(`Are you sure you want to delete this loan?`)) {
             deleteLoan(loanId);
         }
     }

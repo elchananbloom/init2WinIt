@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import TokenContext from "../contexts/TokenContext";
 import UserContext from "../contexts/UserContext";
-
 const url = 'http://localhost:8080/api/';
 
 const HomePage = () => {
@@ -43,7 +42,8 @@ const HomePage = () => {
 
   return (
     <Page>
-      <div className="container py-5">
+      <div className="demo-wrap">
+      <div className="container py-5 demo-content">
         <div className="row mb-5">
           <div className="col-md-8 offset-md-2 text-center">
             <h1 className="display-1 mb-4">Welcome to InitBank!</h1>
@@ -67,7 +67,7 @@ const HomePage = () => {
         </div>
 
         <section className="mt-5">
-          <h4 className="mb-3 font-weight-bold">Hours of Operation</h4>
+          <h4 className="mb-3 font-weight-bold text-white">Hours of Operation</h4>
           <ul className="list-group">
             {businessHours.map((item, index) => (
               <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
@@ -77,6 +77,7 @@ const HomePage = () => {
             ))}
           </ul>
         </section>
+      </div>
       </div>
     </Page>
   );

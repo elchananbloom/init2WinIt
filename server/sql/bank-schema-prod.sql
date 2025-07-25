@@ -174,3 +174,4 @@ insert into `transaction` values
 (12, 50.00, 'DEPOSIT', '2024-09-26', null, 2, 3, null);
 	
 
+select * from `user`;

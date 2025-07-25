@@ -54,29 +54,29 @@ code {
 
 .tan {
   background-color: #CFBBA4;
-  color: #228A84;
+  color: #6552D0
 }
 
 .teal {
-  background-color: #228A84;
+  background-color: #6552D0;
   color: white;
 }
 
 .teal:hover {
   background-color: white;
-  color: #228A84;
-  border: 1px solid #228A84;
+  color: #6552D0;
+  border: 1px solid #6552D0;
 
 }
 
 .teal-outlined {
   background-color: white;
-  color: #228A84;
-  border: 1px solid #228A84;
+  color: #6552D0;
+  border: 1px solid #6552D0;
 }
 
 .teal-outlined:hover {
-  background-color: #228A84;
+  background-color: #6552D0;
   color: white;
 }
 
@@ -107,4 +107,27 @@ code {
 
 .loans-link:hover{
   text-decoration: none;
+}
+
+.demo-wrap {
+  position: relative;
+}
+
+.demo-wrap:before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+  background-image: url('../public/background.png');
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
+}
+
+.demo-content {
+  position: relative;
 }

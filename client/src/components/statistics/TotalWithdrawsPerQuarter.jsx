@@ -52,7 +52,7 @@ function TotalWithdrawsPerQuarter() {
             series={[
                 { 
                     data: uData,
-                    label: 'Total Amount Withdrawn (Quartaly)',
+                    label: 'Total Amount Withdrawn (Quarterly)',
                     id: 'uvId',
                     valueFormatter: (data) => { return `$${data} (USD)`; }
                  },

@@ -146,7 +146,7 @@ const AddLoan = ({ fetchLoans }) => {
             onChange={handleChange}
           />
         </div>
-
+        {/* 
         <div className="form-group">
           <label htmlFor="description">Description</label>
           <textarea
@@ -156,7 +156,7 @@ const AddLoan = ({ fetchLoans }) => {
             rows="3"
             onChange={handleChange}
           ></textarea>
-        </div>
+        </div> */}
 
         <div className="d-flex justify-content-between">
           <button type="submit" className="btn btn-primary">

@@ -48,7 +48,9 @@ const PendingLoanWidget = ({ loan, handleAccept, handleReject }) => {
         <div className="col-md-6 mb-2">
           <strong>Due Date:</strong> {new Date(loan.dateDue).toLocaleDateString()}
         </div>
-
+        <div className="col-md-6 mb-2">
+          <strong>Type: </strong> {loan.loanType.loanTypeName}
+        </div>
         <div className="col-md-6 mb-2">
           <strong>Interest:</strong> {loan.flatInterest}%
         </div>

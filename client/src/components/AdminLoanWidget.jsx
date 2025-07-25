@@ -53,13 +53,13 @@ const AdminLoanWidget = ({ loan }) => {
         <div className="col-md-6 mb-2">
           <strong>Due Date:</strong> {new Date(loan.dateDue).toLocaleDateString()}
         </div>
-
         <div className="col-md-6 mb-2">
-          <strong>Interest:</strong> {loan.flatInterest}%
+          <strong>Type: </strong> {loan.loanType.loanTypeName}
         </div>
         <div className="col-md-6 mb-2">
           <strong>Asked Date:</strong> {new Date(loan.createdAt).toLocaleDateString()}
         </div>
+        <div className="col-md-6 mb-2"></div>
 
         <div className="col-md-6 mb-2">
           <strong>Loan Balance:</strong> ${parseFloat(loan.balance).toFixed(2)}

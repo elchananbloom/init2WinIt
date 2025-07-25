@@ -153,7 +153,12 @@ const SignUp = () => {
       if (data.jwt_token) {
         setToken(data.jwt_token);
         localStorage.setItem('token', data.jwt_token);
-        return await addAccount(user1.userId, data.jwt_token);
+        if(user1.role !== "ADMIN"){
+          return await addAccount(user1.userId, data.jwt_token);
+        } else {
+          return true;
+        }
+        
       }
     } else if (response.status === 403) {
       navigate('/login');
@@ -164,6 +169,7 @@ const SignUp = () => {
 
 
   const addUser = async () => {
+    console.log(token);
     user.role = 'USER';
     const init = {
       method: 'POST',
@@ -171,6 +177,7 @@ const SignUp = () => {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
       },
+      
       body: JSON.stringify(user),
     };
     try {
@@ -210,9 +217,9 @@ const SignUp = () => {
           <div className="alert alert-danger">
             <p>The following errors were found:</p>
             <ul>
-              {errors.map((error) => (
+               {errors.map((error) => (
                 <li key={error}>{error}</li>
-              ))}
+              ))} 
             </ul>
           </div>
         )}
@@ -227,6 +234,7 @@ const SignUp = () => {
                 value={user.firstName}
                 className="form-control shadow-sm"
                 onChange={handleChange}
+                required
               />
             </fieldset>
             <fieldset className="form-group col-md-4">
@@ -238,6 +246,7 @@ const SignUp = () => {
                 value={user.lastName}
                 className="form-control shadow-sm"
                 onChange={handleChange}
+                required
               />
             </fieldset>
             <fieldset className="form-group col-md-4">
@@ -247,8 +256,8 @@ const SignUp = () => {
                 className="form-control shadow-sm"
                 type="date"
                 name="dob"
-                value={user.dob}
                 id="dob"
+                value={user.dob}
                 required
               />
             </fieldset>
@@ -263,6 +272,7 @@ const SignUp = () => {
                 value={user.phoneNumber}
                 className="form-control shadow-sm"
                 onChange={handleChange}
+                required
               />
             </fieldset>
             <fieldset className="form-group col-md-6">
@@ -274,6 +284,7 @@ const SignUp = () => {
                 value={user.address}
                 className="form-control shadow-sm"
                 onChange={handleChange}
+                required
               />
             </fieldset>
           </div>
@@ -286,6 +297,7 @@ const SignUp = () => {
                 type="email"
                 className="form-control shadow-sm"
                 onChange={handleChange}
+                required
               />
             </fieldset>
             <fieldset className="form-group col-md-6">
@@ -297,6 +309,7 @@ const SignUp = () => {
                 className="form-control shadow-sm"
                 /*onblur="validate()"*/
                 onChange={handleChange}
+                required
               />
             </fieldset>
           </div>

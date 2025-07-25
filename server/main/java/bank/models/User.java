@@ -21,7 +21,7 @@ public class User {
     private String phoneNumber;
     @NotBlank(message="email must not be blank")
     private String email;
-    @NotBlank(message="passwordHash must not be blank")
+    @NotBlank(message="password must not be blank")
     private String passwordHash;
 
     @NotNull(message = "Date of Birth is required")
